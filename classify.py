@@ -1,0 +1,411 @@
+import anthropic
+import os
+import json
+import pandas as pd
+import pdfplumber
+import re
+import uuid
+import time
+from pathlib import Path
+from collections import Counter
+
+# ── Setup ──────────────────────────────────────────────────────────
+# API key read from environment variable — do not hardcode
+client = anthropic.Anthropic(api_key=("REDACTED"))
+
+# ── Paths ──────────────────────────────────────────────────────────
+# For PILOT: change to Path("/Users/user/Desktop/Pilot Reports")
+# For FULL RUN: change to Path("/Users/user/Desktop/Annual Reports ")
+ANNUAL_REPORTS_DIR = Path("/Users/user/Desktop/Annual Reports ")
+SCORES_FILE = "signalling_scores.csv"
+CLASSIFICATIONS_FILE = "all_classifications.csv"
+LLM_MODEL = "claude-sonnet-4-6"
+
+# ── Two-Tier Keyword System ────────────────────────────────────────
+# Tier 1 Subgroup A — Technical anchors (unambiguous AI terms)
+# Tier 1 Subgroup B — Corporate disclosure anchors (broader, may include governance)
+# Distinction documented in Chapter 3. Both behave identically in code.
+# Tier 2 CANNOT stand alone — must co-occur with Tier 1 in same passage.
+# This upstream filtering prevents false positives at source, not downstream.
+
+TIER_1_KEYWORDS = [
+    # Subgroup A: Technical anchors
+    "artificial intelligence",
+    "machine learning",
+    "deep learning",
+    "large language model",
+    "natural language processing",
+    "computer vision",
+    "neural network",
+    "generative ai",
+    "llm",
+    "gpt",
+    "nlp",
+    "foundation model",
+    # Subgroup B: Corporate disclosure anchors
+    "responsible ai",
+    "ethical ai",
+    "ai governance",
+    "ai strategy",
+    "ai roadmap",
+    "ai investment",
+    "ai adoption",
+    "ai integration",
+    "ai implementation",
+    "ai capabilities",
+    "ai assistant",
+    "conversational ai",
+]
+
+TIER_2_KEYWORDS = [
+    # Former IR gloss — only valid with Tier 1 present
+    "ai-powered", "ai-driven", "ai-enabled", "ai-based",
+    "ai solutions", "ai platform", "ai tools",
+    # Operational application terms — only valid with Tier 1 present
+    "recommendation engine", "recommendation algorithm", "recommendation system",
+    "predictive analytics", "predictive model", "demand forecasting",
+    "dynamic pricing", "price optimisation", "price optimization",
+    "personalisation", "personalization", "personalised", "personalized",
+    "chatbot", "virtual assistant", "image recognition", "visual search",
+    "voice search", "fraud detection", "fraud prevention",
+    "supply chain optimisation", "supply chain optimization",
+    "warehouse automation", "customer segmentation", "churn prediction",
+    "search optimisation", "search optimization", "inventory management",
+    "demand prediction", "transformer", "copilot",
+]
+
+# ── Classification Prompt ──────────────────────────────────────────
+# Q3 uses CURRENT/MIXED/ASPIRATIONAL rather than binary YES/NO.
+# MIXED counts as current because hybrid tense reflects ongoing deployment.
+# This prevents false-negative scoring of sentences like:
+# "We deployed a chatbot [past] which will reduce wait times [future]"
+
+CLASSIFICATION_PROMPT = """You are classifying corporate AI language from annual reports for academic research.
+
+For the following passage, answer these three diagnostic questions:
+
+1. Does it name a specific business function or application? (YES/NO)
+2. Does it reference a measurable outcome, metric, or timeline? (YES/NO)
+3. Is the AI use described as: CURRENT (past or present tense, deployed), MIXED (both current and future elements), or ASPIRATIONAL (future only, no evidence of deployment)?
+
+Scoring rules:
+- q1_score: 1 if YES, 0 if NO
+- q2_score: 1 if YES, 0 if NO
+- q3_score: 1 if CURRENT or MIXED, 0 if ASPIRATIONAL
+- classification_score: sum of q1 + q2 + q3 (0 to 3)
+
+Classification:
+- 3 = Substantive (concrete, measurable, current or mixed implementation)
+- 2 = Transitional (some specificity but incomplete)
+- 0-1 = Symbolic (vague, aspirational, buzzword-heavy)
+
+Passage:
+{passage}
+
+Respond in JSON format only, no preamble:
+{{
+  "q1_named_function": "YES" or "NO",
+  "q1_score": 1 or 0,
+  "q2_measurable_outcome": "YES" or "NO",
+  "q2_score": 1 or 0,
+  "q3_tense": "CURRENT" or "MIXED" or "ASPIRATIONAL",
+  "q3_score": 1 or 0,
+  "classification_score": 0 to 3,
+  "classification": "Symbolic" or "Transitional" or "Substantive",
+  "justification": "one sentence explanation"
+}}"""
+
+
+# ── Tier Logic (Strict Upstream Filtering) ─────────────────────────
+# Tier 2 CANNOT stand alone. Must co-occur with Tier 1.
+# This eliminates false positives at source — no downstream purging needed.
+def is_ai_relevant(passage_text):
+    text_lower = passage_text.lower()
+    has_tier1 = any(
+        re.search(r'\b' + re.escape(kw) + r'\b', text_lower)
+        for kw in TIER_1_KEYWORDS
+    )
+    has_tier2 = any(
+        re.search(r'\b' + re.escape(kw) + r'\b', text_lower)
+        for kw in TIER_2_KEYWORDS
+    )
+    if has_tier1 and has_tier2:
+        return True, "tier_1_and_2"
+    elif has_tier1:
+        return True, "tier1"
+    else:
+        return False, None
+
+
+# ── Deduplication ──────────────────────────────────────────────────
+# Conservative heuristic: drop passage if first 250 chars are
+# >60% character-similar to an already-kept passage on the same page.
+def deduplicate_passages(passages):
+    kept = []
+    for candidate in passages:
+        candidate_sig = candidate['text'][:250].lower()
+        is_duplicate = False
+        for existing in kept:
+            if existing['page_number'] != candidate['page_number']:
+                continue
+            existing_sig = existing['text'][:250].lower()
+            shared = sum(1 for a, b in zip(candidate_sig, existing_sig) if a == b)
+            overlap_ratio = shared / max(len(candidate_sig), len(existing_sig), 1)
+            if overlap_ratio > 0.60:
+                is_duplicate = True
+                break
+        if not is_duplicate:
+            kept.append(candidate)
+    return kept
+
+
+# ── PDF Extraction ─────────────────────────────────────────────────
+# Uses sentence-based extraction (3-sentence rolling windows).
+# Respects natural language boundaries rather than arbitrary character cuts.
+# Prevents diagnostic questions being answered on context-severed fragments.
+def extract_ai_passages(pdf_path):
+    raw_passages = []
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            for page_num, page in enumerate(pdf.pages, start=1):
+                text = page.extract_text()
+                if not text:
+                    continue
+                text = ' '.join(text.split())
+                # Split on sentence boundaries
+                sentences = re.split(r'(?<=\.)\s+', text)
+                for i in range(len(sentences)):
+                    chunk = " ".join(sentences[i:i + 3]).strip()
+                    if len(chunk) < 60:
+                        continue
+                    relevant, tier = is_ai_relevant(chunk)
+                    if relevant:
+                        raw_passages.append({
+                            'text': chunk,
+                            'tier': tier,
+                            'page_number': page_num
+                        })
+    except Exception as e:
+        print(f"  Error reading {pdf_path}: {e}")
+        return []
+
+    deduped = deduplicate_passages(raw_passages)
+    removed = len(raw_passages) - len(deduped)
+    if removed > 0:
+        print(f"  Deduplication removed {removed} overlapping passages")
+    return deduped
+
+
+# ── API Classification ─────────────────────────────────────────────
+# temperature=0 for reproducibility — same passage always same result.
+def classify_passage(passage_text):
+    try:
+        message = client.messages.create(
+            model=LLM_MODEL,
+            max_tokens=300,
+            temperature=0,
+            messages=[{
+                "role": "user",
+                "content": CLASSIFICATION_PROMPT.format(passage=passage_text[:1500])
+            }]
+        )
+        response_text = message.content[0].text.strip()
+        response_text = re.sub(
+            r'^```json|^```|```$', '', response_text, flags=re.MULTILINE
+        ).strip()
+        result = json.loads(response_text)
+        # Enforce integer types — LLM occasionally returns strings
+        result['q1_score'] = int(result.get('q1_score', 0))
+        result['q2_score'] = int(result.get('q2_score', 0))
+        result['q3_score'] = int(result.get('q3_score', 0))
+        result['classification_score'] = int(result.get('classification_score', 0))
+        return result
+    except json.JSONDecodeError as e:
+        print(f"  JSON parse error: {e}")
+        return None
+    except Exception as e:
+        print(f"  API error: {e}")
+        return None
+
+
+# ── Tie-Safe Modal Classification ──────────────────────────────────
+def modal_class(classifications):
+    if not classifications:
+        return "No_AI_Disclosure"
+    counts = Counter(c['classification'] for c in classifications)
+    top_n = max(counts.values())
+    top_classes = [k for k, v in counts.items() if v == top_n]
+    if len(top_classes) > 1:
+        mean_score = sum(
+            c['classification_score'] for c in classifications
+        ) / len(classifications)
+        if mean_score >= 2.0:
+            return "Substantive"
+        elif mean_score >= 1.0:
+            return "Transitional"
+        else:
+            return "Symbolic"
+    return top_classes[0]
+
+
+# ── Firm-Year Aggregation ──────────────────────────────────────────
+# Primary regression variable: mean_signal_score (Symbolic=0, Transitional=1, Substantive=2)
+# Modal classification and proportions are robustness check variables.
+# Zero-passage firm-years kept as No_AI_Disclosure — not dropped.
+def get_firm_year_score(classifications, firm, year, pdf_path):
+    total = len(classifications)
+    substantive = sum(1 for c in classifications if c['classification'] == 'Substantive')
+    transitional = sum(1 for c in classifications if c['classification'] == 'Transitional')
+    symbolic = sum(1 for c in classifications if c['classification'] == 'Symbolic')
+
+    prop_substantive = round(substantive / total * 100, 2) if total > 0 else 0
+    prop_transitional = round(transitional / total * 100, 2) if total > 0 else 0
+    prop_symbolic = round(symbolic / total * 100, 2) if total > 0 else 0
+
+    score_map = {'Symbolic': 0, 'Transitional': 1, 'Substantive': 2}
+    mean_signal = round(
+        sum(score_map[c['classification']] for c in classifications) / total, 3
+    ) if total > 0 else 0
+
+    return {
+        'firm': firm,
+        'year': year,
+        'source_document': Path(pdf_path).name,
+        'llm_model': LLM_MODEL,
+        'total_passages': total,
+        'substantive_count': substantive,
+        'transitional_count': transitional,
+        'symbolic_count': symbolic,
+        'prop_substantive_%': prop_substantive,
+        'prop_transitional_%': prop_transitional,
+        'prop_symbolic_%': prop_symbolic,
+        'mean_signal_score': mean_signal,
+        'modal_classification': modal_class(classifications),
+    }
+
+
+# ── Parse Firm and Year from Path ──────────────────────────────────
+def parse_firm_year(pdf_path):
+    pdf_path = Path(pdf_path)
+    parent_folder = pdf_path.parent.name.strip()
+    stem = pdf_path.stem
+
+    year_match = re.search(r'(202[0-6])', stem)
+    if not year_match:
+        return None, None
+    year = int(year_match.group(1))
+
+    root_name = ANNUAL_REPORTS_DIR.name.strip()
+    if parent_folder != root_name and parent_folder != '.':
+        firm = parent_folder
+    else:
+        parts = stem.split('_')
+        if len(parts) >= 2:
+            firm = ' '.join(parts[:-1])
+        else:
+            firm = stem.replace(str(year), '').strip('_- ')
+
+    return firm, year
+
+
+# ── Process One Report ─────────────────────────────────────────────
+def process_report(pdf_path, firm, year):
+    print(f"\nProcessing {firm} {year}...")
+
+    passages = extract_ai_passages(pdf_path)
+    tier1_count = sum(1 for p in passages if p['tier'] == 'tier1')
+    tier2_count = sum(1 for p in passages if p['tier'] == 'tier_1_and_2')
+    print(f"  Found {len(passages)} passages after dedup "
+          f"(Tier1 only: {tier1_count}, Tier1+2: {tier2_count})")
+
+    if not passages:
+        print(f"  No AI passages found — recording as No_AI_Disclosure")
+        return get_firm_year_score([], firm, year, pdf_path), []
+
+    classifications = []
+    for i, passage in enumerate(passages):
+        print(f"  Classifying passage {i+1}/{len(passages)}...")
+        result = classify_passage(passage['text'])
+        if result:
+            result['passage_id'] = str(uuid.uuid4())[:8]
+            result['firm'] = firm
+            result['year'] = year
+            result['page_number'] = passage['page_number']
+            result['tier'] = passage['tier']
+            result['source_document'] = Path(pdf_path).name
+            result['source_type'] = 'annual_report'
+            result['llm_model'] = LLM_MODEL
+            result['passage_text'] = passage['text'][:300]
+            result['validation_sample'] = 'no'
+            result['human_label'] = ''
+            result['agreement'] = ''
+            classifications.append(result)
+        time.sleep(0.5)  # Rate limiting
+
+    score = get_firm_year_score(classifications, firm, year, pdf_path)
+    return score, classifications
+
+
+# ── Main ───────────────────────────────────────────────────────────
+if __name__ == "__main__":
+    pdf_files = list(Path(ANNUAL_REPORTS_DIR).glob("**/*.pdf"))
+    print(f"Found {len(pdf_files)} PDF files in {ANNUAL_REPORTS_DIR}")
+
+    if not pdf_files:
+        print("No PDF files found. Check your ANNUAL_REPORTS_DIR path.")
+        exit()
+
+    results = []
+    all_classifications = []
+
+    for pdf_path in sorted(pdf_files):
+        firm, year = parse_firm_year(pdf_path)
+
+        if not firm or not year:
+            print(f"Skipping {pdf_path.name} - cannot parse firm/year")
+            continue
+
+        if year < 2021 or year > 2025:
+            print(f"Skipping {pdf_path.name} - year outside 2021-2025")
+            continue
+
+        # About You delisted Nov 2025 — partial panel (2021-2024 only)
+        if firm.strip().lower() == "about you" and year == 2025:
+            print(f"Skipping About You 2025 — partial panel, firm delisted")
+            continue
+
+        try:
+            score, classifications = process_report(pdf_path, firm, year)
+            results.append(score)
+            all_classifications.extend(classifications)
+
+            # Incremental save after each report — crash recovery
+            pd.DataFrame(results).to_csv(SCORES_FILE, index=False)
+            if all_classifications:
+                pd.DataFrame(all_classifications).to_csv(
+                    CLASSIFICATIONS_FILE, index=False
+                )
+
+        except Exception as e:
+            print(f"  FATAL ERROR on {firm} {year}: {e}")
+            print(f"  Progress saved. {len(results)} reports completed.")
+            continue
+
+    # Final sorted save and summary
+    if results:
+        df_scores = pd.DataFrame(results)
+        df_scores = df_scores.sort_values(['firm', 'year']).reset_index(drop=True)
+        df_scores.to_csv(SCORES_FILE, index=False)
+        print(f"\nDone — {SCORES_FILE} saved with {len(results)} firm-year scores")
+        print(df_scores[[
+            'firm', 'year', 'total_passages',
+            'mean_signal_score', 'modal_classification'
+        ]].to_string())
+
+    if all_classifications:
+        df_class = pd.DataFrame(all_classifications)
+        df_class.to_csv(CLASSIFICATIONS_FILE, index=False)
+        print(f"{CLASSIFICATIONS_FILE} saved with "
+              f"{len(all_classifications)} passage classifications")
+    else:
+        print("No passages classified.")
