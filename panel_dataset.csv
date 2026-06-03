@@ -1,0 +1,70 @@
+firm,year,source_document,llm_model,total_passages,substantive_count,transitional_count,symbolic_count,prop_substantive_%,prop_transitional_%,prop_symbolic_%,mean_signal_score,modal_classification,Ticker,Revenue,Revenue_Growth_%,Gross_Margin_%,Stock_Price_Start,Stock_Price_End,Stock_Price_Movement_%,Revenue_EUR
+AO World,2021,AOWorld_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,AO.L,1660900000.0,,17.61,414.5,109.0,-73.7,1931626700.0
+AO World,2022,AOWorld_2022.pdf,claude-sonnet-4-6,6,1,5,0,16.67,83.33,0.0,1.167,Transitional,AO.L,1557300000.0,-5.43,17.3,106.0,52.0,-50.94,1826712900.0
+AO World,2023,AOWorld_2023.pdf,claude-sonnet-4-6,3,0,0,3,0.0,0.0,100.0,0.0,Symbolic,AO.L,1138600000.0,-28.26,20.92,55.9,98.35,75.94,1310528600.0
+AO World,2024,AOWorld_2024.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic,AO.L,1039300000.0,-6.1,23.41,93.0,103.4,11.18,1230531200.0
+AO World,2025,AOWorld_2025.pdf,claude-sonnet-4-6,3,0,3,0,0.0,100.0,0.0,1.0,Transitional,AO.L,1137600000.0,8.63,24.26,103.4,112.0,8.32,1336680000.0
+ASOS,2021,ASOS_2021.pdf,claude-sonnet-4-6,6,0,4,2,0.0,66.67,33.33,0.667,Transitional,ASC.L,3910500000.0,,45.43,4811.0,2366.0,-50.82,4547911500.0
+ASOS,2022,ASOS_2022.pdf,claude-sonnet-4-6,6,1,5,0,16.67,83.33,0.0,1.167,Transitional,ASC.L,3936500000.0,1.53,43.63,2313.0,510.5,-77.93,4617514500.0
+ASOS,2023,ASOS_2023.pdf,claude-sonnet-4-6,12,0,3,9,0.0,25.0,75.0,0.25,Symbolic,ASC.L,3549500000.0,-11.52,41.1,532.5,425.7,-20.06,4085474500.0
+ASOS,2024,ASOS_2024.pdf,claude-sonnet-4-6,3,0,3,0,0.0,100.0,0.0,1.0,Transitional,ASC.L,2905800000.0,-15.79,40.01,396.5,443.4,11.83,3440467200.0
+ASOS,2025,ASOS_2025.pdf,claude-sonnet-4-6,12,0,5,7,0.0,41.67,58.33,0.417,Symbolic,ASC.L,2477800000.0,-15.38,47.09,436.2,276.5,-36.61,2911415000.0
+About You,2021,AboutYou_2021.pdf,claude-sonnet-4-6,1,0,0,1,0.0,0.0,100.0,0.0,Symbolic,YOU,1166500000.0,,40.72,35.49,29.57,-16.67,1166500000.0
+About You,2022,AboutYou_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,YOU,1731600000.0,48.44,40.9,28.26,24.53,-13.19,1731600000.0
+About You,2023,AboutYou_2023.pdf,claude-sonnet-4-6,6,1,2,3,16.67,33.33,50.0,0.667,Symbolic,YOU,1904600000.0,9.99,38.13,24.91,19.28,-22.6,1904600000.0
+About You,2024,AboutYou_2024.pdf,claude-sonnet-4-6,4,2,1,1,50.0,25.0,25.0,1.25,Substantive,YOU,1935200000.0,1.61,39.32,19.09,26.14,36.96,1935200000.0
+Allegro,2021,Allegro_2021.pdf,claude-sonnet-4-6,17,3,5,9,17.65,29.41,52.94,0.647,Symbolic,ALE.WA,5352870000.0,,93.63,84.4,38.86,-53.96,1172278530.0
+Allegro,2022,Allegro_2022.pdf,claude-sonnet-4-6,26,6,6,14,23.08,23.08,53.85,0.692,Symbolic,ALE.WA,9004916000.0,64.39,73.26,39.4,25.13,-36.22,1927052024.0
+Allegro,2023,Allegro_2023.pdf,claude-sonnet-4-6,75,23,14,38,30.67,18.67,50.67,0.8,Symbolic,ALE.WA,10185317000.0,20.51,77.2,25.44,33.33,30.99,2322252276.0
+Allegro,2024,Allegro_2024.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,ALE.WA,10367200000.0,3.57,89.0,31.31,27.08,-13.51,2405190400.0
+Allegro,2025,Allegro_2025.pdf,claude-sonnet-4-6,58,8,22,28,13.79,37.93,48.28,0.655,Symbolic,ALE.WA,11458200000.0,11.0,93.68,28.24,31.02,9.84,2669760600.0
+Boohoo,2021,Boohoo_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,DEBS.L,1745300000.0,,54.16,340.0,123.4,-63.71,2029783900.0
+Boohoo,2022,Boohoo_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,DEBS.L,1983300000.0,14.61,52.49,118.35,35.43,-70.06,2326410900.0
+Boohoo,2023,Boohoo_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,DEBS.L,1768700000.0,-12.49,50.61,36.92,41.01,11.08,2035773700.0
+Boohoo,2024,Boohoo_2024.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,DEBS.L,902300000.0,-47.52,53.12,37.38,33.8,-9.58,1068323200.0
+Boohoo,2025,Boohoo_2025.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,DEBS.L,790300000.0,-13.08,49.31,32.7,22.5,-31.19,928602500.0
+Boozt,2021,Boozt_2021.pdf,claude-sonnet-4-6,3,0,3,0,0.0,100.0,0.0,1.0,Transitional,BOOZT.ST,5813800000.0,,40.45,183.0,183.8,0.44,575566200.0
+Boozt,2022,Boozt_2022.pdf,claude-sonnet-4-6,3,2,1,0,66.67,33.33,0.0,1.667,Substantive,BOOZT.ST,6743000000.0,7.78,39.54,180.1,120.3,-33.2,620356000.0
+Boozt,2023,Boozt Annual Report 2023.pdf,claude-sonnet-4-6,3,0,2,1,0.0,66.67,33.33,0.667,Transitional,BOOZT.ST,7755000000.0,11.26,39.17,121.6,135.3,11.27,690195000.0
+Boozt,2024,Boozt Annual Report 2024.pdf,claude-sonnet-4-6,3,1,2,0,33.33,66.67,0.0,1.333,Transitional,BOOZT.ST,8244000000.0,5.11,38.97,128.3,125.9,-1.87,725472000.0
+Boozt,2025,Boozt_2025.pdf,claude-sonnet-4-6,4,1,3,0,25.0,75.0,0.0,1.25,Transitional,BOOZT.ST,8287000000.0,-0.62,37.41,122.7,113.5,-7.5,720969000.0
+DocMorris,2021,DocMorris_2021.pdf,claude-sonnet-4-6,3,0,0,3,0.0,0.0,100.0,0.0,Symbolic,DOCM.SW,1726503000.0,,15.06,288.5,235.5,-18.37,1590109263.0
+DocMorris,2022,DocMorris_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,DOCM.SW,930969000.0,-41.75,17.2,239.5,25.56,-89.33,926314155.0
+DocMorris,2023,DocMorris_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,DOCM.SW,969462000.0,6.12,20.98,29.3,73.75,151.71,983034468.0
+DocMorris,2024,DocMorris_2024.pdf,claude-sonnet-4-6,1,0,1,0,0.0,100.0,0.0,1.0,Transitional,DOCM.SW,1017045000.0,9.15,21.29,70.5,19.98,-71.66,1072982475.0
+DocMorris,2025,DocMorris_2025.pdf,claude-sonnet-4-6,14,5,7,2,35.71,50.0,14.29,1.214,Transitional,DOCM.SW,1124455000.0,11.82,22.23,19.9,5.95,-70.1,1199793485.0
+HelloFresh,2021,HelloFresh_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,HFG.DE,5993400000.0,,65.86,63.75,67.54,5.95,5993400000.0
+HelloFresh,2022,HelloFresh_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,HFG.DE,7607200000.0,26.93,65.56,69.1,20.53,-70.29,7607200000.0
+HelloFresh,2023,HelloFresh_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,HFG.DE,7596600000.0,-0.14,64.78,21.11,14.31,-32.21,7596600000.0
+HelloFresh,2024,HelloFresh_2024.pdf,claude-sonnet-4-6,3,3,0,0,100.0,0.0,0.0,2.0,Substantive,HFG.DE,7661300000.0,0.85,62.37,13.85,12.28,-11.3,7661300000.0
+HelloFresh,2025,HelloFresh_2025.pdf,claude-sonnet-4-6,24,7,14,3,29.17,58.33,12.5,1.167,Transitional,HFG.DE,6760800000.0,-11.75,61.67,12.7,6.16,-51.53,6760800000.0
+Moonpig,2021,Moonpig_2021.pdf,claude-sonnet-4-6,4,4,0,0,100.0,0.0,0.0,2.0,Substantive,MOON.L,368183000.0,,50.53,409.92,375.73,-8.34,428196829.0
+Moonpig,2022,Moonpig_2022.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic,MOON.L,304333000.0,-16.63,49.32,375.53,110.28,-70.63,356982609.0
+Moonpig,2023,Moonpig_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,MOON.L,320125000.0,3.22,56.13,113.48,156.57,37.97,368463875.0
+Moonpig,2024,Moonpig_2024.pdf,claude-sonnet-4-6,12,0,5,7,0.0,41.67,58.33,0.417,Symbolic,MOON.L,341141000.0,9.62,59.37,152.17,208.46,36.99,403910944.0
+Moonpig,2025,Moonpig_2025.pdf,claude-sonnet-4-6,6,0,2,4,0.0,33.33,66.67,0.333,Symbolic,MOON.L,350068000.0,1.84,59.58,210.46,204.99,-2.6,411329900.0
+Mytheresa,2021,LuxAnnualReport2021.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic,LUXE,612096000.0,,46.9,29.38,20.79,-29.24,612096000.0
+Mytheresa,2022,LuxAnnualReport2022.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic,LUXE,687781000.0,12.36,51.33,22.02,8.91,-59.53,687781000.0
+Mytheresa,2023,LuxAnnualReport2023.pdf,claude-sonnet-4-6,15,0,0,15,0.0,0.0,100.0,0.0,Symbolic,LUXE,766003000.0,11.37,49.61,8.99,3.19,-64.52,766003000.0
+Mytheresa,2024,LuxAnnualReport2024.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,LUXE,840852000.0,9.77,45.73,3.25,7.03,116.31,840852000.0
+Mytheresa,2025,LuxAnnualReport2025.pdf,claude-sonnet-4-6,17,1,1,15,5.88,5.88,88.24,0.176,Symbolic,LUXE,1262277000.0,50.12,47.79,7.48,8.48,13.37,1262277000.0
+Redcare Pharmacy,2021,RedcarePharmacy_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,RDC.DE,1060321000.0,,25.14,158.0,113.3,-28.29,1060321000.0
+Redcare Pharmacy,2022,RedcarePharmacy_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,RDC.DE,1204352000.0,13.58,27.55,114.5,44.11,-61.48,1204352000.0
+Redcare Pharmacy,2023,RedcarePharmacy_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,RDC.DE,1798758000.0,49.35,24.48,46.63,131.6,182.22,1798758000.0
+Redcare Pharmacy,2024,Redcare Pharmacy Annual Report 2024.pdf,claude-sonnet-4-6,19,0,6,13,0.0,31.58,68.42,0.316,Symbolic,RDC.DE,2370600000.0,31.79,23.02,131.55,135.9,3.31,2370600000.0
+Redcare Pharmacy,2025,RedcarePharmacy_2025.pdf,claude-sonnet-4-6,18,0,11,7,0.0,61.11,38.89,0.611,Transitional,RDC.DE,2940900000.0,24.06,22.55,131.3,65.1,-50.42,2940900000.0
+THG,2021,THG_2021.pdf,claude-sonnet-4-6,2,1,1,0,50.0,50.0,0.0,1.5,Substantive,THG.L,2179910000.0,,43.78,799.4,225.4,-71.8,2535235330.0
+THG,2022,THG_2022.pdf,claude-sonnet-4-6,6,3,2,1,50.0,33.33,16.67,1.333,Substantive,THG.L,2239229000.0,3.6,39.3,206.2,43.9,-78.71,2626615617.0
+THG,2023,THG_2023.pdf,claude-sonnet-4-6,8,2,6,0,25.0,75.0,0.0,1.25,Transitional,THG.L,1879866000.0,-17.62,42.42,46.77,85.16,82.08,2163725766.0
+THG,2024,THG_2024.pdf,claude-sonnet-4-6,4,1,3,0,25.0,75.0,0.0,1.25,Transitional,THG.L,1751404000.0,-4.16,39.6,74.72,44.32,-40.69,2073662336.0
+THG,2025,THG_2025.pdf,claude-sonnet-4-6,6,1,5,0,16.67,83.33,0.0,1.167,Transitional,THG.L,1717877000.0,-2.66,40.05,43.28,46.34,7.07,2018505475.0
+Westwing,2021,Westwing_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,WEW.DE,522500000.0,,49.15,34.92,22.14,-36.59,522500000.0
+Westwing,2022,Westwing_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,WEW.DE,430900000.0,-17.53,47.04,23.0,9.6,-58.26,430900000.0
+Westwing,2023,Westwing_2023.pdf,claude-sonnet-4-6,9,0,3,6,0.0,33.33,66.67,0.333,Symbolic,WEW.DE,428600000.0,-0.53,49.67,9.99,8.84,-11.51,428600000.0
+Westwing,2024,Westwing_2024.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic,WEW.DE,444400000.0,3.69,50.79,8.37,7.52,-10.16,444400000.0
+Westwing,2025,Westwing_2025.pdf,claude-sonnet-4-6,6,0,3,3,0.0,50.0,50.0,0.5,Transitional,WEW.DE,449200000.0,1.08,52.94,7.3,11.5,57.53,449200000.0
+Zalando,2021,Zalando_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure,ZAL.DE,10354000000.0,,41.78,94.08,71.14,-24.38,10354000000.0
+Zalando,2022,Zalando_2022.pdf,claude-sonnet-4-6,3,3,0,0,100.0,0.0,0.0,2.0,Substantive,ZAL.DE,10344800000.0,-0.09,39.2,73.02,33.11,-54.66,10344800000.0
+Zalando,2023,Zalando_2023.pdf,claude-sonnet-4-6,13,0,6,7,0.0,46.15,53.85,0.462,Symbolic,ZAL.DE,10143100000.0,-1.95,38.75,35.03,21.45,-38.77,10143100000.0
+Zalando,2024,Zalando_2024.pdf,claude-sonnet-4-6,18,6,7,5,33.33,38.89,27.78,1.056,Transitional,ZAL.DE,10572500000.0,4.23,40.69,20.96,32.83,56.63,10572500000.0
+Zalando,2025,Zalando_2025.pdf,claude-sonnet-4-6,18,5,5,8,27.78,27.78,44.44,0.833,Symbolic,ZAL.DE,12346200000.0,16.78,39.88,32.22,25.34,-21.35,12346200000.0
