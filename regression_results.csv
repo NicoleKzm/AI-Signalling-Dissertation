@@ -1,0 +1,4 @@
+Hypothesis,DV,Coefficient,Std_Error,T_stat,P_value,Significance,Verdict,N_obs,R2_within
+H1_Stock_Price,Stock_Price_Movement_%,-4.7168,16.1486,-0.2921,0.7719,Not significant,NOT SUPPORTED,55,0.0053
+H2_Revenue_Growth,Revenue_Growth_%,-0.8972,7.6927,-0.1166,0.9078,Not significant,NOT SUPPORTED,55,0.1159
+H3_Gross_Margin,Gross_Margin_%,-1.6457,1.5805,-1.0413,0.3047,Not significant,NOT SUPPORTED,55,0.0498
