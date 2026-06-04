@@ -224,3 +224,55 @@ for hypothesis, dv in dependent_vars.items():
 
     except Exception as e:
         print(f"  Error: {e}")
+
+        # ── ROBUSTNESS CHECKS ─────────────────────────────────────────────
+print("\n" + "="*60)
+print("ROBUSTNESS CHECKS")
+print("="*60)
+
+robustness_results = []
+
+checks = {
+    "Excl. DocMorris 2023": df[~((df.index.get_level_values('firm') == 'DocMorris') & 
+                                  (df.index.get_level_values('year') == 2023))],
+    "Excl. Boohoo": df[df.index.get_level_values('firm') != 'Boohoo'],
+    "Excl. DocMorris 2023 + Boohoo": df[~((df.index.get_level_values('firm') == 'DocMorris') & 
+                                           (df.index.get_level_values('year') == 2023)) & 
+                                        (df.index.get_level_values('firm') != 'Boohoo')],
+}
+
+for check_name, check_df in checks.items():
+    print(f"\n── {check_name} (N={len(check_df)}) ──")
+    for hypothesis, dv in dependent_vars.items():
+        model_df = check_df[[dv, independent_var] + controls].dropna()
+        if len(model_df) < 15:
+            print(f"  {hypothesis}: insufficient observations")
+            continue
+        exog = sm.add_constant(model_df[exog_vars])
+        try:
+            model = PanelOLS(
+                model_df[dv],
+                exog,
+                entity_effects=True,
+                time_effects=True,
+                drop_absorbed=True
+            )
+            result = model.fit(cov_type='clustered', cluster_entity=True)
+            coef = result.params[independent_var]
+            pval = result.pvalues[independent_var]
+            sig = "***" if pval < 0.01 else "**" if pval < 0.05 else "*" if pval < 0.10 else "ns"
+            print(f"  {dv}: coef={coef:.4f}, p={pval:.4f} {sig}")
+            robustness_results.append({
+                'Check': check_name,
+                'Hypothesis': hypothesis,
+                'DV': dv,
+                'Coefficient': round(coef, 4),
+                'P_value': round(pval, 4),
+                'Significance': sig,
+                'N_obs': result.nobs
+            })
+        except Exception as e:
+            print(f"  {dv}: Error — {e}")
+
+pd.DataFrame(robustness_results).to_csv('robustness_results.csv', index=False)
+print("\nrobustness_results.csv saved")

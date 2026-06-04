@@ -1,0 +1,10 @@
+Check,Hypothesis,DV,Coefficient,P_value,Significance,N_obs
+Excl. DocMorris 2023,H1_Stock_Price,Stock_Price_Movement_%,2.1481,0.8471,ns,54
+Excl. DocMorris 2023,H2_Revenue_Growth,Revenue_Growth_%,-0.2416,0.9772,ns,54
+Excl. DocMorris 2023,H3_Gross_Margin,Gross_Margin_%,-1.6166,0.3177,ns,54
+Excl. Boohoo,H1_Stock_Price,Stock_Price_Movement_%,-3.9727,0.8135,ns,51
+Excl. Boohoo,H2_Revenue_Growth,Revenue_Growth_%,-0.3666,0.9653,ns,51
+Excl. Boohoo,H3_Gross_Margin,Gross_Margin_%,-1.4597,0.3876,ns,51
+Excl. DocMorris 2023 + Boohoo,H1_Stock_Price,Stock_Price_Movement_%,2.7864,0.8165,ns,50
+Excl. DocMorris 2023 + Boohoo,H2_Revenue_Growth,Revenue_Growth_%,0.2583,0.9774,ns,50
+Excl. DocMorris 2023 + Boohoo,H3_Gross_Margin,Gross_Margin_%,-1.43,0.4028,ns,50
