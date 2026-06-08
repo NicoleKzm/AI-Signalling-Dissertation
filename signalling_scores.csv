@@ -1,70 +1,70 @@
 firm,year,source_document,llm_model,total_passages,substantive_count,transitional_count,symbolic_count,prop_substantive_%,prop_transitional_%,prop_symbolic_%,mean_signal_score,modal_classification
 AO World,2021,AOWorld_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-AO World,2022,AOWorld_2022.pdf,claude-sonnet-4-6,6,1,5,0,16.67,83.33,0.0,1.167,Transitional
+AO World,2022,AOWorld_2022.pdf,claude-sonnet-4-6,6,0,2,4,0.0,33.33,66.67,0.333,Symbolic
 AO World,2023,AOWorld_2023.pdf,claude-sonnet-4-6,3,0,0,3,0.0,0.0,100.0,0.0,Symbolic
 AO World,2024,AOWorld_2024.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
-AO World,2025,AOWorld_2025.pdf,claude-sonnet-4-6,3,0,3,0,0.0,100.0,0.0,1.0,Transitional
-ASOS,2021,ASOS_2021.pdf,claude-sonnet-4-6,6,0,4,2,0.0,66.67,33.33,0.667,Transitional
-ASOS,2022,ASOS_2022.pdf,claude-sonnet-4-6,6,1,5,0,16.67,83.33,0.0,1.167,Transitional
-ASOS,2023,ASOS_2023.pdf,claude-sonnet-4-6,12,0,3,9,0.0,25.0,75.0,0.25,Symbolic
-ASOS,2024,ASOS_2024.pdf,claude-sonnet-4-6,3,0,3,0,0.0,100.0,0.0,1.0,Transitional
-ASOS,2025,ASOS_2025.pdf,claude-sonnet-4-6,12,0,5,7,0.0,41.67,58.33,0.417,Symbolic
+AO World,2025,AOWorld_2025.pdf,claude-sonnet-4-6,3,0,2,1,0.0,66.67,33.33,0.667,Transitional
+ASOS,2021,ASOS_2021.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
+ASOS,2022,ASOS_2022.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
+ASOS,2023,ASOS_2023.pdf,claude-sonnet-4-6,12,0,0,12,0.0,0.0,100.0,0.0,Symbolic
+ASOS,2024,ASOS_2024.pdf,claude-sonnet-4-6,3,0,0,3,0.0,0.0,100.0,0.0,Symbolic
+ASOS,2025,ASOS_2025.pdf,claude-sonnet-4-6,12,0,0,12,0.0,0.0,100.0,0.0,Symbolic
 About You,2021,AboutYou_2021.pdf,claude-sonnet-4-6,1,0,0,1,0.0,0.0,100.0,0.0,Symbolic
 About You,2022,AboutYou_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-About You,2023,AboutYou_2023.pdf,claude-sonnet-4-6,6,1,2,3,16.67,33.33,50.0,0.667,Symbolic
-About You,2024,AboutYou_2024.pdf,claude-sonnet-4-6,4,2,1,1,50.0,25.0,25.0,1.25,Substantive
-Allegro,2021,Allegro_2021.pdf,claude-sonnet-4-6,17,3,5,9,17.65,29.41,52.94,0.647,Symbolic
-Allegro,2022,Allegro_2022.pdf,claude-sonnet-4-6,26,6,6,14,23.08,23.08,53.85,0.692,Symbolic
-Allegro,2023,Allegro_2023.pdf,claude-sonnet-4-6,75,23,14,38,30.67,18.67,50.67,0.8,Symbolic
+About You,2023,AboutYou_2023.pdf,claude-sonnet-4-6,6,0,3,3,0.0,50.0,50.0,0.5,Transitional
+About You,2024,AboutYou_2024.pdf,claude-sonnet-4-6,4,0,3,1,0.0,75.0,25.0,0.75,Transitional
+Allegro,2021,Allegro_2021.pdf,claude-sonnet-4-6,17,0,3,14,0.0,17.65,82.35,0.176,Symbolic
+Allegro,2022,Allegro_2022.pdf,claude-sonnet-4-6,26,0,2,24,0.0,7.69,92.31,0.077,Symbolic
+Allegro,2023,Allegro_2023.pdf,claude-sonnet-4-6,75,12,14,49,16.0,18.67,65.33,0.507,Symbolic
 Allegro,2024,Allegro_2024.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-Allegro,2025,Allegro_2025.pdf,claude-sonnet-4-6,58,8,22,28,13.79,37.93,48.28,0.655,Symbolic
+Allegro,2025,Allegro_2025.pdf,claude-sonnet-4-6,58,1,10,47,1.72,17.24,81.03,0.207,Symbolic
 Boohoo,2021,Boohoo_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Boohoo,2022,Boohoo_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Boohoo,2023,Boohoo_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Boohoo,2024,Boohoo_2024.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Boohoo,2025,Boohoo_2025.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Boozt,2021,Boozt_2021.pdf,claude-sonnet-4-6,3,0,3,0,0.0,100.0,0.0,1.0,Transitional
-Boozt,2022,Boozt_2022.pdf,claude-sonnet-4-6,3,2,1,0,66.67,33.33,0.0,1.667,Substantive
-Boozt,2023,Boozt Annual Report 2023.pdf,claude-sonnet-4-6,3,0,2,1,0.0,66.67,33.33,0.667,Transitional
-Boozt,2024,Boozt Annual Report 2024.pdf,claude-sonnet-4-6,3,1,2,0,33.33,66.67,0.0,1.333,Transitional
-Boozt,2025,Boozt_2025.pdf,claude-sonnet-4-6,4,1,3,0,25.0,75.0,0.0,1.25,Transitional
+Boozt,2022,Boozt_2022.pdf,claude-sonnet-4-6,3,0,2,1,0.0,66.67,33.33,0.667,Transitional
+Boozt,2023,Boozt Annual Report 2023.pdf,claude-sonnet-4-6,3,0,1,2,0.0,33.33,66.67,0.333,Symbolic
+Boozt,2024,Boozt Annual Report 2024.pdf,claude-sonnet-4-6,3,0,2,1,0.0,66.67,33.33,0.667,Transitional
+Boozt,2025,Boozt_2025.pdf,claude-sonnet-4-6,4,0,0,4,0.0,0.0,100.0,0.0,Symbolic
 DocMorris,2021,DocMorris_2021.pdf,claude-sonnet-4-6,3,0,0,3,0.0,0.0,100.0,0.0,Symbolic
 DocMorris,2022,DocMorris_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 DocMorris,2023,DocMorris_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 DocMorris,2024,DocMorris_2024.pdf,claude-sonnet-4-6,1,0,1,0,0.0,100.0,0.0,1.0,Transitional
-DocMorris,2025,DocMorris_2025.pdf,claude-sonnet-4-6,14,5,7,2,35.71,50.0,14.29,1.214,Transitional
+DocMorris,2025,DocMorris_2025.pdf,claude-sonnet-4-6,14,1,5,8,7.14,35.71,57.14,0.5,Symbolic
 HelloFresh,2021,HelloFresh_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 HelloFresh,2022,HelloFresh_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 HelloFresh,2023,HelloFresh_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-HelloFresh,2024,HelloFresh_2024.pdf,claude-sonnet-4-6,3,3,0,0,100.0,0.0,0.0,2.0,Substantive
-HelloFresh,2025,HelloFresh_2025.pdf,claude-sonnet-4-6,24,7,14,3,29.17,58.33,12.5,1.167,Transitional
-Moonpig,2021,Moonpig_2021.pdf,claude-sonnet-4-6,4,4,0,0,100.0,0.0,0.0,2.0,Substantive
-Moonpig,2022,Moonpig_2022.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
+HelloFresh,2024,HelloFresh_2024.pdf,claude-sonnet-4-6,3,0,0,3,0.0,0.0,100.0,0.0,Symbolic
+HelloFresh,2025,HelloFresh_2025.pdf,claude-sonnet-4-6,24,0,3,21,0.0,12.5,87.5,0.125,Symbolic
+Moonpig,2021,Moonpig_2021.pdf,claude-sonnet-4-6,3,0,1,2,0.0,33.33,66.67,0.333,Symbolic
+Moonpig,2022,Moonpig_2022.pdf,claude-sonnet-4-6,6,0,2,4,0.0,33.33,66.67,0.333,Symbolic
 Moonpig,2023,Moonpig_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-Moonpig,2024,Moonpig_2024.pdf,claude-sonnet-4-6,12,0,5,7,0.0,41.67,58.33,0.417,Symbolic
-Moonpig,2025,Moonpig_2025.pdf,claude-sonnet-4-6,6,0,2,4,0.0,33.33,66.67,0.333,Symbolic
+Moonpig,2024,Moonpig_2024.pdf,claude-sonnet-4-6,12,0,0,12,0.0,0.0,100.0,0.0,Symbolic
+Moonpig,2025,Moonpig_2025.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
 Mytheresa,2021,LuxAnnualReport2021.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
 Mytheresa,2022,LuxAnnualReport2022.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
 Mytheresa,2023,LuxAnnualReport2023.pdf,claude-sonnet-4-6,15,0,0,15,0.0,0.0,100.0,0.0,Symbolic
 Mytheresa,2024,LuxAnnualReport2024.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-Mytheresa,2025,LuxAnnualReport2025.pdf,claude-sonnet-4-6,17,1,1,15,5.88,5.88,88.24,0.176,Symbolic
+Mytheresa,2025,LuxAnnualReport2025.pdf,claude-sonnet-4-6,17,0,0,17,0.0,0.0,100.0,0.0,Symbolic
 Redcare Pharmacy,2021,RedcarePharmacy_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Redcare Pharmacy,2022,RedcarePharmacy_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Redcare Pharmacy,2023,RedcarePharmacy_2023.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-Redcare Pharmacy,2024,Redcare Pharmacy Annual Report 2024.pdf,claude-sonnet-4-6,19,0,6,13,0.0,31.58,68.42,0.316,Symbolic
-Redcare Pharmacy,2025,RedcarePharmacy_2025.pdf,claude-sonnet-4-6,18,0,11,7,0.0,61.11,38.89,0.611,Transitional
-THG,2021,THG_2021.pdf,claude-sonnet-4-6,2,1,1,0,50.0,50.0,0.0,1.5,Substantive
-THG,2022,THG_2022.pdf,claude-sonnet-4-6,6,3,2,1,50.0,33.33,16.67,1.333,Substantive
-THG,2023,THG_2023.pdf,claude-sonnet-4-6,8,2,6,0,25.0,75.0,0.0,1.25,Transitional
-THG,2024,THG_2024.pdf,claude-sonnet-4-6,4,1,3,0,25.0,75.0,0.0,1.25,Transitional
-THG,2025,THG_2025.pdf,claude-sonnet-4-6,6,1,5,0,16.67,83.33,0.0,1.167,Transitional
+Redcare Pharmacy,2024,Redcare Pharmacy Annual Report 2024.pdf,claude-sonnet-4-6,19,0,3,16,0.0,15.79,84.21,0.158,Symbolic
+Redcare Pharmacy,2025,RedcarePharmacy_2025.pdf,claude-sonnet-4-6,18,0,3,15,0.0,16.67,83.33,0.167,Symbolic
+THG,2021,THG_2021.pdf,claude-sonnet-4-6,2,0,0,2,0.0,0.0,100.0,0.0,Symbolic
+THG,2022,THG_2022.pdf,claude-sonnet-4-6,6,0,4,2,0.0,66.67,33.33,0.667,Transitional
+THG,2023,THG_2023.pdf,claude-sonnet-4-6,8,1,7,0,12.5,87.5,0.0,1.125,Transitional
+THG,2024,THG_2024.pdf,claude-sonnet-4-6,4,0,3,1,0.0,75.0,25.0,0.75,Transitional
+THG,2025,THG_2025.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
 Westwing,2021,Westwing_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
 Westwing,2022,Westwing_2022.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-Westwing,2023,Westwing_2023.pdf,claude-sonnet-4-6,9,0,3,6,0.0,33.33,66.67,0.333,Symbolic
+Westwing,2023,Westwing_2023.pdf,claude-sonnet-4-6,9,0,0,9,0.0,0.0,100.0,0.0,Symbolic
 Westwing,2024,Westwing_2024.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
-Westwing,2025,Westwing_2025.pdf,claude-sonnet-4-6,6,0,3,3,0.0,50.0,50.0,0.5,Transitional
+Westwing,2025,Westwing_2025.pdf,claude-sonnet-4-6,6,0,0,6,0.0,0.0,100.0,0.0,Symbolic
 Zalando,2021,Zalando_2021.pdf,claude-sonnet-4-6,0,0,0,0,0.0,0.0,0.0,0.0,No_AI_Disclosure
-Zalando,2022,Zalando_2022.pdf,claude-sonnet-4-6,3,3,0,0,100.0,0.0,0.0,2.0,Substantive
-Zalando,2023,Zalando_2023.pdf,claude-sonnet-4-6,13,0,6,7,0.0,46.15,53.85,0.462,Symbolic
-Zalando,2024,Zalando_2024.pdf,claude-sonnet-4-6,18,6,7,5,33.33,38.89,27.78,1.056,Transitional
-Zalando,2025,Zalando_2025.pdf,claude-sonnet-4-6,18,5,5,8,27.78,27.78,44.44,0.833,Symbolic
+Zalando,2022,Zalando_2022.pdf,claude-sonnet-4-6,3,0,0,3,0.0,0.0,100.0,0.0,Symbolic
+Zalando,2023,Zalando_2023.pdf,claude-sonnet-4-6,13,0,7,6,0.0,53.85,46.15,0.538,Transitional
+Zalando,2024,Zalando_2024.pdf,claude-sonnet-4-6,18,0,12,6,0.0,66.67,33.33,0.667,Transitional
+Zalando,2025,Zalando_2025.pdf,claude-sonnet-4-6,18,1,2,15,5.56,11.11,83.33,0.222,Symbolic

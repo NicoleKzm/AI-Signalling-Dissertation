@@ -212,7 +212,8 @@ for hypothesis, dv in dependent_vars.items():
             exog,
             entity_effects=True,
             time_effects=True,
-            drop_absorbed=True
+            drop_absorbed=True,
+            check_rank=False
         )
         result = model.fit(cov_type='clustered', cluster_entity=True)
 

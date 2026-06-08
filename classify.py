@@ -10,58 +10,27 @@ from pathlib import Path
 from collections import Counter
 
 # ── Setup ──────────────────────────────────────────────────────────
-# API key read from environment variable — do not hardcode
-client = anthropic.Anthropic(api_key=("REDACTED"))
+client = anthropic.Anthropic(api_key="REDACTED")
 
-# ── Paths ──────────────────────────────────────────────────────────
-# For PILOT: change to Path("/Users/user/Desktop/Pilot Reports")
-# For FULL RUN: change to Path("/Users/user/Desktop/Annual Reports ")
 ANNUAL_REPORTS_DIR = Path("/Users/user/Desktop/Annual Reports ")
 SCORES_FILE = "signalling_scores.csv"
 CLASSIFICATIONS_FILE = "all_classifications.csv"
 LLM_MODEL = "claude-sonnet-4-6"
 
 # ── Two-Tier Keyword System ────────────────────────────────────────
-# Tier 1 Subgroup A — Technical anchors (unambiguous AI terms)
-# Tier 1 Subgroup B — Corporate disclosure anchors (broader, may include governance)
-# Distinction documented in Chapter 3. Both behave identically in code.
-# Tier 2 CANNOT stand alone — must co-occur with Tier 1 in same passage.
-# This upstream filtering prevents false positives at source, not downstream.
-
 TIER_1_KEYWORDS = [
-    # Subgroup A: Technical anchors
-    "artificial intelligence",
-    "machine learning",
-    "deep learning",
-    "large language model",
-    "natural language processing",
-    "computer vision",
-    "neural network",
-    "generative ai",
-    "llm",
-    "gpt",
-    "nlp",
-    "foundation model",
-    # Subgroup B: Corporate disclosure anchors
-    "responsible ai",
-    "ethical ai",
-    "ai governance",
-    "ai strategy",
-    "ai roadmap",
-    "ai investment",
-    "ai adoption",
-    "ai integration",
-    "ai implementation",
-    "ai capabilities",
-    "ai assistant",
-    "conversational ai",
+    "artificial intelligence", "machine learning", "deep learning",
+    "large language model", "natural language processing", "computer vision",
+    "neural network", "generative ai", "llm", "gpt", "nlp",
+    "foundation model", "responsible ai", "ethical ai", "ai governance",
+    "ai strategy", "ai roadmap", "ai investment", "ai adoption",
+    "ai integration", "ai implementation", "ai capabilities",
+    "ai assistant", "conversational ai",
 ]
 
 TIER_2_KEYWORDS = [
-    # Former IR gloss — only valid with Tier 1 present
     "ai-powered", "ai-driven", "ai-enabled", "ai-based",
     "ai solutions", "ai platform", "ai tools",
-    # Operational application terms — only valid with Tier 1 present
     "recommendation engine", "recommendation algorithm", "recommendation system",
     "predictive analytics", "predictive model", "demand forecasting",
     "dynamic pricing", "price optimisation", "price optimization",
@@ -74,32 +43,98 @@ TIER_2_KEYWORDS = [
     "demand prediction", "transformer", "copilot",
 ]
 
-# ── Classification Prompt ──────────────────────────────────────────
-# Q3 uses CURRENT/MIXED/ASPIRATIONAL rather than binary YES/NO.
-# MIXED counts as current because hybrid tense reflects ongoing deployment.
-# This prevents false-negative scoring of sentences like:
-# "We deployed a chatbot [past] which will reduce wait times [future]"
+# ── Classification Prompt (v4 calibrated - kappa 0.856) ────────────
+CLASSIFICATION_PROMPT = """You are an academic research assistant classifying corporate AI language from annual reports. Your classifications will be used in a peer-reviewed dissertation on AI signalling in European e-commerce firms. Accuracy is essential.
 
-CLASSIFICATION_PROMPT = """You are classifying corporate AI language from annual reports for academic research.
+There are THREE classification categories:
+- Symbolic: vague, aspirational, governance-only, or non-operational AI language
+- Transitional: specific AI application named and currently deployed, but no measurable outcomes
+- Substantive: specific AI application named, currently deployed, AND measurable outcomes provided
 
-For the following passage, answer these three diagnostic questions:
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+STEP 1 \u2014 TEXT QUALITY CHECK
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+If the passage is completely incoherent with no discernible meaning, classify as Symbolic with justification "FRAGMENTED TEXT \u2014 no extractable content."
 
-1. Does it name a specific business function or application? (YES/NO)
-2. Does it reference a measurable outcome, metric, or timeline? (YES/NO)
-3. Is the AI use described as: CURRENT (past or present tense, deployed), MIXED (both current and future elements), or ASPIRATIONAL (future only, no evidence of deployment)?
+However: if the passage is partially fragmented but still contains clearly identifiable AI content \u2014 for example a named AI application, specific tool, or deployment description \u2014 proceed to Step 3 and classify based on what IS readable. Do not reject a passage as fragmented if meaningful AI content is still visible.
 
-Scoring rules:
-- q1_score: 1 if YES, 0 if NO
-- q2_score: 1 if YES, 0 if NO
-- q3_score: 1 if CURRENT or MIXED, 0 if ASPIRATIONAL
-- classification_score: sum of q1 + q2 + q3 (0 to 3)
+Only apply FRAGMENTED TEXT if the passage is so broken that you cannot identify any coherent AI-related claim.
 
-Classification:
-- 3 = Substantive (concrete, measurable, current or mixed implementation)
-- 2 = Transitional (some specificity but incomplete)
-- 0-1 = Symbolic (vague, aspirational, buzzword-heavy)
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+STEP 2 \u2014 AUTOMATIC SYMBOLIC CATEGORIES
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+Classify as Symbolic immediately WITHOUT proceeding to Step 3 if the passage ONLY contains:
 
-Passage:
+a) Board or employee training on AI as a governance topic
+b) Regulatory or legal framework references \u2014 EU AI Act, AI governance regulations, AI compliance policies
+c) Risk disclosures about AI as an industry threat \u2014 "AI may disrupt our industry"
+d) Macroeconomic commentary about AI in the broader economy or in other companies
+e) Biography references \u2014 a board member who worked with AI at a previous employer
+f) Subsidiary listings \u2014 a company name contains "AI" but no operational description
+g) Pure aspirational statements with NO named application \u2014 "AI will play a crucial role in our future"
+h) AI mentioned only in passing in a list alongside unrelated topics
+
+IMPORTANT: Do NOT apply automatic Symbolic if the passage describes a specific named AI tool or system that is currently deployed, even if governance or strategy language also appears nearby.
+
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+STEP 3 \u2014 THREE DIAGNOSTIC QUESTIONS
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+QUESTION 1: Does the passage name a SPECIFIC business function or application?
+YES requires a concrete named AI tool, system, or application:
+- "fraud detection system based on machine learning"
+- "image search mechanism using computer vision"
+- "recommendation engine for personalised product suggestions"
+- "demand forecasting model"
+- "generative AI for product background image creation"
+- "AI-powered size recommendation feature"
+- "automated sorting of garments using machine learning"
+
+NO if AI is mentioned only generically:
+- "we use AI to improve customer experience"
+- "AI capabilities", "AI solutions", "AI strategy" without naming what it does
+
+QUESTION 2: Does the passage reference a MEASURABLE outcome, metric, or timeline?
+YES requires specific numbers, percentages, monetary figures, or timeframes DIRECTLY linked to the AI application.
+NO if outcomes described qualitatively without numbers, or numbers relate to non-AI activities.
+
+QUESTION 3: Is the AI use CURRENT, MIXED, or ASPIRATIONAL?
+CURRENT = past or present tense, deployed or actively running
+MIXED = combination of current deployment AND future plans
+ASPIRATIONAL = future tense only, no deployment evidence
+q3_score = 1 if CURRENT or MIXED, 0 if ASPIRATIONAL
+
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+SCORING
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+classification_score = q1_score + q2_score + q3_score (0 to 3)
+- Score 3 = Substantive
+- Score 2 = Transitional
+- Score 0 or 1 = Symbolic
+
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+CALIBRATION EXAMPLES
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+SYMBOLIC: "Artificial Intelligence will play a crucial role in our journey ahead." \u2014 No named function, aspirational. Score 0.
+SYMBOLIC: "Directors received training on artificial intelligence during the year." \u2014 Board training, automatic Symbolic.
+SYMBOLIC: "machine learning and AI are transforming the marketplace industry." \u2014 Industry commentary, no named application.
+
+TRANSITIONAL: "enhancing product descriptions and size recommendations are made possible through machine learning." \u2014 Named functions, current, no metric. Score 2.
+TRANSITIONAL: "the Group has implemented a fraud detection system based on machine learning." \u2014 Named function, current, no metric. Score 2.
+TRANSITIONAL: "we launched a Global AI Strategy initiative focusing on upskilling employees on AI fundamentals." \u2014 Named initiative, current, no metric. Score 2.
+TRANSITIONAL: "in generative AI, we are accelerating our AI strategy with custom in-house solutions." \u2014 Named approach, current, no quantified metric. Score 2.
+
+SUBSTANTIVE: "Visual Search and Computer Vision models. 2,243 workers in Technology team." \u2014 Named functions, metric, current. Score 3.
+SUBSTANTIVE: "Zalando utilised generative AI to scale product background images, reducing costs and increasing customer engagement." \u2014 Named function, named outcomes, current. Score 3.
+
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+CRITICAL REMINDERS
+\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+- When in doubt between Symbolic and Transitional: is there a NAMED specific AI application? If no, Symbolic.
+- When in doubt between Transitional and Substantive: is there a QUANTIFIED metric? If no, Transitional.
+- Completely incoherent text = Symbolic.
+- Do not over-promote. Default to Symbolic unless criteria are clearly met.
+
+Passage to classify:
 {passage}
 
 Respond in JSON format only, no preamble:
@@ -112,13 +147,11 @@ Respond in JSON format only, no preamble:
   "q3_score": 1 or 0,
   "classification_score": 0 to 3,
   "classification": "Symbolic" or "Transitional" or "Substantive",
-  "justification": "one sentence explanation"
+  "justification": "one sentence explanation referencing which specific criteria was applied"
 }}"""
 
 
-# ── Tier Logic (Strict Upstream Filtering) ─────────────────────────
-# Tier 2 CANNOT stand alone. Must co-occur with Tier 1.
-# This eliminates false positives at source — no downstream purging needed.
+# ── Tier Logic ─────────────────────────────────────────────────────
 def is_ai_relevant(passage_text):
     text_lower = passage_text.lower()
     has_tier1 = any(
@@ -138,8 +171,6 @@ def is_ai_relevant(passage_text):
 
 
 # ── Deduplication ──────────────────────────────────────────────────
-# Conservative heuristic: drop passage if first 250 chars are
-# >60% character-similar to an already-kept passage on the same page.
 def deduplicate_passages(passages):
     kept = []
     for candidate in passages:
@@ -160,9 +191,6 @@ def deduplicate_passages(passages):
 
 
 # ── PDF Extraction ─────────────────────────────────────────────────
-# Uses sentence-based extraction (3-sentence rolling windows).
-# Respects natural language boundaries rather than arbitrary character cuts.
-# Prevents diagnostic questions being answered on context-severed fragments.
 def extract_ai_passages(pdf_path):
     raw_passages = []
     try:
@@ -172,7 +200,6 @@ def extract_ai_passages(pdf_path):
                 if not text:
                     continue
                 text = ' '.join(text.split())
-                # Split on sentence boundaries
                 sentences = re.split(r'(?<=\.)\s+', text)
                 for i in range(len(sentences)):
                     chunk = " ".join(sentences[i:i + 3]).strip()
@@ -197,12 +224,11 @@ def extract_ai_passages(pdf_path):
 
 
 # ── API Classification ─────────────────────────────────────────────
-# temperature=0 for reproducibility — same passage always same result.
 def classify_passage(passage_text):
     try:
         message = client.messages.create(
             model=LLM_MODEL,
-            max_tokens=300,
+            max_tokens=400,
             temperature=0,
             messages=[{
                 "role": "user",
@@ -214,7 +240,6 @@ def classify_passage(passage_text):
             r'^```json|^```|```$', '', response_text, flags=re.MULTILINE
         ).strip()
         result = json.loads(response_text)
-        # Enforce integer types — LLM occasionally returns strings
         result['q1_score'] = int(result.get('q1_score', 0))
         result['q2_score'] = int(result.get('q2_score', 0))
         result['q3_score'] = int(result.get('q3_score', 0))
@@ -249,9 +274,6 @@ def modal_class(classifications):
 
 
 # ── Firm-Year Aggregation ──────────────────────────────────────────
-# Primary regression variable: mean_signal_score (Symbolic=0, Transitional=1, Substantive=2)
-# Modal classification and proportions are robustness check variables.
-# Zero-passage firm-years kept as No_AI_Disclosure — not dropped.
 def get_firm_year_score(classifications, firm, year, pdf_path):
     total = len(classifications)
     substantive = sum(1 for c in classifications if c['classification'] == 'Substantive')
@@ -284,7 +306,26 @@ def get_firm_year_score(classifications, firm, year, pdf_path):
     }
 
 
-# ── Parse Firm and Year from Path ──────────────────────────────────
+# ── Parse Firm and Year ────────────────────────────────────────────
+FIRM_NAME_MAP = {
+    "about you": "About You",
+    "asos": "ASOS",
+    "ao world": "AO World",
+    "allegro": "Allegro",
+    "boohoo": "Boohoo",
+    "boozt": "Boozt",
+    "doc morris": "DocMorris",
+    "docmorris": "DocMorris",
+    "hello fresh": "HelloFresh",
+    "hellofresh": "HelloFresh",
+    "moonpig": "Moonpig",
+    "mytheresa": "Mytheresa",
+    "redcare pharmacy": "Redcare Pharmacy",
+    "thg": "THG",
+    "westwing": "Westwing",
+    "zalando": "Zalando",
+}
+
 def parse_firm_year(pdf_path):
     pdf_path = Path(pdf_path)
     parent_folder = pdf_path.parent.name.strip()
@@ -297,14 +338,12 @@ def parse_firm_year(pdf_path):
 
     root_name = ANNUAL_REPORTS_DIR.name.strip()
     if parent_folder != root_name and parent_folder != '.':
-        firm = parent_folder
+        raw_firm = parent_folder.strip()
     else:
         parts = stem.split('_')
-        if len(parts) >= 2:
-            firm = ' '.join(parts[:-1])
-        else:
-            firm = stem.replace(str(year), '').strip('_- ')
+        raw_firm = ' '.join(parts[:-1]) if len(parts) >= 2 else stem.replace(str(year), '').strip('_- ')
 
+    firm = FIRM_NAME_MAP.get(raw_firm.lower(), raw_firm.strip())
     return firm, year
 
 
@@ -315,8 +354,7 @@ def process_report(pdf_path, firm, year):
     passages = extract_ai_passages(pdf_path)
     tier1_count = sum(1 for p in passages if p['tier'] == 'tier1')
     tier2_count = sum(1 for p in passages if p['tier'] == 'tier_1_and_2')
-    print(f"  Found {len(passages)} passages after dedup "
-          f"(Tier1 only: {tier1_count}, Tier1+2: {tier2_count})")
+    print(f"  Found {len(passages)} passages after dedup (Tier1: {tier1_count}, Tier1+2: {tier2_count})")
 
     if not passages:
         print(f"  No AI passages found — recording as No_AI_Disclosure")
@@ -340,7 +378,7 @@ def process_report(pdf_path, firm, year):
             result['human_label'] = ''
             result['agreement'] = ''
             classifications.append(result)
-        time.sleep(0.5)  # Rate limiting
+        time.sleep(0.5)
 
     score = get_firm_year_score(classifications, firm, year, pdf_path)
     return score, classifications
@@ -369,9 +407,8 @@ if __name__ == "__main__":
             print(f"Skipping {pdf_path.name} - year outside 2021-2025")
             continue
 
-        # About You delisted Nov 2025 — partial panel (2021-2024 only)
         if firm.strip().lower() == "about you" and year == 2025:
-            print(f"Skipping About You 2025 — partial panel, firm delisted")
+            print(f"Skipping About You 2025 - partial panel")
             continue
 
         try:
@@ -379,19 +416,15 @@ if __name__ == "__main__":
             results.append(score)
             all_classifications.extend(classifications)
 
-            # Incremental save after each report — crash recovery
             pd.DataFrame(results).to_csv(SCORES_FILE, index=False)
             if all_classifications:
-                pd.DataFrame(all_classifications).to_csv(
-                    CLASSIFICATIONS_FILE, index=False
-                )
+                pd.DataFrame(all_classifications).to_csv(CLASSIFICATIONS_FILE, index=False)
 
         except Exception as e:
             print(f"  FATAL ERROR on {firm} {year}: {e}")
             print(f"  Progress saved. {len(results)} reports completed.")
             continue
 
-    # Final sorted save and summary
     if results:
         df_scores = pd.DataFrame(results)
         df_scores = df_scores.sort_values(['firm', 'year']).reset_index(drop=True)
@@ -405,7 +438,6 @@ if __name__ == "__main__":
     if all_classifications:
         df_class = pd.DataFrame(all_classifications)
         df_class.to_csv(CLASSIFICATIONS_FILE, index=False)
-        print(f"{CLASSIFICATIONS_FILE} saved with "
-              f"{len(all_classifications)} passage classifications")
+        print(f"{CLASSIFICATIONS_FILE} saved with {len(all_classifications)} passage classifications")
     else:
         print("No passages classified.")
