@@ -1,4 +1,4 @@
-Hypothesis,DV,Coefficient,Std_Error,T_stat,P_value,Significance,Verdict,N_obs,R2_within
-H1_Stock_Price,Stock_Price_Movement_%,-43.5658,38.8234,-1.1222,0.2692,Not significant,NOT SUPPORTED,55,0.0527
-H2_Revenue_Growth,Revenue_Growth_%,-0.0519,12.8313,-0.004,0.9968,Not significant,NOT SUPPORTED,55,0.1154
-H3_Gross_Margin,Gross_Margin_%,-0.5612,2.2762,-0.2465,0.8067,Not significant,NOT SUPPORTED,55,0.006
+Hypothesis,DV,Coefficient,Std_Error,T_stat,P_value,CI_lower,CI_upper,Significance,Verdict,N_obs,R2_within
+H1_Stock_Price,Stock_Price_Movement_%,-43.5658,38.8234,-1.1222,0.2692,-122.3032,35.1717,Not significant,NOT SUPPORTED,55,0.0527
+H2_Revenue_Growth,Revenue_Growth_%,-0.0519,12.8313,-0.004,0.9968,-26.075,25.9711,Not significant,NOT SUPPORTED,55,0.1154
+H3_Gross_Margin,Gross_Margin_%,-0.5612,2.2762,-0.2465,0.8067,-5.1774,4.0551,Not significant,NOT SUPPORTED,55,0.006
