@@ -8,9 +8,11 @@ import uuid
 import time
 from pathlib import Path
 from collections import Counter
+from dotenv import load_dotenv
 
 # ── Setup ──────────────────────────────────────────────────────────
-client = anthropic.Anthropic(api_key="REDACTED")
+load_dotenv()
+client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 ANNUAL_REPORTS_DIR = Path("/Users/user/Desktop/Annual Reports ")
 SCORES_FILE = "signalling_scores.csv"

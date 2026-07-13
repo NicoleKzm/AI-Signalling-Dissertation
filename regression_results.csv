@@ -1,4 +1,16 @@
-Hypothesis,DV,Coefficient,Std_Error,T_stat,P_value,CI_lower,CI_upper,Significance,Verdict,N_obs,R2_within
-H1_Stock_Price,Stock_Price_Movement_%,-43.5658,38.8234,-1.1222,0.2692,-122.3032,35.1717,Not significant,NOT SUPPORTED,55,0.0527
-H2_Revenue_Growth,Revenue_Growth_%,-0.0519,12.8313,-0.004,0.9968,-26.075,25.9711,Not significant,NOT SUPPORTED,55,0.1154
-H3_Gross_Margin,Gross_Margin_%,-0.5612,2.2762,-0.2465,0.8067,-5.1774,4.0551,Not significant,NOT SUPPORTED,55,0.006
+Model,Type,DV,IV,Control,Coefficient,Std_Error,T_stat,P_value,CI_lower,CI_upper,N_obs,R2_within
+H1_Stock_Price,Primary,Stock_Price_Movement_%,mean_signal_score,log_revenue,-22.6239,35.0903,-0.6447,0.5221,-93.1406,47.8927,69,0.0194
+H2_Revenue_Growth,Primary,Revenue_Growth_%,signal_lag1,log_revenue_lag1,-5.0803,8.4171,-0.6036,0.55,-22.168,12.0074,54,0.2326
+H3_Gross_Margin,Primary,Gross_Margin_%,signal_lag1,log_revenue_lag1,-0.6904,1.4646,-0.4714,0.6403,-3.6636,2.2828,54,0.0064
+H2_Revenue_Growth,Robustness: Zalando 2025 included,Revenue_Growth_%,signal_lag1,log_revenue_lag1,-2.9126,8.3732,-0.3478,0.73,-19.8942,14.069,55,0.2239
+H3_Gross_Margin,Robustness: Zalando 2025 included,Gross_Margin_%,signal_lag1,log_revenue_lag1,-0.8442,1.4882,-0.5673,0.5741,-3.8623,2.1739,55,0.008
+H2_Revenue_Growth,Robustness: Excl. DocMorris 2023,Revenue_Growth_%,signal_lag1,log_revenue_lag1,-4.6263,8.8842,-0.5207,0.6059,-22.6811,13.4285,53,0.2209
+H3_Gross_Margin,Robustness: Excl. DocMorris 2023,Gross_Margin_%,signal_lag1,log_revenue_lag1,-0.5725,1.5633,-0.3662,0.7165,-3.7495,2.6046,53,0.0045
+H2_Revenue_Growth,Robustness: Excl. Boohoo,Revenue_Growth_%,signal_lag1,log_revenue_lag1,-7.8058,7.1033,-1.0989,0.28,-22.2747,6.6632,50,0.3697
+H3_Gross_Margin,Robustness: Excl. Boohoo,Gross_Margin_%,signal_lag1,log_revenue_lag1,-0.9386,1.3607,-0.6898,0.4953,-3.7103,1.8331,50,0.0335
+H2_Revenue_Growth,Robustness: Excl. DocMorris 2023 + Boohoo,Revenue_Growth_%,signal_lag1,log_revenue_lag1,-7.6041,7.3572,-1.0336,0.3093,-22.6092,7.401,49,0.3569
+H3_Gross_Margin,Robustness: Excl. DocMorris 2023 + Boohoo,Gross_Margin_%,signal_lag1,log_revenue_lag1,-0.8812,1.456,-0.6053,0.5494,-3.8507,2.0882,49,0.0301
+H1_Stock_Price,Robustness: Excl. DocMorris 2023,Stock_Price_Movement_%,mean_signal_score,log_revenue,-6.7035,23.551,-0.2846,0.7771,-54.056,40.649,68,0.0018
+H1_Stock_Price,Robustness: Excl. Boohoo,Stock_Price_Movement_%,mean_signal_score,log_revenue,-22.7685,35.7147,-0.6375,0.527,-94.7015,49.1646,64,0.0205
+H1_Stock_Price,Robustness: Excl. DocMorris 2023 + Boohoo,Stock_Price_Movement_%,mean_signal_score,log_revenue,-6.353,23.7882,-0.2671,0.7907,-54.2949,41.5889,63,0.0018
+H1_Stock_Price,Robustness: log_revenue_lag1 symmetry check,Stock_Price_Movement_%,mean_signal_score,log_revenue_lag1,-43.2465,41.6496,-1.0383,0.306,-127.7157,41.2227,55,0.0848
