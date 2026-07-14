@@ -1,0 +1,49 @@
+Section,Item,Value1,Value2,Value3,Value4,Value5,Value6,Note
+1_Descriptives,mean_signal_score_full_panel,N,69,0.1807,0.2983,0.0,1.125,"full 69-obs panel, contemporaneous"
+1_Descriptives,Stock_Price_Movement_%_full_panel,N,69,-13.9283,52.5603,-89.33,182.22,"full 69-obs panel, contemporaneous"
+1_Descriptives,Revenue_Growth_%_full_panel,N,55,4.3411,20.1885,-47.52,64.39,"full 69-obs panel, contemporaneous"
+1_Descriptives,Gross_Margin_%_full_panel,N,69,44.5348,17.3079,15.06,93.68,"full 69-obs panel, contemporaneous"
+1_Descriptives,mean_signal_score_current_sample,N,54,0.1989,0.3064,0.0,1.125,"N=54 current lag-1 primary estimation sample, contemporaneous values"
+1_Descriptives,Stock_Price_Movement_%_current_sample,N,54,-8.7078,57.0074,-89.33,182.22,"N=54 current lag-1 primary estimation sample, contemporaneous values"
+1_Descriptives,Revenue_Growth_%_current_sample,N,54,4.1107,20.305,-47.52,64.39,"N=54 current lag-1 primary estimation sample, contemporaneous values"
+1_Descriptives,Gross_Margin_%_current_sample,N,54,44.4967,17.0006,17.2,93.68,"N=54 current lag-1 primary estimation sample, contemporaneous values"
+2_Correlation,mean_signal_score__mean_signal_score,r,1.0,N,54,,,
+2_Correlation,mean_signal_score__log_revenue,r,0.1965,N,54,,,
+2_Correlation,mean_signal_score__Stock_Price_Movement_%,r,-0.0265,N,54,,,
+2_Correlation,mean_signal_score__Revenue_Growth_%,r,-0.0172,N,54,,,
+2_Correlation,mean_signal_score__Gross_Margin_%,r,-0.2251,N,54,,,
+2_Correlation,log_revenue__mean_signal_score,r,0.1965,N,54,,,
+2_Correlation,log_revenue__log_revenue,r,1.0,N,54,,,
+2_Correlation,log_revenue__Stock_Price_Movement_%,r,-0.0912,N,54,,,
+2_Correlation,log_revenue__Revenue_Growth_%,r,0.2086,N,54,,,
+2_Correlation,log_revenue__Gross_Margin_%,r,0.2669,N,54,,,
+2_Correlation,Stock_Price_Movement_%__mean_signal_score,r,-0.0265,N,54,,,
+2_Correlation,Stock_Price_Movement_%__log_revenue,r,-0.0912,N,54,,,
+2_Correlation,Stock_Price_Movement_%__Stock_Price_Movement_%,r,1.0,N,54,,,
+2_Correlation,Stock_Price_Movement_%__Revenue_Growth_%,r,0.1367,N,54,,,
+2_Correlation,Stock_Price_Movement_%__Gross_Margin_%,r,-0.0631,N,54,,,
+2_Correlation,Revenue_Growth_%__mean_signal_score,r,-0.0172,N,54,,,
+2_Correlation,Revenue_Growth_%__log_revenue,r,0.2086,N,54,,,
+2_Correlation,Revenue_Growth_%__Stock_Price_Movement_%,r,0.1367,N,54,,,
+2_Correlation,Revenue_Growth_%__Revenue_Growth_%,r,1.0,N,54,,,
+2_Correlation,Revenue_Growth_%__Gross_Margin_%,r,0.1206,N,54,,,
+2_Correlation,Gross_Margin_%__mean_signal_score,r,-0.2251,N,54,,,
+2_Correlation,Gross_Margin_%__log_revenue,r,0.2669,N,54,,,
+2_Correlation,Gross_Margin_%__Stock_Price_Movement_%,r,-0.0631,N,54,,,
+2_Correlation,Gross_Margin_%__Revenue_Growth_%,r,0.1206,N,54,,,
+2_Correlation,Gross_Margin_%__Gross_Margin_%,r,1.0,N,54,,,
+3_H1_CI,conventional,beta,-11.7093,SE,29.0452,-70.6743,47.2557,df_resid=35
+3_H1_CI,CR2_BellMcCaffrey,beta,-11.7093,SE,27.2796,-82.9267,59.5081,"df=4.76, read from small_sample_inference.csv, not recomputed"
+4_Table49,excl_DocMorris_2023_only__H1,beta,8.2801,SE,22.7357,0.718,53,
+4_Table49,excl_DocMorris_2023_only__H2,beta,-4.6263,SE,8.8842,0.6059,53,
+4_Table49,excl_DocMorris_2023_only__H3,beta,-0.5725,SE,1.5633,0.7165,53,
+4_Table49,excl_DocMorris_entirely__H1,beta,12.8619,SE,31.7558,0.6882,50,
+4_Table49,excl_DocMorris_entirely__H2,beta,-13.0608,SE,8.1618,0.1194,50,
+4_Table49,excl_DocMorris_entirely__H3,beta,-1.1504,SE,1.9333,0.556,50,
+4_Table49,excl_Boohoo_entirely__H1,beta,-13.451,SE,30.1772,0.6588,50,
+4_Table49,excl_Boohoo_entirely__H2,beta,-7.8058,SE,7.1033,0.28,50,
+4_Table49,excl_Boohoo_entirely__H3,beta,-0.9386,SE,1.3607,0.4953,50,
+4_Table49,excl_DocMorris_and_Boohoo_entirely__H1,beta,12.3997,SE,33.6602,0.7153,46,
+4_Table49,excl_DocMorris_and_Boohoo_entirely__H2,beta,-15.3376,SE,4.7414,0.003,46,
+4_Table49,excl_DocMorris_and_Boohoo_entirely__H3,beta,-1.1542,SE,1.8667,0.5412,46,
+4_Table49,H1_DocMorris_sign_flip_check,reproduces,True,,,,,cross-check against LOCKED_NUMBERS.md leave-one-out section

@@ -65,6 +65,38 @@ under this exclusion, consistent with a small subsample (N=35, 9 firms) rather
 than any real effect -- underscores these estimates are noisy at this scale,
 not evidence of anything for H2/H3 specifically.
 
+## CHAPTER 4 GAPS (chapter4_gaps.py)
+Four numeric gaps closed for Ch4, current lag-1 primary spec (N=54 uniform).
+
+**Descriptives (Table 4.3 rebuild):** full 69-obs panel vs. current N=54 sample.
+  Full panel: signal N=69 mean=.1807 SD=.2983; Stock Price N=69 mean=-13.93 SD=52.56;
+  Revenue Growth N=55 mean=4.34 SD=20.19 (naturally missing each firm's 1st year);
+  Gross Margin N=69 mean=44.53 SD=17.31.
+  Current N=54 sample: signal mean=.1989 SD=.3064; Stock Price mean=-8.71 SD=57.01;
+  Revenue Growth mean=4.11 SD=20.31; Gross Margin mean=44.50 SD=17.00. All 4 vars
+  are N=54 uniformly in the current sample -- the lag-1 requirement (drops each
+  firm's 1st year) coincides exactly with Revenue_Growth_%'s own missingness.
+
+**Correlation matrix (Table 4.4 rebuild):** Pearson, pairwise, current N=54 sample,
+  every cell N=54 (no additional missingness beyond the sample restriction itself).
+  signal-logrev=.197, signal-stockprice=-.027, signal-revgrowth=-.017,
+  signal-grossmargin=-.225, logrev-grossmargin=.267. Full matrix in chapter4_gaps.csv.
+
+**H1 lag-1 95% CI** (was missing from the PRIMARY REGRESSIONS entry above):
+  Conventional (df_resid=35): [-70.6743, 47.2557]
+  CR2/Bell-McCaffrey (df=4.76, read from small_sample_inference.csv, not
+  recomputed -- that script already validates this figure): [-82.9267, 59.5081]
+
+**Table 4.9 rebuild** (lag-1 primary spec, all 3 hypotheses, 4 exclusions):
+  Excl. DocMorris 2023 only (N=53): H1 beta=8.2801 p=.718 | H2 beta=-4.6263 p=.606 | H3 beta=-0.5725 p=.717
+  Excl. DocMorris entirely (N=50):  H1 beta=12.8619 p=.688 | H2 beta=-13.0608 p=.119 | H3 beta=-1.1504 p=.556
+  Excl. Boohoo entirely (N=50):     H1 beta=-13.4510 p=.659 | H2 beta=-7.8058 p=.280 | H3 beta=-0.9386 p=.495
+  Excl. both entirely (N=46):       H1 beta=12.3997 p=.715 | H2 beta=-15.3376 p=.003 | H3 beta=-1.1542 p=.541
+  DocMorris sign-flip on H1 (full-firm exclusion): CONFIRMED REPRODUCES here
+  (-11.7093 -> +12.8619), matching the leave-one-out section above. Note: H2
+  becomes significant (p=.003) excluding both DocMorris and Boohoo (N=46) --
+  flagged for awareness, not otherwise interpreted here.
+
 ## LEAVE-ONE-OUT (leave_one_out_primary.py)
 H3 equivalence holds 9/14. Breaks: ASOS, Allegro, Boozt, DocMorris, Mytheresa — all on lower bound.
 UPPER bound holds 14/14.
