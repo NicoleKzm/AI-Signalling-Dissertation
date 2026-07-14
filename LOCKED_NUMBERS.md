@@ -34,6 +34,15 @@ H1 (lag-1 primary): 83.71 pp = 601% of DV mean
 H2: 24.26 pp = 559% of DV mean
 H3: 4.22 pp = 9.5% of DV mean
 
+## RANDOMISATION INFERENCE (supplementary) (randomisation_inference.py)
+Lag-1 signal, lag-1 log revenue control, Zalando 2025 excluded, N=54. N_PERM=1000, seed=42.
+H1: coef -11.7093, clustered_p .6893, randomisation_p .7010
+H2: coef -5.0803,  clustered_p .5500, randomisation_p .5790
+H3: coef -0.6904,  clustered_p .6403, randomisation_p .7090
+RI is SUPPLEMENTARY. Primary small-sample inference is CR2 and the wild cluster
+bootstrap (small_sample_inference.py). RI assumes exchangeability, which is not
+guaranteed in an observational panel.
+
 ## LEAVE-ONE-OUT (leave_one_out_primary.py)
 H3 equivalence holds 9/14. Breaks: ASOS, Allegro, Boozt, DocMorris, Mytheresa — all on lower bound.
 UPPER bound holds 14/14.
@@ -93,6 +102,8 @@ H1: χ² = 1.22,  p = .545 — computed today on the CURRENT lag-1 primary speci
 - Re-run classify.py. It is frozen. Re-running invalidates every κ and every locked statistic.
 - Work in any folder other than /Users/user/Desktop/VSCode Dissertation/
 - **Do not describe the TOST bound as pre-specified or confirmatory anywhere.**
+- **Do not cite or run validity_check.py. Deprecated — hardcoded to the old contemporaneous
+  specification. Superseded by randomisation_inference.py and small_sample_inference.py.**
 
 ## ⚠️ UNVERIFIED — DO NOT CITE UNTIL CONFIRMED
 These figures appear in the dissertation or in working notes but have NOT been
