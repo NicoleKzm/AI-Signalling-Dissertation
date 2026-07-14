@@ -43,6 +43,28 @@ RI is SUPPLEMENTARY. Primary small-sample inference is CR2 and the wild cluster
 bootstrap (small_sample_inference.py). RI assumes exchangeability, which is not
 guaranteed in an observational panel.
 
+## FISCAL YEAR END ROBUSTNESS (fye_robustness.py)
+Stock_Price_Movement_% (H1's DV) is computed on calendar-year windows
+(1 Jan-31 Dec, financial_data.py). 5 firms have confirmed non-December FYE:
+AO World (March), ASOS (Aug/Sep), About You (February), Moonpig (April),
+Mytheresa (June) -- 23 firm-year observations. This misaligns signal and
+outcome windows for H1 only -- H2/H3 draw both from the same annual report,
+so both are already on the firm's fiscal clock.
+Current lag-1 primary spec, re-estimated excluding these 5 firms (9 of 14
+firms retained, N=35 vs full N=54):
+H1: full beta=-11.7093, SE=29.0452, p=.689, N=54, 14 firms
+    excl. non-Dec FYE: beta=-17.0316, SE=30.8510, p=.587, N=35, 9 firms
+H2 (unaffected, reported for completeness):
+    full beta=-5.0803, p=.550, N=54  |  excl.: beta=2.9275, p=.796, N=35
+H3 (unaffected, reported for completeness):
+    full beta=-0.6904, p=.640, N=54  |  excl.: beta=0.8401, p=.551, N=35
+H1's null is NOT an artefact of the calendar/fiscal misalignment: the
+coefficient sign is unchanged (negative), magnitude increases rather than
+shrinks, and the result remains far from significant (p=.587). H2/H3 sign-flip
+under this exclusion, consistent with a small subsample (N=35, 9 firms) rather
+than any real effect -- underscores these estimates are noisy at this scale,
+not evidence of anything for H2/H3 specifically.
+
 ## LEAVE-ONE-OUT (leave_one_out_primary.py)
 H3 equivalence holds 9/14. Breaks: ASOS, Allegro, Boozt, DocMorris, Mytheresa — all on lower bound.
 UPPER bound holds 14/14.
