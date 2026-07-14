@@ -95,7 +95,24 @@ Four numeric gaps closed for Ch4, current lag-1 primary spec (N=54 uniform).
   DocMorris sign-flip on H1 (full-firm exclusion): CONFIRMED REPRODUCES here
   (-11.7093 -> +12.8619), matching the leave-one-out section above. Note: H2
   becomes significant (p=.003) excluding both DocMorris and Boohoo (N=46) --
-  flagged for awareness, not otherwise interpreted here.
+  flagged for awareness, not otherwise interpreted here. Small-sample follow-up
+  below.
+
+## H2 EXCLUSION SMALL-SAMPLE CHECK (h2_exclusion_smallsample.py)
+chapter4_gaps.csv's H2, lag-1 primary, excl. DocMorris+Boohoo entirely (N=46,
+G=12 clusters) is the only significant coefficient anywhere in the analysis
+(naive PanelOLS-clustered p=.0030). Re-estimated under small-sample-robust
+inference, same procedures as small_sample_inference.py (CR2/Bell-McCaffrey,
+wild cluster bootstrap, B=9,999, Rademacher, seed=42):
+beta=-15.3376, N=46, G=12 clusters
+  CR1 (proper df=G-1=11):        SE=4.8982, p=.0096
+  CR2 + Bell-McCaffrey (df=3.87): SE=4.2492, p=.0239
+  Wild cluster bootstrap:                    p=.0268
+FINDING SURVIVES all three small-sample-robust corrections (all p < .05), but
+the p-value is considerably more conservative than the naive .0030 once cluster
+count (G=12) is properly accounted for -- inflates .0030 -> .0096 -> .0239 ->
+.0268 across increasingly conservative methods. Report as significant but
+borderline under a 12-cluster sample, not as a strong result.
 
 ## LEAVE-ONE-OUT (leave_one_out_primary.py)
 H3 equivalence holds 9/14. Breaks: ASOS, Allegro, Boozt, DocMorris, Mytheresa — all on lower bound.
