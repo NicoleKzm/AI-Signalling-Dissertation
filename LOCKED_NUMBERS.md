@@ -10,7 +10,13 @@ All: PanelOLS, entity + time FE, firm-clustered SE, lagged log revenue control.
 Zalando 2025 excluded from H2/H3 (symmetric acquisition rule).
 
 ## TOST — H3 (tost_mde_v2.py)
-Bound: ±3.462 pp = 0.2 × SD(Gross_Margin_%) = 0.2 × 17.308. PRE-SPECIFIED before estimation.
+Bound: ±3.462 pp = 0.2 × SD(Gross_Margin_%) = 0.2 × 17.308.
+**NOT pre-specified. The bound is a conventional small-effect benchmark
+(0.2 x SD of the outcome), applied after estimation. The equivalence analysis
+is EXPLORATORY, not confirmatory. Established by git forensic audit, 14 July
+2026: no pre-registration or standalone statement of the bound exists in
+either repo's history; the bound and the coefficients first co-occur in
+retest_table_4_8.py with the coefficients hardcoded as inputs.**
 Conventional (df=35):      p_lower = .0334, p_upper = .0038  → EQUIVALENT
 CR2 / Bell-McCaffrey (df=4.76): p_lower = .0463, p_upper = .0136 → EQUIVALENT (marginal)
 Wild cluster bootstrap (9,999): p_lower = .0646, p_upper = .0022 → NOT EQUIVALENT
@@ -19,8 +25,9 @@ Wild cluster bootstrap (9,999): p_lower = .0646, p_upper = .0022 → NOT EQUIVAL
 The predicted POSITIVE effect is rejected under EVERY procedure: conventional (p=.004),
 CR2 (p=.014), wild bootstrap (p=.002), all 14 leave-one-out iterations, all 5 aggregation rules.
 The two-sided equivalence claim is NOT sustained — it fails under the wild bootstrap on the
-lower bound. State in ONE direction only: a positive association of the pre-specified
-magnitude can be excluded; a negative association of comparable magnitude cannot.
+lower bound. State in ONE direction only: a positive association of the same conventional
+magnitude can be excluded; a negative association of comparable magnitude cannot. Both
+claims are reported within an EXPLORATORY equivalence framework (see Bound note above).
 
 ## MINIMUM DETECTABLE EFFECTS (80% power)
 H1 (lag-1 primary): 83.71 pp = 601% of DV mean
@@ -69,6 +76,9 @@ Unflagged: 76.6% / 19.9% / 3.4%
 - Within-firm SD = 0.2376 EXCEEDS between-firm SD = 0.1851. 12 of 14 firms change modal
   classification (all except ASOS and Boohoo). VERIFIED from signalling_scores.csv.
   Limitation 7 ('limited within-firm variation') is FALSE as written — invert it.
+- **TOST bound provenance**: Bound is NOT pre-specified. Label equivalence analysis
+  EXPLORATORY in Ch3 §3.8, Ch4 §4.3.4, Ch5 §5.3. Strike "affirmatively established" /
+  "genuine equivalence to zero" / "affirmatively supported" from the Abstract, §4.5 and §6.1.
 
 ## HAUSMAN TESTS
 H2: χ² = 10.24, p = .006 — VERIFIED, reproduced from regression_clean.py
@@ -82,6 +92,7 @@ H1: χ² = 1.22,  p = .545 — computed today on the CURRENT lag-1 primary speci
 ## DO NOT
 - Re-run classify.py. It is frozen. Re-running invalidates every κ and every locked statistic.
 - Work in any folder other than /Users/user/Desktop/VSCode Dissertation/
+- **Do not describe the TOST bound as pre-specified or confirmatory anywhere.**
 
 ## ⚠️ UNVERIFIED — DO NOT CITE UNTIL CONFIRMED
 These figures appear in the dissertation or in working notes but have NOT been
