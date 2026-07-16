@@ -129,7 +129,14 @@ Null on BOTH margins, all three hypotheses. discloses_ai: 48/69 = 1, 21/69 = 0.
 Intensive margin N = 34 (H2/H3) — very small.
 
 ## VALIDATION
-Held-out κ = 0.822 (unweighted), 0.785 (linear-weighted), 92.2% raw, n = 51.
+Held-out κ = 0.822 (unweighted), 0.837 (linear-weighted), 92.2% raw, n = 51.
+  CORRECTED from 0.785: the prior value used sklearn's default alphabetical
+  label ordering ("Substantive, Symbolic, Transitional"), which corrupts
+  linear/quadratic distance weighting. Recomputed with explicit ordinal
+  ordering (Symbolic < Transitional < Substantive) gives 0.837. Unweighted
+  kappa (0.822) is unaffected by this bug. Verified against a manual
+  weighted-kappa formula and consistent with the second-coder figures below
+  (0.833 linear, 0.881 quadratic), computed the same corrected way.
   4 disagreements, all one-tier adjacent, model always assigns HIGHER tier.
 Second coder κ = 0.791 (unweighted), 0.833 (linear-weighted), 86.2% raw, n = 29.
   4 disagreements, ALL Substantive→Transitional, ALL Allegro 2023. Second coder stricter.
