@@ -8,6 +8,13 @@ H2 (lag-1):                β = -5.0803,  SE = 8.4171,  p = .550, N = 54
 H3 (lag-1):                β = -0.6904,  SE = 1.4646,  p = .640, N = 54, df_resid = 35
 All: PanelOLS, entity + time FE, firm-clustered SE, lagged log revenue control.
 Zalando 2025 excluded from H2/H3 (symmetric acquisition rule).
+UPDATE: H1 lag-1 (β=-11.7093, SE=29.0452, N=54, p=.6893) and the DocMorris-
+entirely H2/H3 exclusion are now BOTH computed directly inside
+regression_clean.py itself (previously only in h1_lag_primary.py and
+chapter4_gaps.py respectively) -- added as pure ADDITIONS, no existing code
+in the script touched. Both reproduce their prior values exactly. See the
+Table 4.9 note below for a draft-citation correction found while adding the
+DocMorris-entirely check.
 
 ## TOST — H3 (tost_mde_v2.py)
 Bound: ±3.462 pp = 0.2 × SD(Gross_Margin_%) = 0.2 × 17.308.
@@ -97,6 +104,15 @@ Four numeric gaps closed for Ch4, current lag-1 primary spec (N=54 uniform).
   becomes significant (p=.003) excluding both DocMorris and Boohoo (N=46) --
   flagged for awareness, not otherwise interpreted here. Small-sample follow-up
   below.
+**DRAFT CORRECTION (found while adding this exclusion to regression_clean.py):**
+if the dissertation text cites H2 beta=-15.338, N=46, p=.003 under a
+"DocMorris entirely" label, THAT IS WRONG -- -15.338/N=46/.003 is the
+DocMorris-AND-Boohoo-BOTH-entirely-excluded result ("Excl. both entirely"
+row above), not DocMorris alone. DocMorris excluded ALONE gives H2
+beta=-13.0608, SE=8.1618, N=50, p=.119 ("Excl. DocMorris entirely" row
+above) -- not significant. Re-verified fresh from regression_clean.py's
+newly-added check: beta=-13.0608, SE=8.1618, N=50, p=0.1194, exact match.
+Fix the citation/label in the draft, not the number.
 
 ## H2 EXCLUSION SMALL-SAMPLE CHECK (h2_exclusion_smallsample.py)
 chapter4_gaps.csv's H2, lag-1 primary, excl. DocMorris+Boohoo entirely (N=46,

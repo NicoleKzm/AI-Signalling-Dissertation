@@ -171,6 +171,36 @@ for label, dv in PRIMARY_LAG_DVS.items():
     })
 
 # ══════════════════════════════════════════════════════════════════
+# H1 -- LAG-1 (ADDED): same primary spec as H2/H3 above (lag-1 signal,
+# lag-1 log revenue control, excl. Zalando 2025), applied to H1's DV.
+# The dissertation reports this spec but it did not previously exist in
+# this script -- H1 above is contemporaneous only. Kept as an ADDITION;
+# the existing contemporaneous H1 block above is untouched, still
+# labelled 'Primary', still gated by its own verification check.
+# ══════════════════════════════════════════════════════════════════
+print("\n" + "=" * 70)
+print("H1 -- LAG-1 (added): lag-1 signal + lag-1 log revenue, excl. Zalando 2025, "
+      "same primary spec as H2/H3")
+print("=" * 70)
+h1_lag_result, h1_lag_model_df = fit_lag_model(
+    df_excl_zalando, 'Stock_Price_Movement_%', "H1 (lag-1)")
+h1_lag_n = len(h1_lag_model_df)
+h1_lag_beta = h1_lag_result.params['signal_lag1']
+h1_lag_se = h1_lag_result.std_errors['signal_lag1']
+h1_lag_ci = h1_lag_result.conf_int().loc['signal_lag1']
+print(f"  H1 (lag-1): beta={h1_lag_beta:.4f}, SE={h1_lag_se:.4f}, N={h1_lag_n}, "
+      f"p={h1_lag_result.pvalues['signal_lag1']:.4f}")
+results_rows.append({
+    'Model': 'H1_Stock_Price', 'Type': 'Primary: lag-1 (matches H2/H3 primary spec)',
+    'DV': 'Stock_Price_Movement_%', 'IV': 'signal_lag1', 'Control': 'log_revenue_lag1',
+    'Coefficient': round(h1_lag_beta, 4), 'Std_Error': round(h1_lag_se, 4),
+    'T_stat': round(h1_lag_result.tstats['signal_lag1'], 4),
+    'P_value': round(h1_lag_result.pvalues['signal_lag1'], 4),
+    'CI_lower': round(h1_lag_ci['lower'], 4), 'CI_upper': round(h1_lag_ci['upper'], 4),
+    'N_obs': h1_lag_n, 'R2_within': round(h1_lag_result.rsquared, 4),
+})
+
+# ══════════════════════════════════════════════════════════════════
 # ROBUSTNESS / SENSITIVITY (kept strictly separate from primary output
 # above via the 'Type' column; same CSV, not a separate file)
 # ══════════════════════════════════════════════════════════════════
@@ -202,6 +232,10 @@ print("=" * 70)
 docmorris_checks = {
     "Excl. DocMorris 2023": lambda d: d[~((d.index.get_level_values('firm') == 'DocMorris') &
                                            (d.index.get_level_values('year') == 2023))],
+    # ADDED: excludes DocMorris for ALL five years, not just the 2023
+    # anomaly -- distinct from the single-year check above. The
+    # dissertation's robustness section reports this full-firm exclusion.
+    "Excl. DocMorris entirely": lambda d: d[d.index.get_level_values('firm') != 'DocMorris'],
     "Excl. Boohoo": lambda d: d[d.index.get_level_values('firm') != 'Boohoo'],
     "Excl. DocMorris 2023 + Boohoo": lambda d: d[
         ~((d.index.get_level_values('firm') == 'DocMorris') &
