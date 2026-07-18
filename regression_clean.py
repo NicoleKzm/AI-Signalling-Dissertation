@@ -241,6 +241,12 @@ docmorris_checks = {
         ~((d.index.get_level_values('firm') == 'DocMorris') &
           (d.index.get_level_values('year') == 2023)) &
         (d.index.get_level_values('firm') != 'Boohoo')],
+    # ADDED: full-firm exclusion of BOTH DocMorris and Boohoo -- distinct
+    # from "DocMorris 2023 + Boohoo" above (which only drops DocMorris's
+    # 2023 row, not the whole firm). For Table 4.8 completeness.
+    "Excl. DocMorris entirely + Boohoo": lambda d: d[
+        (d.index.get_level_values('firm') != 'DocMorris') &
+        (d.index.get_level_values('firm') != 'Boohoo')],
 }
 for check_name, fn in docmorris_checks.items():
     sub = fn(df_excl_zalando)
@@ -279,10 +285,17 @@ print("=" * 70)
 h1_docmorris_checks = {
     "Excl. DocMorris 2023": lambda d: d[~((d.index.get_level_values('firm') == 'DocMorris') &
                                            (d.index.get_level_values('year') == 2023))],
+    # ADDED (both lines): full-firm DocMorris exclusion, alone and combined
+    # with Boohoo -- for Table 4.8 completeness, same additive pattern as
+    # the H2/H3 "Excl. DocMorris entirely" addition above.
+    "Excl. DocMorris entirely": lambda d: d[d.index.get_level_values('firm') != 'DocMorris'],
     "Excl. Boohoo": lambda d: d[d.index.get_level_values('firm') != 'Boohoo'],
     "Excl. DocMorris 2023 + Boohoo": lambda d: d[
         ~((d.index.get_level_values('firm') == 'DocMorris') &
           (d.index.get_level_values('year') == 2023)) &
+        (d.index.get_level_values('firm') != 'Boohoo')],
+    "Excl. DocMorris entirely + Boohoo": lambda d: d[
+        (d.index.get_level_values('firm') != 'DocMorris') &
         (d.index.get_level_values('firm') != 'Boohoo')],
 }
 for check_name, fn in h1_docmorris_checks.items():

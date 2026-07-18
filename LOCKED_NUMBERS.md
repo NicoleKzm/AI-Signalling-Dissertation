@@ -114,6 +114,42 @@ above) -- not significant. Re-verified fresh from regression_clean.py's
 newly-added check: beta=-13.0608, SE=8.1618, N=50, p=0.1194, exact match.
 Fix the citation/label in the draft, not the number.
 
+## TABLE 4.8 — COMPLETE ROBUSTNESS TABLE (regression_clean.py, all 6 rows x 3 hyps)
+H1 basis: contemporaneous, mean_signal_score, log_revenue, full sample, NO
+Zalando 2025 exclusion. H2/H3 basis: lag-1 signal, lag-1 log_revenue,
+Zalando 2025 excluded. All previously missing cells (H1 "DocMorris entirely"
+alone; H1/H2/H3 "DocMorris entirely + Boohoo entirely") added to
+regression_clean.py this session, same additive pattern as before -- nothing
+existing changed.
+
+1. Full sample (no exclusion):
+   H1 (contemp): beta=-22.6239, SE=35.0903, N=69, p=.5221
+   H1 (lag-1):   beta=-11.7093, SE=29.0452, N=54, p=.6893
+   H2: beta=-5.0803, SE=8.4171, N=54, p=.5500
+   H3: beta=-0.6904, SE=1.4646, N=54, p=.6403
+2. DocMorris 2023 only:
+   H1: beta=-6.7035, SE=23.5510, N=68, p=.7771
+   H2: beta=-4.6263, SE=8.8842, N=53, p=.6059
+   H3: beta=-0.5725, SE=1.5633, N=53, p=.7165
+3. DocMorris entirely (all 5 years):
+   H1: beta=8.5421, SE=17.6856, N=64, p=.6314
+   H2: beta=-13.0608, SE=8.1618, N=50, p=.1194
+   H3: beta=-1.1504, SE=1.9333, N=50, p=.5560
+4. Boohoo entirely:
+   H1: beta=-22.7685, SE=35.7147, N=64, p=.5270
+   H2: beta=-7.8058, SE=7.1033, N=50, p=.2800
+   H3: beta=-0.9386, SE=1.3607, N=50, p=.4953
+5. DocMorris 2023 + Boohoo entirely:
+   H1: beta=-6.3530, SE=23.7882, N=63, p=.7907
+   H2: beta=-7.6041, SE=7.3572, N=49, p=.3093
+   H3: beta=-0.8812, SE=1.4560, N=49, p=.5494
+6. DocMorris entirely + Boohoo entirely:
+   H1: beta=9.1138, SE=18.0387, N=59, p=.6161
+   H2: beta=-15.3376, SE=4.7414, N=46, p=.0030  <-- ONLY significant cell (p<.05)
+   H3: beta=-1.1542, SE=1.8667, N=46, p=.5412
+CONFIRMED: exactly one cell across all 18 (6 rows x 3 hyps) is significant at
+5% -- row 6, H2. Every other cell has p > .10.
+
 ## H2 EXCLUSION SMALL-SAMPLE CHECK (h2_exclusion_smallsample.py)
 chapter4_gaps.csv's H2, lag-1 primary, excl. DocMorris+Boohoo entirely (N=46,
 G=12 clusters) is the only significant coefficient anywhere in the analysis
