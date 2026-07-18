@@ -83,6 +83,15 @@ def compute_df(model_df):
 HYPS = {
     'H1_Stock_Price': {'data': df, 'dv': 'Stock_Price_Movement_%',
                         'iv': 'mean_signal_score', 'control': 'log_revenue'},
+    # ADDED: H1 lag-1 -- H1's primary spec was updated to lag-1 (matching
+    # H2/H3: signal_lag1, log_revenue_lag1, excl. Zalando 2025) in
+    # regression_clean.py; this entry was missing here, so H1's leave-
+    # one-out ran on the now-supplementary contemporaneous spec only.
+    # H1_Stock_Price above is kept UNCHANGED (contemporaneous LOO, still
+    # useful as the supplementary-spec comparator) -- this is a pure
+    # addition, not a replacement.
+    'H1_Stock_Price_lag1': {'data': df_excl_zalando, 'dv': 'Stock_Price_Movement_%',
+                             'iv': 'signal_lag1', 'control': 'log_revenue_lag1'},
     'H2_Revenue_Growth': {'data': df_excl_zalando, 'dv': 'Revenue_Growth_%',
                            'iv': 'signal_lag1', 'control': 'log_revenue_lag1'},
     'H3_Gross_Margin': {'data': df_excl_zalando, 'dv': 'Gross_Margin_%',
@@ -109,6 +118,12 @@ sanity_ok = (abs(h1_ref['beta'] - (-22.624)) < 0.001 and abs(h1_ref['se'] - 35.0
              and h1_ref['n'] == 69)
 print(f"\nSanity check vs. known H1 baseline (-22.624, 35.090, N=69): "
       f"{'PASSED' if sanity_ok else 'FAILED -- investigate before trusting the LOO results below'}")
+
+h1_lag_ref = primary_ref['H1_Stock_Price_lag1']
+sanity_ok_lag = (abs(h1_lag_ref['beta'] - (-11.7093)) < 0.001
+                  and abs(h1_lag_ref['se'] - 29.0452) < 0.001 and h1_lag_ref['n'] == 54)
+print(f"Sanity check vs. known H1 lag-1 baseline (-11.7093, 29.0452, N=54): "
+      f"{'PASSED' if sanity_ok_lag else 'FAILED -- investigate before trusting the LOO results below'}")
 
 h3_bound = EQUIVALENCE_BOUNDS["H3"]
 print(f"H3 equivalence bound (local, pre-specified): +/-{h3_bound:.3f}")

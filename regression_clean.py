@@ -277,6 +277,41 @@ for check_name, fn in docmorris_checks.items():
         })
 
 print("\n" + "=" * 70)
+print("ROBUSTNESS (b2): H1 LAG-1 DocMorris/Boohoo exclusions -- matches H1's "
+      "ACTUAL primary spec (lag-1 signal, lag-1 log revenue, excl. Zalando "
+      "2025), reusing the same docmorris_checks exclusion definitions above. "
+      "ADDED: previously only H1's contemporaneous (supplementary) spec had "
+      "robustness checks -- the block below is new, the contemporaneous one "
+      "further down is untouched.")
+print("=" * 70)
+for check_name, fn in docmorris_checks.items():
+    sub = fn(df_excl_zalando)
+    full = sub[['Stock_Price_Movement_%', 'signal_lag1', 'log_revenue_lag1']]
+    model_df = full.dropna()
+    if len(model_df) < 15:
+        print(f"  H1 lag-1 ({check_name}): insufficient observations ({len(model_df)})")
+        continue
+    exog = sm.add_constant(model_df[['signal_lag1', 'log_revenue_lag1']])
+    result = PanelOLS(model_df['Stock_Price_Movement_%'], exog, entity_effects=True,
+                       time_effects=True, drop_absorbed=True).fit(
+        cov_type='clustered', cluster_entity=True)
+    n = len(model_df)
+    beta = result.params['signal_lag1']
+    se = result.std_errors['signal_lag1']
+    ci = result.conf_int().loc['signal_lag1']
+    print(f"  H1 lag-1 ({check_name}): beta={beta:.4f}, SE={se:.4f}, N={n}, "
+          f"p={result.pvalues['signal_lag1']:.4f}")
+    results_rows.append({
+        'Model': 'H1_Stock_Price', 'Type': f'Robustness (lag-1): {check_name}',
+        'DV': 'Stock_Price_Movement_%', 'IV': 'signal_lag1', 'Control': 'log_revenue_lag1',
+        'Coefficient': round(beta, 4), 'Std_Error': round(se, 4),
+        'T_stat': round(result.tstats['signal_lag1'], 4),
+        'P_value': round(result.pvalues['signal_lag1'], 4),
+        'CI_lower': round(ci['lower'], 4), 'CI_upper': round(ci['upper'], 4),
+        'N_obs': n, 'R2_within': round(result.rsquared, 4),
+    })
+
+print("\n" + "=" * 70)
 print("ROBUSTNESS: H1 DocMorris/Boohoo exclusions -- same H1 primary spec "
       "(contemporaneous, mean_signal_score, log_revenue control), full "
       "sample basis -- no Zalando 2025 exclusion, since that exclusion "

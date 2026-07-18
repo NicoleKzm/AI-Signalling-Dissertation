@@ -150,6 +150,36 @@ existing changed.
 CONFIRMED: exactly one cell across all 18 (6 rows x 3 hyps) is significant at
 5% -- row 6, H2. Every other cell has p > .10.
 
+## H1 LAG-1 ROBUSTNESS + LEAVE-ONE-OUT (regression_clean.py, leave_one_out_primary.py)
+H1's robustness/LOO checks previously ran on its supplementary contemporaneous
+spec only. Added lag-1 versions (matching H1's actual primary spec) to both
+scripts this session -- pure additions, contemporaneous versions untouched.
+
+**H1 lag-1 DocMorris/Boohoo exclusions** (regression_clean.py):
+  DocMorris 2023 only:              beta=8.2801,   SE=22.7357, N=53, p=.7180
+  DocMorris entirely:                beta=12.8619,  SE=31.7558, N=50, p=.6882
+  Boohoo entirely:                   beta=-13.4510, SE=30.1772, N=50, p=.6588
+  DocMorris 2023 + Boohoo entirely:  beta=6.8489,   SE=23.6229, N=49, p=.7738
+  DocMorris entirely + Boohoo entirely: beta=12.3997, SE=33.6602, N=46, p=.7153
+  None significant at 5%.
+
+**H1 lag-1 leave-one-out** (leave_one_out_primary.py, sanity check vs.
+-11.7093/29.0452/N=54 PASSED before trusting these):
+  Full-sample: beta=-11.7093, N=54. Min=-25.2573 (drop Zalando),
+  Max=+12.8619 (drop DocMorris). ONLY DocMorris flips the sign:
+  -11.7093 -> +12.8619 (N=54 -> N=50). No other firm causes a sign change.
+  No LOO iteration reaches p<.05.
+
+**Fiscal-year-end check** (fye_robustness.csv, already computed, re-confirmed
+here): H1 lag-1 excl. 5 non-Dec-FYE firms: beta=-17.0316, SE=30.8510, N=35,
+9 firms retained. Matches draft's -17.032/N=35 exactly.
+
+**Moonpig H3 leave-one-out** (leave_one_out_primary.csv, already computed,
+re-confirmed here): full-sample H3=-0.6904; dropping Moonpig gives
+beta=+0.4282, SE=0.9919, N=50, p=.6688. Moonpig is the ONLY firm that flips
+H3's sign (all other 13 firms' LOO coefficients stay negative) -- confirms
+the draft's claim exactly.
+
 ## H2 EXCLUSION SMALL-SAMPLE CHECK (h2_exclusion_smallsample.py)
 chapter4_gaps.csv's H2, lag-1 primary, excl. DocMorris+Boohoo entirely (N=46,
 G=12 clusters) is the only significant coefficient anywhere in the analysis
