@@ -1,0 +1,155 @@
+==========================================================================================
+STEP 1: Frozen configuration read directly from classify.py (imported, unmodified)
+==========================================================================================
+Model: claude-sonnet-4-6
+Temperature: 0 (hardcoded literal in classify.classify_passage(), verified by inspection of classify.py -- 'temperature=0' at the client.messages.create() call)
+max_tokens: 400 (hardcoded literal, same call)
+Passage character limit sent to API: passage_text[:1500] (same call)
+Prompt: CLASSIFICATION_PROMPT imported from classify.py, 6335 chars, used verbatim -- not copied or retyped.
+
+This script calls classify.classify_passage() directly (the actual production function object), so there is no risk of prompt/parameter drift between the frozen instrument and this validation run.
+
+
+==========================================================================================
+STEP 2: Stratified sample (n=30, random_state=42)
+==========================================================================================
+Loaded all_classifications.csv: 512 rows
+Available by class: {'Symbolic': np.int64(396), 'Transitional': np.int64(100), 'Substantive': np.int64(16)}
+
+Substantive has 16 rows (>= 10) -- the 'fewer than 10' condition in the task spec does NOT apply here (16 is not fewer than 10). Proceeding with the standard 10/10/10 stratified draw, n=30.
+  Symbolic: drew 10 of 396 available
+  Transitional: drew 10 of 100 available
+  Substantive: drew 10 of 16 available
+
+Total sample size: 30
+
+
+==========================================================================================
+STEP 3: Re-classification via classify.classify_passage() (live API calls)
+==========================================================================================
+  [1/30] Re-classifying faa20d20 (Allegro 2022, stored=Symbolic)...
+  [2/30] Re-classifying c9815f53 (Mytheresa 2023, stored=Symbolic)...
+  [3/30] Re-classifying 661574a2 (Moonpig 2024, stored=Symbolic)...
+  [4/30] Re-classifying f172e65c (About You 2023, stored=Symbolic)...
+  [5/30] Re-classifying 01d404d3 (Zalando 2025, stored=Symbolic)...
+  [6/30] Re-classifying f7f26e51 (Mytheresa 2023, stored=Symbolic)...
+  [7/30] Re-classifying 3352a5b1 (ASOS 2025, stored=Symbolic)...
+  [8/30] Re-classifying c84e7f1e (THG 2025, stored=Symbolic)...
+  [9/30] Re-classifying 685d9c40 (Allegro 2025, stored=Symbolic)...
+  [10/30] Re-classifying 8ac9bdd9 (Allegro 2023, stored=Symbolic)...
+  [11/30] Re-classifying debf0967 (Zalando 2023, stored=Transitional)...
+  [12/30] Re-classifying fcea5d1e (HelloFresh 2025, stored=Transitional)...
+  [13/30] Re-classifying 61bb618f (THG 2023, stored=Transitional)...
+  [14/30] Re-classifying 7c454559 (Boozt 2022, stored=Transitional)...
+  [15/30] Re-classifying 32bf52fe (Boozt 2021, stored=Transitional)...
+  [16/30] Re-classifying 954c5d8e (Boozt 2023, stored=Transitional)...
+  [17/30] Re-classifying 7dfedcf3 (Allegro 2023, stored=Transitional)...
+  [18/30] Re-classifying e75b3d81 (Zalando 2023, stored=Transitional)...
+  [19/30] Re-classifying 65468515 (Allegro 2021, stored=Transitional)...
+  [20/30] Re-classifying f9490b65 (AO World 2022, stored=Transitional)...
+  [21/30] Re-classifying e8da2802 (Allegro 2023, stored=Substantive)...
+  [22/30] Re-classifying 47801f58 (Allegro 2023, stored=Substantive)...
+  [23/30] Re-classifying b52303e7 (Allegro 2023, stored=Substantive)...
+  [24/30] Re-classifying 59a95c49 (THG 2023, stored=Substantive)...
+  [25/30] Re-classifying 7868e874 (DocMorris 2025, stored=Substantive)...
+  [26/30] Re-classifying 25726f73 (Allegro 2023, stored=Substantive)...
+  [27/30] Re-classifying 0a329012 (Allegro 2023, stored=Substantive)...
+  [28/30] Re-classifying fdb588a3 (Allegro 2023, stored=Substantive)...
+  [29/30] Re-classifying 24207844 (Allegro 2023, stored=Substantive)...
+  [30/30] Re-classifying 28e6f1e3 (Zalando 2025, stored=Substantive)...
+
+
+==========================================================================================
+STEP 4: Comparison -- stored vs re-run labels
+==========================================================================================
+Exact agreement: 20/30 = 66.67%
+Cohen's kappa (stored vs re-run): 0.5000
+
+3x3 confusion matrix (rows=stored, cols=re-run):
+                     rerun_Symbolic  rerun_Transitional  rerun_Substantive
+stored_Symbolic                  10                   0                  0
+stored_Transitional               6                   4                  0
+stored_Substantive                2                   2                  6
+
+------------------------------------------------------------------------------------------
+Passages where the label changed:
+------------------------------------------------------------------------------------------
+
+passage_id: fcea5d1e
+  firm: HelloFresh, year: 2025
+  stored label: Transitional  ->  rerun label: Symbolic
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'The program aims to promote knowledge and skills sharing, provide opportunities for senior employees to develop leadership skills, create spaces for role models from traditionally unrepresented groups, and enable productive relationships through a proactive learning culture. The program was conducte'
+
+passage_id: 61bb618f
+  firm: THG, year: 2023
+  stored label: Transitional  ->  rerun label: Symbolic
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'This allowed THG Ingenuity total control of all data points, increasing the ability to squeeze efficiencies in real time via machine learning and AI. In 2023 we launched our Headless Commerce solution which gives clients even greater flexibility of deployment of relevant 5* Trustpilot reviews 2023 c'
+
+passage_id: 7c454559
+  firm: Boozt, year: 2022
+  stored label: Transitional  ->  rerun label: Symbolic
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'Key factors to give our customers the best service are convenient, we constantly work on improving the personalisation convenience, fast delivery, and easy return options. We aim for a options, such as search, sorting, filtering options, as well as the delivery time of 1-2 business days, offered to '
+
+passage_id: 32bf52fe
+  firm: Boozt, year: 2021
+  stored label: Transitional  ->  rerun label: Symbolic
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'To make the experience of shopping on our webstores more convenient, we Continuous focus on the Nordics constantly work on improving the personalisation options, such as search, With a clear ambition to significantly organically outgrow the Nordic online sorting, filtering options, as well as the pr'
+
+passage_id: 7dfedcf3
+  firm: Allegro, year: 2023
+  stored label: Transitional  ->  rerun label: Symbolic
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'It offers opportunities for platform evolves constantly, ensuring that every ferences where they share Allegro`s digitalization women to retrain, start businesses, and expand their online interaction is intuitive and swift, thus meeting Machine Learning Research is Allegro’s R&D lab journey and AI a'
+
+passage_id: 65468515
+  firm: Allegro, year: 2021
+  stored label: Transitional  ->  rerun label: Symbolic
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    "damages against the Group and could damage the of their payment processing functions could lead to Group's reputation. Although the Group insures If the transaction is not finalized before the end user claims that purchases or payments were not Inventory risk may adversely affect the Group’s op- its"
+
+passage_id: e8da2802
+  firm: Allegro, year: 2023
+  stored label: Substantive  ->  rerun label: Transitional
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'It is also interested in topics such as reranking and features interaction architectures and personalization. Big numbers At MLR Computer Vision, the primary objective is to elevate the user experience by leveraging machine learning image processing algorithms. The team specifically concentrated on '
+
+passage_id: b52303e7
+  firm: Allegro, year: 2023
+  stored label: Substantive  ->  rerun label: Transitional
+  change type: ONE-TIER ADJACENT
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'Its goal is to make the A llegro platform accessible to non-Polish speakers globally and ships with technological education institutions like learning to process text queries and use results contribute to the machine translation community. the Central House of Technology reflect Allegro’s ranking me'
+
+passage_id: 59a95c49
+  firm: THG, year: 2023
+  stored label: Substantive  ->  rerun label: Symbolic
+  change type: TWO-TIER JUMP
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'DTC Order Multi- Buyer & F C u o n m ct m ion e a rc li e ty Ma S n y a s g t e e m m ent M A an u a d g ie e n m ce en t Cu M rre u n lt c i- i es fu O lfi p l t m io e n n s t Cr S o h ss ip B p o in r g der T O el r e d p e h ri o n n g e S A K n U al - y le ti v c e s l Average UK standard click'
+
+passage_id: 25726f73
+  firm: Allegro, year: 2023
+  stored label: Substantive  ->  rerun label: Symbolic
+  change type: TWO-TIER JUMP
+  stored text (full, as stored in all_classifications.csv, 300 chars):
+    'Generative AI, to enhance the accuracy and detail Combined with the proven impact of a credible GRI Standard/ of product descriptions in offers on the platform. promise of fast delivery on conversion and GMV, other source Disclosure Location Good descriptions available in the catalogue will this res'
+
+Summary: 10 of 30 passages changed classification (33.33%).
+  One-tier adjacent: 8
+  Two-tier jump: 2
+
+==========================================================================================
+REMINDER OF LIMITATION (see module docstring)
+==========================================================================================
+28/30 passages in this sample are stored at exactly 300 characters (i.e. were truncated from a longer original passage sent to the original classification call, which used up to 1500 characters). Any disagreement on these rows cannot be cleanly attributed to temperature=0 non-determinism alone -- it may instead (or additionally) reflect the re-run seeing less text than the original run did.

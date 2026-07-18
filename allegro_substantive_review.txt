@@ -1,0 +1,171 @@
+(Note: 'q3_present_past_tense' does not exist as a column; printing q3_tense, the closest existing field, in its place.)
+
+===== PASSAGE 1 =====
+passage_id: e8da2802
+year / page: 2023 / 164
+FULL passage_text (print the entire stored text, do not truncate):
+  'It is also interested in topics such as reranking and features interaction architectures and personalization. Big numbers At MLR Computer Vision, the primary objective is to elevate the user experience by leveraging machine learning image processing algorithms. The team specifically concentrated on '
+model justification (in full):
+  The passage names specific AI applications (Visual Search, image classification, Computer Vision models using machine learning image processing), references a measurable metric directly linked to the AI context (2,243 workers in Technology team), and describes current deployment activity.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: yes
+Near-duplicate of?: 47801f58
+
+===== PASSAGE 2 =====
+passage_id: 47801f58
+year / page: 2023 / 164
+FULL passage_text (print the entire stored text, do not truncate):
+  'Big numbers At MLR Computer Vision, the primary objective is to elevate the user experience by leveraging machine learning image processing algorithms. The team specifically concentrated on image representation learning for Visual Search and the development of robust image classification • 2,243 wor'
+model justification (in full):
+  The passage names specific AI applications (Visual Search and Computer Vision models using machine learning image processing and image representation learning), provides a measurable metric (2,243 workers in Technology team), and describes current deployment, satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: yes
+Near-duplicate of?: e8da2802, c422824c
+
+===== PASSAGE 3 =====
+passage_id: 24207844
+year / page: 2023 / 164
+FULL passage_text (print the entire stored text, do not truncate):
+  'The team specifically concentrated on image representation learning for Visual Search and the development of robust image classification • 2,243 workers in Technology team in an environment where digital tools streamline Computer Vision models. Presently, its research is focused on the integration o'
+model justification (in full):
+  The passage names specific AI applications (Visual Search, image representation learning, image classification, Computer Vision models), provides a measurable metric (2,243 workers in Technology team), and describes current deployment, satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: no
+Near-duplicate of?: none
+
+===== PASSAGE 4 =====
+passage_id: c422824c
+year / page: 2023 / 164
+FULL passage_text (print the entire stored text, do not truncate):
+  "The team orchestrates the entire ma- ML Ops Allegro is a spot that brings the best experts togeth- company's approach is multifaceted, encompassing chine learning lifecycle, from data pre-processing and annotation to model deployment, using the cutting-edge infrastructure of Google Cloud and Kuberne"
+model justification (in full):
+  The passage names a specific ML Ops function managing the full machine learning lifecycle (data pre-processing, annotation, model deployment) on Google Cloud and Kubernetes, is described as currently operational, and provides measurable scale metrics — several terabytes of data processed daily and thousands of predictions per second — satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: no
+Near-duplicate of?: 47801f58
+
+===== PASSAGE 5 =====
+passage_id: be7dd216
+year / page: 2023 / 164
+FULL passage_text (print the entire stored text, do not truncate):
+  'It employs state-of-the-art machine learning methods, involving human including the PFR School of Pioneers and partner- performing text searches, the company uses deep evaluators and automatic quality estimation models to enhance translation quality continually. Its goal is to make the A llegro plat'
+model justification (in full):
+  Despite fragmentation, the passage identifies specific named AI applications (machine translation using deep learning and NLP, text search ranking mechanisms) currently deployed on the Allegro platform, with a measurable outcome directly linked to the search engine AI — GMV growth of over 4%.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: no
+Near-duplicate of?: none
+
+===== PASSAGE 6 =====
+passage_id: b52303e7
+year / page: 2023 / 164
+FULL passage_text (print the entire stored text, do not truncate):
+  'Its goal is to make the A llegro platform accessible to non-Polish speakers globally and ships with technological education institutions like learning to process text queries and use results contribute to the machine translation community. the Central House of Technology reflect Allegro’s ranking me'
+model justification (in full):
+  Despite fragmented formatting, the passage identifies specific named AI applications (machine translation, NLP algorithms, deep learning models for semantic understanding within the search engine) that are currently deployed, and provides a measurable outcome directly linked to the AI application (GMV growth of over 4% generated through the search engine's language/ranking mechanisms).
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: yes
+Near-duplicate of?: none
+
+===== PASSAGE 7 =====
+passage_id: 58f9feb4
+year / page: 2023 / 164
+FULL passage_text (print the entire stored text, do not truncate):
+  'the Central House of Technology reflect Allegro’s ranking mechanisms, thereby growing GMV (gross Its aim is to employ state-of-the-art deep learning models and a range of NLP algorithms to dedication to empowering the next generation with merchandise value) by over 4% generated through Language solv'
+model justification (in full):
+  Despite fragmentation, the passage names specific AI applications (deep learning ranking mechanisms, NLP algorithms, LLMs, Foundation Models for semantic understanding in search) that are currently deployed, and provides a measurable outcome directly linked to the AI application (GMV growth of over 4% generated through the search engine).
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: no
+Near-duplicate of?: none
+
+===== PASSAGE 8 =====
+passage_id: fddb5c2c
+year / page: 2023 / 165
+FULL passage_text (print the entire stored text, do not truncate):
+  'GROUP CONSOLIDATED MANAGEMENT REPORT for the year ended 31 December 2023 Allegro also has an image search mechanism in New technology solutions are also helpful for mer- GRI content index its mobile app – the system presents products on chants, as the use of a machine learning model in- Allegro Grou'
+model justification (in full):
+  The passage names specific deployed AI applications (image search mechanism using ML algorithms, machine learning model for delivery prediction, semantic search engine in development) and provides a quantified outcome directly linked to the ML prediction model (+3pp increase in orders with correctly predicted fast delivery), satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: MIXED
+Second coder downgraded?: no
+Near-duplicate of?: none
+
+===== PASSAGE 9 =====
+passage_id: 0a329012
+year / page: 2023 / 165
+FULL passage_text (print the entire stored text, do not truncate):
+  'The fast delivery. The prediction mechanism allowed for GRI 1 used GRI 1: Foundation 2021 use of deep learning and generative AI techniques to an increase of +3pp in the number of orders with the build a semantic search engine is being developed. In promise of next-day delivery compared to previous '
+model justification (in full):
+  Despite partial fragmentation, the passage contains a named AI application (semantic search engine using deep learning and generative AI, plus a prediction mechanism for delivery), and measurable outcomes directly linked to AI deployment (+3pp increase in next-day delivery orders, over 90% accuracy), with evidence of current deployment, satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: MIXED
+Second coder downgraded?: no
+Near-duplicate of?: fdb588a3
+
+===== PASSAGE 10 =====
+passage_id: fdb588a3
+year / page: 2023 / 165
+FULL passage_text (print the entire stored text, do not truncate):
+  'The prediction mechanism allowed for GRI 1 used GRI 1: Foundation 2021 use of deep learning and generative AI techniques to an increase of +3pp in the number of orders with the build a semantic search engine is being developed. In promise of next-day delivery compared to previous commitment to digit'
+model justification (in full):
+  Despite partial fragmentation, the passage contains identifiable named AI applications (deep learning-based semantic search engine, generative AI for product description accuracy), measurable outcomes directly linked to AI (+3pp increase in next-day delivery orders, over 90% accuracy maintained), and evidence of current deployment alongside development activity, satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: MIXED
+Second coder downgraded?: no
+Near-duplicate of?: 0a329012
+
+===== PASSAGE 11 =====
+passage_id: 7d945bac
+year / page: 2023 / 165
+FULL passage_text (print the entire stored text, do not truncate):
+  'In promise of next-day delivery compared to previous commitment to digitalization, Allegro has integrated solutions, while maintaining over 90% accuracy. Generative AI, to enhance the accuracy and detail Combined with the proven impact of a credible GRI Standard/ of product descriptions in offers on'
+model justification (in full):
+  The passage names a specific AI application (Generative AI for enhancing accuracy and detail of product descriptions on the platform), references current deployment, and provides a quantified measurable outcome (additional GMV of up to PLN 100 million), satisfying all three criteria for Substantive classification despite the partially fragmented surrounding text.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: no
+Near-duplicate of?: none
+
+===== PASSAGE 12 =====
+passage_id: 25726f73
+year / page: 2023 / 165
+FULL passage_text (print the entire stored text, do not truncate):
+  'Generative AI, to enhance the accuracy and detail Combined with the proven impact of a credible GRI Standard/ of product descriptions in offers on the platform. promise of fast delivery on conversion and GMV, other source Disclosure Location Good descriptions available in the catalogue will this res'
+model justification (in full):
+  The passage names a specific deployed AI application (Generative AI for enhancing product description accuracy and detail on the platform) and provides a quantified measurable outcome directly linked to it (additional GMV of up to PLN 100 million), satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: yes
+Near-duplicate of?: none
+
+===== PASSAGE 13 =====
+passage_id: 4d10ef37
+year / page: 2025 / 4
+FULL passage_text (print the entire stored text, do not truncate):
+  'Some of the initiatives already underway include Financially, 2025 met our expectations in terms the introduction of an AI assistant to the shopping of revenue, profitability, and investment. Allegro Through our strong growth intentions and a drive As we closed our first quarter-century, we simultan'
+model justification (in full):
+  Despite fragmentation, the passage names a specific AI application ('AI assistant to the shopping process'), references current deployment, and provides measurable outcomes directly linked to Allegro's performance ('Group GMV of PLN 70 billion with Adjusted EBITDA growing'), satisfying all three criteria for Substantive classification.
+q1_named_function: YES
+q2_measurable_outcome: YES
+q3_present_past_tense: CURRENT
+Second coder downgraded?: no
+Near-duplicate of?: none
+

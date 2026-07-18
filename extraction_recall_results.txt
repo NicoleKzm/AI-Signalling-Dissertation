@@ -1,0 +1,50 @@
+Loaded extraction_recall_sample.csv: 60 rows
+
+==========================================================================================
+STEP 2: Label counts
+==========================================================================================
+Total rows: 60
+YES: 7
+NO: 53
+Blank (unlabeled): 0
+
+==========================================================================================
+STEP 3: False-negative rate (YES = false negative of the extraction screen)
+==========================================================================================
+
+Overall (all labeled rows):
+  Overall: 7/60 = 11.67% false-negative rate
+
+Stratum (a): Tier 2 present, Tier 1 absent (n=20 drawn):
+  Stratum (a): 7/20 = 35.00% false-negative rate
+
+Stratum (b): baseline chunks (n=40 drawn) [INFERRED stratum definition -- confirm]:
+  Stratum (b): 0/40 = 0.00% false-negative rate
+
+==========================================================================================
+STEP 4: Stratum-weighted corpus-wide recall extrapolation
+==========================================================================================
+Stratum (a): 7/20 = 35.00%, population=1527 -> est. missed = 534.45
+Stratum (b): 0/40 = 0.00%, population=220996 -> est. missed = 0.00
+Total estimated missed: 534.45
+Recall = 514 / (514 + 534.45) = 0.4902 = 49.02%
+
+Stratum (a) Wilson 95% CI: [18.12%, 56.71%]
+Stratum (b) Wilson 95% CI: [0.00%, 8.76%]
+
+Recall propagated range (stratum CI extremes):
+  Low-recall bound (both strata at CI upper, missed=20230.1): 2.48%
+  Point estimate: 49.02%
+  High-recall bound (both strata at CI lower, missed=276.7): 65.01%
+
+------------------------------------------------------------------------------------------
+Stratum (b) has ZERO observed false negatives (n=40).
+  Rule-of-three approximate 95% upper bound: 3/40 = 7.50%
+  Exact Wilson 95% upper bound: 8.76%
+  Implied est. missed in stratum (b) at that bound: 220996 x 8.76% = 19364.0
+  Implied recall FLOOR (stratum (a) at its point estimate, stratum (b) at its Wilson upper bound): 514/(514+534.4+19364.0) = 2.52%
+  (i.e. even in the most pessimistic case consistent with observing zero
+   false negatives in 40 draws, recall cannot be estimated below this floor
+   from this sample alone.)
+
+Done.

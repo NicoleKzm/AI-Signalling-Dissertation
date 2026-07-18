@@ -1,0 +1,8 @@
+Model,DV,IV,beta,SE,p_value,CI_lo,CI_hi,N,R2_within
+H1 contemporaneous (primary),Stock_Price_Movement_%,mean_signal_score,-22.624,35.09,0.5221,-93.14,47.89,69,-0.0145
+H1 lag-1 (benchmark),Stock_Price_Movement_%,signal_lag1,-10.265,26.098,0.6964,-63.19,42.66,55,-0.0021
+H2 contemporaneous (benchmark),Revenue_Growth_%,mean_signal_score,-0.052,12.831,0.9968,-26.08,25.97,55,0.1163
+H2 lag-1 (primary),Revenue_Growth_%,signal_lag1,-1.298,8.137,0.8741,-17.8,15.2,55,0.1171
+H3 contemporaneous (benchmark),Gross_Margin_%,mean_signal_score,-0.535,1.756,0.7619,-4.06,2.99,69,0.0497
+H3 lag-1 (primary),Gross_Margin_%,signal_lag1,-0.832,1.559,0.5967,-3.99,2.33,55,-0.0047
+H3 lag-2 (exploratory),Gross_Margin_%,signal_lag2,0.145,3.199,0.9642,-6.47,6.76,41,0.0012

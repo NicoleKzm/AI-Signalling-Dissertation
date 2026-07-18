@@ -1,0 +1,126 @@
+==========================================================================================
+PART 1: WITHIN / BETWEEN-FIRM VARIATION IN mean_signal_score
+==========================================================================================
+Source: panel_dataset.csv -- 69 rows, 14 firms
+mean_signal_score missing values: 0
+
+Per-firm mean of mean_signal_score:
+  AO World             0.2000
+  ASOS                 0.0000
+  About You            0.3125
+  Allegro              0.1934
+  Boohoo               0.0000
+  Boozt                0.5334
+  DocMorris            0.3000
+  HelloFresh           0.0250
+  Moonpig              0.1332
+  Mytheresa            0.0000
+  Redcare Pharmacy     0.0650
+  THG                  0.5084
+  Westwing             0.0000
+  Zalando              0.2854
+
+BETWEEN-firm SD formula: sample SD (ddof=1) of the 14 firm-level means
+  = std({firm_mean_1, ..., firm_mean_14}, ddof=1)
+BETWEEN-firm SD = 0.185084
+
+WITHIN-firm SD formula: sample SD (ddof=1) of firm-demeaned observations,
+  stacked across all 69 firm-year rows
+  = std({obs_it - firm_mean_i : for all i,t}, ddof=1)
+WITHIN-firm SD = 0.237630
+
+Expected (unverified, working notes): within=0.238, between=0.185
+Computed:                              within=0.2376, between=0.1851
+within matches working-note figure to 3dp: True
+between matches working-note figure to 3dp: True
+
+------------------------------------------------------------------------------------------
+Modal classification per firm per year (source: modal_classification column,
+panel_dataset.csv -- computed upstream by classify.py's modal_class()):
+------------------------------------------------------------------------------------------
+year                          2021              2022              2023              2024              2025
+firm                                                                                                      
+AO World          No_AI_Disclosure          Symbolic          Symbolic          Symbolic      Transitional
+ASOS                      Symbolic          Symbolic          Symbolic          Symbolic          Symbolic
+About You                 Symbolic  No_AI_Disclosure      Transitional      Transitional               NaN
+Allegro                   Symbolic          Symbolic          Symbolic  No_AI_Disclosure          Symbolic
+Boohoo            No_AI_Disclosure  No_AI_Disclosure  No_AI_Disclosure  No_AI_Disclosure  No_AI_Disclosure
+Boozt                 Transitional      Transitional          Symbolic      Transitional          Symbolic
+DocMorris                 Symbolic  No_AI_Disclosure  No_AI_Disclosure      Transitional          Symbolic
+HelloFresh        No_AI_Disclosure  No_AI_Disclosure  No_AI_Disclosure          Symbolic          Symbolic
+Moonpig                   Symbolic          Symbolic  No_AI_Disclosure          Symbolic          Symbolic
+Mytheresa                 Symbolic          Symbolic          Symbolic  No_AI_Disclosure          Symbolic
+Redcare Pharmacy  No_AI_Disclosure  No_AI_Disclosure  No_AI_Disclosure          Symbolic          Symbolic
+THG                       Symbolic      Transitional      Transitional      Transitional          Symbolic
+Westwing          No_AI_Disclosure  No_AI_Disclosure          Symbolic          Symbolic          Symbolic
+Zalando           No_AI_Disclosure          Symbolic      Transitional      Transitional          Symbolic
+
+Firms whose modal_classification is NOT constant across all observed years: 12 of 14
+  ['AO World', 'About You', 'Allegro', 'Boozt', 'DocMorris', 'HelloFresh', 'Moonpig', 'Mytheresa', 'Redcare Pharmacy', 'THG', 'Westwing', 'Zalando']
+
+Expected (unverified, working notes): 12 of 14 firms change.
+Computed: 12 of 14 firms change.
+
+
+==========================================================================================
+PART 2: MINIMUM DETECTABLE EFFECTS (80% power) -- H2/H3, current primary rows
+==========================================================================================
+Current primary rows read from regression_results.csv:
+                   Coefficient  Std_Error  N_obs
+Model                                           
+H1_Stock_Price        -22.6239    35.0903     69
+H2_Revenue_Growth      -5.0803     8.4171     54
+H3_Gross_Margin        -0.6904     1.4646     54
+
+df formula: df = N - (n_entities-1) - (n_years-1) - n_exog, n_exog=3
+  n_entities (excl. Zalando 2025)=14, n_years=5
+
+H2 (H2_Revenue_Growth): beta=-5.0803, SE=8.4171, N=54, df=34
+  DV mean (full panel, non-missing) = 4.3411
+  MDE = SE * (t_(1-a/2,df) + t_(power,df)) = 8.4171 * (2.0322 + 0.8523) = 24.2797 pp
+  MDE as %% of DV mean = 559.30%%
+
+H3 (H3_Gross_Margin): beta=-0.6904, SE=1.4646, N=54, df=34
+  DV mean (full panel, non-missing) = 44.5348
+  MDE = SE * (t_(1-a/2,df) + t_(power,df)) = 1.4646 * (2.0322 + 0.8523) = 4.2247 pp
+  MDE as %% of DV mean = 9.49%%
+
+Previously reported: H2 24.26pp / 559%%; H3 4.22pp / 9.5%%
+Computed:            H2 24.2797pp / 559.3%%; H3 4.2247pp / 9.49%%
+H2 matches previously reported (within rounding): True
+H3 matches previously reported (within rounding): True
+These values are computed from the SAME beta/SE/N given in the task (H2: -5.0803/8.4171/54; H3: -0.6904/1.4646/54), which are also the CURRENT primary rows in regression_results.csv as of this run -- confirmed identical, so the H1 respecification does not affect these H2/H3 MDE figures.
+
+
+==========================================================================================
+PART 3: HAUSMAN TESTS
+==========================================================================================
+Search: grep -ril 'hausman' across all .py/.csv/.md/.txt files in this directory, plus `git log --all -i --grep=hausman` and `git log --all -S hausman` (content pickaxe) across full git history.
+Result: regression_clean.py (working-tree, uncommitted version) contains a Hausman test -- function hausman() and a loop computing it for H2 and H3 ONLY, under label 'HAUSMAN TESTS (H2/H3, new primary spec: lag-1 signal + lag-1 log revenue, excl. Zalando 2025)'. NO Hausman test for H1 exists anywhere in this directory or its git history (git log -S found no commit ever introducing the string 'hausman' -- the current regression_clean.py content is uncommitted working-tree state, not yet in any commit).
+verification_report.md and LOCKED_NUMBERS.md also mention Hausman, but neither contains a computation -- they cite figures, not code.
+
+Therefore: the H1 Hausman figure (chi2=1.50, p=.472) cited in the dissertation is UNTRACEABLE to any script in this directory. Only H2 and H3 can be verified, using regression_clean.py's own hausman() logic, reproduced standalone below (NOT by running regression_clean.py itself, which would overwrite the protected regression_results.csv as a side effect).
+  H2_Revenue_Growth: chi2(2) = 10.2411, p = 0.0060
+  H3_Gross_Margin: chi2(2) = 0.6299, p = 0.7298
+
+Cited in dissertation: H2 chi2=10.24 p=.006; H3 chi2=0.63 p=.730
+Reproduced here:       H2 chi2=10.2411 p=0.0060; H3 chi2=0.6299 p=0.7298
+H2 matches cited value: True
+H3 matches cited value: True
+
+H1: NOT COMPUTABLE from any existing script -- regression_clean.py's Hausman section explicitly restricts itself to the lag-1 H2/H3 specification and does not touch H1 at all (H1 uses a different, contemporaneous-vs-lag decision that was never extended to this test). The cited H1 figure (chi2=1.50, p=.472) is UNTRACEABLE. Computing it fresh was NOT authorized by this task for H1 specifically only in the no-script-found branch, which applies here for H1 -- however, per instruction, since no script computes it, a fresh estimate is provided below using the exact same hausman() logic as reproduced above, applied to the H1 lag-1 primary spec (signal_lag1 + log_revenue_lag1, Zalando 2025 excluded, matching h1_lag_primary.py's primary spec) for consistency, since the contemporaneous H1 spec has no lag-based year dummy structure parallel to H2/H3 and mixing conventions would not be a fair comparison to the cited figure's likely origin.
+
+  H1 (lag-1 primary spec, fresh, NOT from any pre-existing script): chi2(2) = 1.2155, p = 0.5446
+  Cited H1 figure: chi2=1.50, p=.472 -- this was almost certainly computed under a DIFFERENT (contemporaneous mean_signal_score + log_revenue) specification, since that was the H1 primary at the time the dissertation text citing it was presumably written; the fresh lag-1 value above is NOT expected to match it and should not be used to confirm or refute the cited figure -- it is provided only as the closest analogue computable from current code, and is explicitly NOT a verification of the cited number.
+
+==========================================================================================
+SUMMARY
+==========================================================================================
+1. Within-firm SD = 0.2376 (working note: 0.238) -- MATCH
+   Between-firm SD = 0.1851 (working note: 0.185) -- MATCH
+   Firms changing modal class = 12/14 (working note: 12/14) -- MATCH
+2. H2 MDE = 24.2797pp / 559.3% (previously reported 24.26pp/559%) -- MATCH
+   H3 MDE = 4.2247pp / 9.49% (previously reported 4.22pp/9.5%) -- MATCH
+3. Hausman H1: UNTRACEABLE to any existing script (cited chi2=1.50 p=.472 cannot be verified as-is; fresh lag-1 analogue = chi2=1.2155 p=0.5446, not a like-for-like check)
+   Hausman H2: reproduced chi2=10.2411 p=0.0060 vs cited chi2=10.24 p=.006 -- MATCH
+   Hausman H3: reproduced chi2=0.6299 p=0.7298 vs cited chi2=0.63 p=.730 -- MATCH

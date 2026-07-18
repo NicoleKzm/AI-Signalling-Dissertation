@@ -1,0 +1,337 @@
+==========================================================================================
+NOTE ON REQUESTED FIELDS
+==========================================================================================
+The requested sub-score column 'q3_present_past_tense' does not exist in
+all_classifications.csv. The actual columns are: q1_named_function, q1_score,
+q2_measurable_outcome, q2_score, q3_tense, q3_score. Printing q3_tense (values:
+CURRENT / MIXED / ASPIRATIONAL) and q3_score in its place -- this is the closest
+existing field, not a renamed/reinterpreted one.
+
+There is also no dedicated 'fragmentation heuristic' column. The classification
+prompt's own Step 1 instructs the model to write justification text starting with
+'FRAGMENTED TEXT' for incoherent passages, and to note 'despite fragmentation'
+when a passage is partially broken but still classifiable. Flagging below is a
+text search on the justification field for 'fragment' (case-insensitive) -- a
+proxy based on the model's own language, not a separate ground-truth flag.
+
+==========================================================================================
+ALL 16 SUBSTANTIVE PASSAGES
+==========================================================================================
+
+##########################################################################################
+BLOCK 1/16
+##########################################################################################
+passage_id: e8da2802
+firm: Allegro
+year: 2023
+page: 164
+passage_text:
+  'It is also interested in topics such as reranking and features interaction architectures and personalization. Big numbers At MLR Computer Vision, the primary objective is to elevate the user experience by leveraging machine learning image processing algorithms. The team specifically concentrated on '
+justification:
+  The passage names specific AI applications (Visual Search, image classification, Computer Vision models using machine learning image processing), references a measurable metric directly linked to the AI context (2,243 workers in Technology team), and describes current deployment activity.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 2/16
+##########################################################################################
+passage_id: 47801f58
+firm: Allegro
+year: 2023
+page: 164
+passage_text:
+  'Big numbers At MLR Computer Vision, the primary objective is to elevate the user experience by leveraging machine learning image processing algorithms. The team specifically concentrated on image representation learning for Visual Search and the development of robust image classification • 2,243 wor'
+justification:
+  The passage names specific AI applications (Visual Search and Computer Vision models using machine learning image processing and image representation learning), provides a measurable metric (2,243 workers in Technology team), and describes current deployment, satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 3/16
+##########################################################################################
+passage_id: 24207844
+firm: Allegro
+year: 2023
+page: 164
+passage_text:
+  'The team specifically concentrated on image representation learning for Visual Search and the development of robust image classification • 2,243 workers in Technology team in an environment where digital tools streamline Computer Vision models. Presently, its research is focused on the integration o'
+justification:
+  The passage names specific AI applications (Visual Search, image representation learning, image classification, Computer Vision models), provides a measurable metric (2,243 workers in Technology team), and describes current deployment, satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 4/16
+##########################################################################################
+passage_id: c422824c
+firm: Allegro
+year: 2023
+page: 164
+passage_text:
+  "The team orchestrates the entire ma- ML Ops Allegro is a spot that brings the best experts togeth- company's approach is multifaceted, encompassing chine learning lifecycle, from data pre-processing and annotation to model deployment, using the cutting-edge infrastructure of Google Cloud and Kuberne"
+justification:
+  The passage names a specific ML Ops function managing the full machine learning lifecycle (data pre-processing, annotation, model deployment) on Google Cloud and Kubernetes, is described as currently operational, and provides measurable scale metrics — several terabytes of data processed daily and thousands of predictions per second — satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 5/16
+##########################################################################################
+passage_id: be7dd216
+firm: Allegro
+year: 2023
+page: 164
+passage_text:
+  'It employs state-of-the-art machine learning methods, involving human including the PFR School of Pioneers and partner- performing text searches, the company uses deep evaluators and automatic quality estimation models to enhance translation quality continually. Its goal is to make the A llegro plat'
+justification:
+  Despite fragmentation, the passage identifies specific named AI applications (machine translation using deep learning and NLP, text search ranking mechanisms) currently deployed on the Allegro platform, with a measurable outcome directly linked to the search engine AI — GMV growth of over 4%.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): True
+
+##########################################################################################
+BLOCK 6/16
+##########################################################################################
+passage_id: b52303e7
+firm: Allegro
+year: 2023
+page: 164
+passage_text:
+  'Its goal is to make the A llegro platform accessible to non-Polish speakers globally and ships with technological education institutions like learning to process text queries and use results contribute to the machine translation community. the Central House of Technology reflect Allegro’s ranking me'
+justification:
+  Despite fragmented formatting, the passage identifies specific named AI applications (machine translation, NLP algorithms, deep learning models for semantic understanding within the search engine) that are currently deployed, and provides a measurable outcome directly linked to the AI application (GMV growth of over 4% generated through the search engine's language/ranking mechanisms).
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): True
+
+##########################################################################################
+BLOCK 7/16
+##########################################################################################
+passage_id: 58f9feb4
+firm: Allegro
+year: 2023
+page: 164
+passage_text:
+  'the Central House of Technology reflect Allegro’s ranking mechanisms, thereby growing GMV (gross Its aim is to employ state-of-the-art deep learning models and a range of NLP algorithms to dedication to empowering the next generation with merchandise value) by over 4% generated through Language solv'
+justification:
+  Despite fragmentation, the passage names specific AI applications (deep learning ranking mechanisms, NLP algorithms, LLMs, Foundation Models for semantic understanding in search) that are currently deployed, and provides a measurable outcome directly linked to the AI application (GMV growth of over 4% generated through the search engine).
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): True
+
+##########################################################################################
+BLOCK 8/16
+##########################################################################################
+passage_id: fddb5c2c
+firm: Allegro
+year: 2023
+page: 165
+passage_text:
+  'GROUP CONSOLIDATED MANAGEMENT REPORT for the year ended 31 December 2023 Allegro also has an image search mechanism in New technology solutions are also helpful for mer- GRI content index its mobile app – the system presents products on chants, as the use of a machine learning model in- Allegro Grou'
+justification:
+  The passage names specific deployed AI applications (image search mechanism using ML algorithms, machine learning model for delivery prediction, semantic search engine in development) and provides a quantified outcome directly linked to the ML prediction model (+3pp increase in orders with correctly predicted fast delivery), satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: MIXED  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 9/16
+##########################################################################################
+passage_id: 0a329012
+firm: Allegro
+year: 2023
+page: 165
+passage_text:
+  'The fast delivery. The prediction mechanism allowed for GRI 1 used GRI 1: Foundation 2021 use of deep learning and generative AI techniques to an increase of +3pp in the number of orders with the build a semantic search engine is being developed. In promise of next-day delivery compared to previous '
+justification:
+  Despite partial fragmentation, the passage contains a named AI application (semantic search engine using deep learning and generative AI, plus a prediction mechanism for delivery), and measurable outcomes directly linked to AI deployment (+3pp increase in next-day delivery orders, over 90% accuracy), with evidence of current deployment, satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: MIXED  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): True
+
+##########################################################################################
+BLOCK 10/16
+##########################################################################################
+passage_id: fdb588a3
+firm: Allegro
+year: 2023
+page: 165
+passage_text:
+  'The prediction mechanism allowed for GRI 1 used GRI 1: Foundation 2021 use of deep learning and generative AI techniques to an increase of +3pp in the number of orders with the build a semantic search engine is being developed. In promise of next-day delivery compared to previous commitment to digit'
+justification:
+  Despite partial fragmentation, the passage contains identifiable named AI applications (deep learning-based semantic search engine, generative AI for product description accuracy), measurable outcomes directly linked to AI (+3pp increase in next-day delivery orders, over 90% accuracy maintained), and evidence of current deployment alongside development activity, satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: MIXED  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): True
+
+##########################################################################################
+BLOCK 11/16
+##########################################################################################
+passage_id: 7d945bac
+firm: Allegro
+year: 2023
+page: 165
+passage_text:
+  'In promise of next-day delivery compared to previous commitment to digitalization, Allegro has integrated solutions, while maintaining over 90% accuracy. Generative AI, to enhance the accuracy and detail Combined with the proven impact of a credible GRI Standard/ of product descriptions in offers on'
+justification:
+  The passage names a specific AI application (Generative AI for enhancing accuracy and detail of product descriptions on the platform), references current deployment, and provides a quantified measurable outcome (additional GMV of up to PLN 100 million), satisfying all three criteria for Substantive classification despite the partially fragmented surrounding text.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): True
+
+##########################################################################################
+BLOCK 12/16
+##########################################################################################
+passage_id: 25726f73
+firm: Allegro
+year: 2023
+page: 165
+passage_text:
+  'Generative AI, to enhance the accuracy and detail Combined with the proven impact of a credible GRI Standard/ of product descriptions in offers on the platform. promise of fast delivery on conversion and GMV, other source Disclosure Location Good descriptions available in the catalogue will this res'
+justification:
+  The passage names a specific deployed AI application (Generative AI for enhancing product description accuracy and detail on the platform) and provides a quantified measurable outcome directly linked to it (additional GMV of up to PLN 100 million), satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 13/16
+##########################################################################################
+passage_id: 4d10ef37
+firm: Allegro
+year: 2025
+page: 4
+passage_text:
+  'Some of the initiatives already underway include Financially, 2025 met our expectations in terms the introduction of an AI assistant to the shopping of revenue, profitability, and investment. Allegro Through our strong growth intentions and a drive As we closed our first quarter-century, we simultan'
+justification:
+  Despite fragmentation, the passage names a specific AI application ('AI assistant to the shopping process'), references current deployment, and provides measurable outcomes directly linked to Allegro's performance ('Group GMV of PLN 70 billion with Adjusted EBITDA growing'), satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): True
+
+##########################################################################################
+BLOCK 14/16
+##########################################################################################
+passage_id: 7868e874
+firm: DocMorris
+year: 2025
+page: 3
+passage_text:
+  'DocMorris | Annual Report 2025 | At a Glance DocMorris at a glance 2025 facts and figures + 11.1 % revenue DocMorris AI Assistant Growth across all business units already used by one out of three app users – just three months after launch 12.2 million + 33.2 % Rx revenue active customers, therof wit'
+justification:
+  The passage names a specific deployed AI application ('DocMorris AI Assistant'), provides a quantified measurable outcome directly linked to it ('already used by one out of three app users'), and confirms current deployment ('just three months after launch'), satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 15/16
+##########################################################################################
+passage_id: 59a95c49
+firm: THG
+year: 2023
+page: 17
+passage_text:
+  'DTC Order Multi- Buyer & F C u o n m ct m ion e a rc li e ty Ma S n y a s g t e e m m ent M A an u a d g ie e n m ce en t Cu M rre u n lt c i- i es fu O lfi p l t m io e n n s t Cr S o h ss ip B p o in r g der T O el r e d p e h ri o n n g e S A K n U al - y le ti v c e s l Average UK standard click'
+justification:
+  A specific named AI application is identified (machine learning and AI integrated into Voyager WMS deployed in April 2023 in New Jersey), a measurable outcome is provided (>450,000, interpretable as average UK standard click-to-delivery timeframe), and deployment is confirmed as current/past tense, satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+##########################################################################################
+BLOCK 16/16
+##########################################################################################
+passage_id: 28e6f1e3
+firm: Zalando
+year: 2025
+page: 185
+passage_text:
+  'As a crucial first step towards achieving efficient and accurate compliance across multiple European markets, our solution leverages machine learning to automate the classification of our vast product assortment — approximately 18 million articles. This automated approach is essential for overcoming'
+justification:
+  The passage names a specific AI application (machine learning-based automated product classification for EPR compliance), references a quantified metric directly linked to it (approximately 18 million articles), and describes it in current deployment tense, satisfying all three criteria for Substantive classification.
+q1_named_function: YES  (q1_score=1)
+q2_measurable_outcome: YES  (q2_score=1)
+q3_tense: CURRENT  (q3_score=1)  [closest existing field to requested 'q3_present_past_tense']
+fragmentation heuristic (justification mentions 'fragment'): False
+
+==========================================================================================
+FIRM / YEAR DISTRIBUTION OF THE 16
+==========================================================================================
+
+By firm:
+firm
+Allegro      13
+DocMorris     1
+THG           1
+Zalando       1
+
+By firm + year:
+firm       year
+Allegro    2023    12
+           2025     1
+DocMorris  2025     1
+THG        2023     1
+Zalando    2025     1
+
+==========================================================================================
+FRAGMENTATION HEURISTIC FLAG COUNT
+==========================================================================================
+7/16 have 'fragment' in the justification text:
+passage_id    firm  year
+  be7dd216 Allegro  2023
+  b52303e7 Allegro  2023
+  58f9feb4 Allegro  2023
+  0a329012 Allegro  2023
+  fdb588a3 Allegro  2023
+  7d945bac Allegro  2023
+  4d10ef37 Allegro  2025
+
+==========================================================================================
+OVERLAP CHECK 1: extraction false positives (extraction_precision_sample.csv, pass 2)
+==========================================================================================
+Extraction false positives (pass 2, current on-disk): ['0d0c96b3', '3205ae2a', '534b641d', '87a07b8b', '9de5b206', 'dbffb98f']
+Overlap with the 16 Substantive passage_ids: NONE
+
+==========================================================================================
+OVERLAP CHECK 2: second-coder disagreements, Allegro 2023
+==========================================================================================
+All second-coder disagreements (any firm/year):
+passage_id    firm  year original_classification second_coder_label  excluded_flag                                                exclusion_reason
+  25726f73 Allegro  2023             Substantive       Transitional          False                                                             NaN
+  b52303e7 Allegro  2023             Substantive       Transitional          False                                                             NaN
+  47801f58 Allegro  2023             Substantive       Transitional          False                                                             NaN
+  e8da2802 Allegro  2023             Substantive       Transitional          False                                                             NaN
+  59a95c49     THG  2023             Substantive                NaN           True Unclassifiable: fragmented PDF extraction (column interleaving)
+
+Allegro 2023 disagreements specifically:
+passage_id    firm  year original_classification second_coder_label
+  25726f73 Allegro  2023             Substantive       Transitional
+  b52303e7 Allegro  2023             Substantive       Transitional
+  47801f58 Allegro  2023             Substantive       Transitional
+  e8da2802 Allegro  2023             Substantive       Transitional
+
+Overlap with the 16 Substantive passage_ids: ['25726f73', '47801f58', 'b52303e7', 'e8da2802']
+
+Note: one of the 16 also overlaps a second-coder disagreement OUTSIDE Allegro 2023: ['59a95c49'] (THG 2023, excluded_flag=True, reason: 'Unclassifiable: fragmented PDF extraction (column interleaving)')
+
+Done.

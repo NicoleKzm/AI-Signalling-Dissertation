@@ -1,0 +1,7 @@
+Measure,Coefficient,Std_Error,N,df_resid,bound,p_lower,p_upper,equivalent
+mean_signal_score,-0.6904,1.4646,54,35,3.462,0.0334,0.0038,True
+max_signal_score,-1.6589,0.9834,54,35,3.462,0.0376,0.0,True
+modal_signal_score,0.1244,0.828,54,35,3.462,0.0001,0.0001,True
+passage_count,0.0098,0.0154,54,35,3.462,0.0,0.0,True
+log_passage_count,-0.8401,0.7747,54,35,3.462,0.0009,0.0,True
+mean_signal_score_ExclZero,-2.0727,2.0778,39,21,3.462,0.2555,0.0073,False

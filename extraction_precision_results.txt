@@ -1,0 +1,182 @@
+EXTRACTION PRECISION -- FULL RESULTS (PASS 2, with PASS 1 vs PASS 2 comparison)
+Generated from extraction_precision.py output + a direct pass1/pass2 diff.
+Source files: extraction_precision_sample.csv (pass 2), extraction_precision_sample_pass1.csv (pass 1), extraction_precision_key.csv
+
+############################################################################################
+PART 1: extraction_precision.py run on PASS 2
+############################################################################################
+Loaded extraction_precision_sample.csv: 40 rows
+Loaded extraction_precision_key.csv: 40 rows
+
+==========================================================================================
+STEP 2: Label counts
+==========================================================================================
+n coded: 40
+YES: 34
+NO: 6
+
+==========================================================================================
+STEP 3: Precision of the extraction screen
+==========================================================================================
+PRECISION = YES / total sampled = 34/40 = 85.00%
+Wilson 95% CI: [70.93%, 92.94%]
+
+==========================================================================================
+STEP 4: False positives of the extraction screen (human_label = NO)
+==========================================================================================
+
+passage_id: 0d0c96b3
+  firm: ASOS, year: 2025, page: 74
+  assigned_classification: Symbolic
+  passage_text (300 chars):
+    'Recently, she multiple leadership roles spanning USA and successfully transformed chaired Remuneration Committees for global grocery, supply chain, devices the company’s marketing functions. Hilton Food Group plc and Coca-Cola and e-commerce, where she helped Current external appointments Europacifi'
+
+passage_id: 87a07b8b
+  firm: ASOS, year: 2025, page: 176
+  assigned_classification: Symbolic
+  passage_text (300 chars):
+    'Netherlands 100% Indirect Payment processing company ASOS Payments Holding Limited UK 100% Indirect Holding company Cornwall (Jersey) Limited Jersey 100% Indirect Vehicle for issue of convertible bond ASOS Holdings Limited UK 90% Indirect Brand management company 24.8.2024 Limited UK 25% Indirect Br'
+
+passage_id: dbffb98f
+  firm: DocMorris, year: 2021, page: 17
+  assigned_classification: Symbolic
+  passage_text (300 chars):
+    'What is the latory frameworks in place? Are the underlying main focus for 2022? value chains sufficiently mature? These are just a few of many essential questions. One of the con- It’s important for me to be able to think out- crete upcoming opportunities to integrate digital side the box. I don’t t'
+
+passage_id: 534b641d
+  firm: DocMorris, year: 2021, page: 17
+  assigned_classification: Symbolic
+  passage_text (300 chars):
+    'One of the con- It’s important for me to be able to think out- crete upcoming opportunities to integrate digital side the box. I don’t think it’s appropriate to just health into the everyday lives of people in Europe chase after future-oriented developments such as is, for example, via the introduct'
+
+passage_id: 3205ae2a
+  firm: HelloFresh, year: 2025, page: 48
+  assigned_classification: Symbolic
+  passage_text (300 chars):
+    'In the United Kingdom, GDP growth is projected at approximately 1.4%–1.6% in 2026, reflecting easing inflation and improving real income dynamics, partly offset by weak productivity growth2,3. In Australia, economic growth is expected to remain moderate at approximately 2.0%–2.3% in 2026, supported '
+
+passage_id: 9de5b206
+  firm: Redcare Pharmacy, year: 2024, page: 130
+  assigned_classification: Symbolic
+  passage_text (300 chars):
+    'Abbreviations. ABDA Federal Union of German Associations of Pharmacists NACE Statistical Classification of Economic Activities in the European APAC Asian Pacific Community B2B Business-to-business NPS Net promoter score B2C Business-to-consumer OECD The Organisation for Economic Co-operation and Dev'
+
+==========================================================================================
+STEP 5: False positives x assigned_classification
+==========================================================================================
+
+Full sample, assigned_classification distribution:
+assigned_classification
+Symbolic        31
+Transitional     8
+Substantive      1
+
+False positives (NO) by assigned_classification:
+assigned_classification
+Symbolic    6
+
+False-positive rate WITHIN each assigned_classification (n_FP / n_sampled_in_that_class):
+  Symbolic: 6/31 = 19.35%
+  Transitional: 0/8 = 0.00%
+  Substantive: 0/1 = 0.00%
+
+Concentration check: are false positives disproportionately Symbolic relative to the full sample's Symbolic share?
+  Symbolic share of full sample: 77.50%
+  Symbolic share of false positives: 100.00%
+
+Done.
+
+############################################################################################
+PART 2: PASS 1 vs PASS 2 comparison
+############################################################################################
+==========================================================================================
+PASS 1 vs PASS 2 -- label counts
+==========================================================================================
+Pass 1: n=40, YES=21, NO=19
+Pass 2: n=40, YES=34, NO=6
+
+==========================================================================================
+CHANGED LABELS: 13/40
+==========================================================================================
+NO -> YES (pass 2 more permissive): 13
+YES -> NO (pass 2 more strict):      0
+
+Every changed passage, in full:
+
+passage_id: 45ef5394
+  firm: AO World, year: 2023, page: 46
+  pass1: NO  ->  pass2: YES
+  passage_text: 'potential threats that Artificial Intelligence (AI) may pose Our three-year plan models the impact of reduced market share in the are still yet to be fully understood. AO will look to harness UK; a number of different scenarios have been modelled to ensure we this developing technology, however ther'
+
+passage_id: 5063f5b1
+  firm: THG, year: 2021, page: 9
+  pass1: NO  ->  pass2: YES
+  passage_text: 'FY19. and Ingenuity clients. G C lo LO ba U l D D a S t E a R C V e I n C t E re S s D T e H l M iv G a e n D r a y E g L & e I V m C E e o R n u E t r D ier M W a S a n r y a e s g h t e e o m m u e s e n t C P h a e y c m ko e u n t t / A W u a F t r o I e R m h / o a S t u T i s o e n Su T s H ta'
+
+passage_id: 59a95c49
+  firm: THG, year: 2023, page: 17
+  pass1: NO  ->  pass2: YES
+  passage_text: 'DTC Order Multi- Buyer & F C u o n m ct m ion e a rc li e ty Ma S n y a s g t e e m m ent M A an u a d g ie e n m ce en t Cu M rre u n lt c i- i es fu O lfi p l t m io e n n s t Cr S o h ss ip B p o in r g der T O el r e d p e h ri o n n g e S A K n U al - y le ti v c e s l Average UK standard click'
+
+passage_id: ac9dd7b9
+  firm: ASOS, year: 2021, page: 67
+  pass1: NO  ->  pass2: YES
+  passage_text: 'balance in the table below. 2 ASOS Projects Limited has a 3.4% interest in Action Artificial Intelligence Limited. Capital Investment contribution Total ASOS Intermediate Holdings Limited, Mornington & Co (No.'
+
+passage_id: b06752c8
+  firm: Westwing, year: 2025, page: 155
+  pass1: NO  ->  pass2: YES
+  passage_text: 'Data protection Westwing takes action on data protection and privacy to prevent risks related to unauthorised access, disclosure or theft of customer data. A group-wide framework for data retention and deletion has been established to set standards for storing, archiving and deleting customer and pe'
+
+passage_id: bfbc48b2
+  firm: DocMorris, year: 2025, page: 8
+  pass1: NO  ->  pass2: YES
+  passage_text: 'The Executive Committee will be reduced from six to five members. His duties will be assumed by Dr Angeli Möller as Chief Digital Health Officer and member of the extended Executive Committee. The PhD molecular biologist and AI expert brings extensive leadership experience from Roche and Bayer and i'
+
+passage_id: c3373203
+  firm: Allegro, year: 2025, page: 73
+  pass1: NO  ->  pass2: YES
+  passage_text: 'consequences at the moment and undermines the Group’s “ownership” of such content and the possibilities to legally control such content. If these risks materialize, they could significantly hinder the successful execution of the Group’s strategy, negatively affecting its financial performance and ma'
+
+passage_id: ce950933
+  firm: Redcare Pharmacy, year: 2024, page: 30
+  pass1: NO  ->  pass2: YES
+  passage_text: 'In 1. Validate the stakeholder analysis and to identify potential stakeholder prioritisations order to mitigate this risk, we also identified planet earth as a silent stakeholder and and assessments that require a closer look. These can be Redcare-specific leveraged a LLM to integrate the environmen'
+
+passage_id: d69779b9
+  firm: Moonpig, year: 2024, page: 64
+  pass1: NO  ->  pass2: YES
+  passage_text: 'Moonpig Group plc | Annual Report and Accounts 2024 Emerging risks Emerging risks are new or changing risks, for which likelihood and impact are uncertain or unknown, which we believe are not immediate but which may represent a significant future threat. Horizon scanning for emerging risks is perfor'
+
+passage_id: d786b6f3
+  firm: Westwing, year: 2023, page: 76
+  pass1: NO  ->  pass2: YES
+  passage_text: 'A dedicated session was also organised for blue-collar workers at Westwing’s delivery service. A number of compliance awareness measures were implemented in the course of 2023, including mea- sures aimed at senior leadership and all-hands sessions, and office screen/workplace posts. In addition, int'
+
+passage_id: e46b6ded
+  firm: AO World, year: 2022, page: 19
+  pass1: NO  ->  pass2: YES
+  passage_text: 'Technology and automation Responsible retailing continue to be crucial to the online is gaining traction shopper experience A growing population of younger shoppers are wielding influence on consumer spending and pushing Emerging retail technology trends are shifting the the agenda on responsible re'
+
+passage_id: f1bdca0c
+  firm: THG, year: 2024, page: 14
+  pass1: NO  ->  pass2: YES
+  passage_text: '– Media mix modelling (“MMM”): its approach – Marketplaces: connecting brands to provides data showing the true impact of third‑party marketplaces including client investment, detailing which channels Amazon with products fulfilled deliver the best returns and how to optimise through THG Fulfil. spe'
+
+passage_id: f7f26e51
+  firm: Mytheresa, year: 2023, page: 56
+  pass1: NO  ->  pass2: YES
+  passage_text: 'As we scale, our global data repository grows turning the buying process into a data enhanced science. While we have been able to build our capabilities in house, we will evaluate partnerships, alliances and acquisition opportunities that enable new go-to-market strategies to further our reach and c'
+
+==========================================================================================
+PRECISION UNDER BOTH CODINGS
+==========================================================================================
+Pass 1 precision: 21/40 = 52.50%
+Pass 2 precision: 34/40 = 85.00%
+Absolute change: +32.50 percentage points
+
+==========================================================================================
+COHEN'S KAPPA, PASS 1 vs PASS 2
+==========================================================================================
+kappa = 0.3264
+Observed agreement: 67.50% (27/40)

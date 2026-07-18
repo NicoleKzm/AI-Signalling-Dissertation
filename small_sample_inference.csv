@@ -1,0 +1,16 @@
+Hypothesis,Metric,Coefficient,SE,df,T_stat,P_value,CI_lower,CI_upper,N,G,Bootstrap_p,N_reps,p_lower,p_upper,Equivalent
+H1,CR2_BellMcCaffrey,-11.7093,27.2796,4.76,-0.4292,0.6865,-82.9267,59.5081,54.0,14.0,,,,,
+H1,CR1_conventional,-11.7093,29.0452,13.0,-0.4031,0.6893,,,54.0,14.0,,,,,
+H1,CR0_no_correction,-11.7093,23.3836,,,,,,54.0,14.0,,,,,
+H1,WildClusterBootstrap,-11.7093,,,,,-58.9362,80.3387,54.0,14.0,0.6814,9999.0,,,
+H2,CR2_BellMcCaffrey,-5.0803,8.127,4.76,-0.6251,0.5606,-26.297,16.1363,54.0,14.0,,,,,
+H2,CR1_conventional,-5.0803,8.4171,13.0,-0.6036,0.55,,,54.0,14.0,,,,,
+H2,CR0_no_correction,-5.0803,6.7764,,,,,,54.0,14.0,,,,,
+H2,WildClusterBootstrap,-5.0803,,,,,-23.1946,10.8959,54.0,14.0,0.4769,9999.0,,,
+H3,CR2_BellMcCaffrey,-0.6904,1.3195,4.76,-0.5232,0.6243,-4.1352,2.7544,54.0,14.0,,,,,
+H3,CR1_conventional,-0.6904,1.4646,13.0,-0.4714,0.6403,,,54.0,14.0,,,,,
+H3,CR0_no_correction,-0.6904,1.1791,,,,,,54.0,14.0,,,,,
+H3,WildClusterBootstrap,-0.6904,,,,,-5.2068,1.9174,54.0,14.0,0.6249,9999.0,,,
+H3,TOST_CR2_BellMcCaffrey,-0.6904,,4.76,,,,,,,,,0.0463,0.0136,True
+H3,TOST_WildClusterBootstrap,-0.6904,,,,,,,,,,9999.0,0.0646,0.0022,False
+H3,TOST_Conventional_reference,,,35.0,,,,,,,,,0.0334,0.0038,True
