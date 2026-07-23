@@ -1,44 +1,10 @@
 """
-extraction_precision_sample.py
-
 Builds a blind-coding sample to estimate PRECISION of the extraction screen
 (classify.py's is_ai_relevant()): of the 512 passages that were extracted
 and sent to the classifier, how many are genuinely AI-relevant? This is the
 counterpart to extraction_recall.py, which estimated the false-negative
 rate (recall) on NON-extracted chunks. This script only builds the sample
-for hand-coding -- it does not compute precision itself (that is
-extraction_precision.py, written separately).
-
-Sampling: n=40, stratified ACROSS FIRMS so no single firm dominates (Allegro
-alone is 176/512 = 34.4% of all extracted passages -- a plain random sample
-of 40 would be expected to draw ~14 Allegro rows). Allocation method:
-40 // 13 firms = 3 per firm baseline (39), remainder of 1 assigned to the
-first firm in Python's default (ASCII) sort order -- which is "AO World",
-not "About You": uppercase 'O' sorts before lowercase 'b'. Confirmed
-against the actual run: AO World received 4, every other firm 3.
-Alphabetical order is used (not size- or count-based) so the allocation
-itself doesn't systematically favour or penalise any firm. Within each
-firm, the specific rows drawn use pandas .sample(random_state=42) for
-reproducibility.
-
-Output columns are deliberately restricted to keep the human coder blind to
-what the extraction screen and classifier concluded: passage_id, firm,
-year, page, passage_text (full stored text, as-is -- already <=300 chars
-in all_classifications.csv), and a blank human_label_ai_relevant column
-for hand-coding. tier / contains_tier1 / contains_tier2 (the columns
-identifying which keyword tier triggered extraction), the model's
-assigned_classification, and justification (the model's own reasoning)
-are ALL excluded from this file on purpose -- coding must be blind.
-
-assigned_classification is written separately to
-extraction_precision_key.csv, keyed on passage_id, so it can be joined
-back in AFTER hand-coding (by extraction_precision.py) without ever being
-visible during coding.
-
-Reads all_classifications.csv (read-only). Writes
-extraction_precision_sample.csv (blind, for hand-coding) and
-extraction_precision_key.csv (the answer key, not for the coder). Does
-not modify classify.py, all_classifications.csv, or any results file.
+for hand-coding - it does not compute precision itself.
 """
 import pandas as pd
 
