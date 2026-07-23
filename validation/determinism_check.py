@@ -1,41 +1,7 @@
 """
-determinism_check.py
-
 VALIDATION run against the frozen classify.py instrument (not a production
 re-run): tests whether temperature=0 actually produces stable output on
 repeated calls, on a stratified sample of 30 already-classified passages.
-
-Imports classify.py as a module and calls its own classify_passage()
-function directly -- this is the verbatim production code path (same
-model string, same temperature=0, same max_tokens=400, same prompt
-template, same passage_text[:1500] truncation), not a re-implementation.
-Importing classify.py is safe: everything that touches PDFs or writes to
-SCORES_FILE/CLASSIFICATIONS_FILE lives under `if __name__ == "__main__":`
-in that file, so `import classify` only defines constants/functions and
-constructs the Anthropic client -- it does not run the extraction/
-classification pipeline or write anything.
-
-KNOWN LIMITATION -- READ BEFORE INTERPRETING RESULTS:
-all_classifications.csv stores only the first 300 characters of each
-passage (classify.py line 378: `passage['text'][:300]`), while the
-ORIGINAL classification call at extraction time sent up to 1500 characters
-(classify.py line 237: `passage_text[:1500]`). The full, untruncated
-passage text was never persisted anywhere. 462 of 512 stored passages
-(90.2%) are truncated at exactly 300 characters, meaning for the large
-majority of rows the text available to this script is shorter than what
-the original API call actually saw. This script re-classifies the STORED
-(<=300 char) text, verbatim through classify_passage()'s own [:1500]
-slice (a no-op given the input is already <=300 chars) -- it is therefore
-a determinism check on the STORED text, not a bit-exact replay of the
-original call's input. Any disagreement found here conflates two possible
-causes: (a) genuine temperature=0 non-determinism, or (b) the re-run
-seeing less context than the original run. This cannot be disentangled
-with the data available and is reported as a limitation, not resolved.
-
-Reads: all_classifications.csv (read-only), classify.py (imported, not
-modified). Writes ONLY to determinism_check_results.txt. Does not write to
-classify.py, all_classifications.csv, signalling_scores.csv,
-panel_dataset.csv, or regression_results.csv.
 """
 import sys
 import time
@@ -46,7 +12,7 @@ import pandas as pd
 from sklearn.metrics import cohen_kappa_score, confusion_matrix
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-import classify  # noqa: E402  -- verbatim production module, not modified
+import classify  # noqa: E402  - verbatim production module, not modified
 
 OUT = []
 

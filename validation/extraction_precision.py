@@ -1,28 +1,9 @@
 """
-extraction_precision.py
-
 Computes PRECISION of the extraction screen (classify.py's is_ai_relevant())
 from the hand-coded extraction_precision_sample.csv (40 extracted passages,
 stratified across all 13 firms present in all_classifications.csv so no
-single firm dominates -- see extraction_precision_sample.py for the
+single firm dominates - see extraction_precision_sample.py for the
 allocation method).
-
-NO rows (human judged the passage NOT genuinely AI-relevant despite having
-been extracted and classified) are FALSE POSITIVES of the extraction
-screen: the keyword/tier rule let them through, but a human reviewer
-coding blind (no tier/justification columns shown) does not consider them
-AI-relevant.
-
-This is the precision counterpart to extraction_recall.py (which estimated
-the false-negative rate on NON-extracted chunks). Together the two give
-precision and recall on the extraction stage, as requested (item 7).
-
-Reads extraction_precision_sample.csv (must already be hand-coded -- this
-script does NOT build or modify that file, see extraction_precision_sample.py
-for that) and extraction_precision_key.csv (the assigned_classification
-answer key, kept separate from the coder-facing file so coding is blind;
-joined back in here on passage_id, after coding is complete). Does not
-modify classify.py, all_classifications.csv, or any results file.
 """
 import sys
 

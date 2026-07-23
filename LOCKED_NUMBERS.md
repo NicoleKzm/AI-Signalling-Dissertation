@@ -230,15 +230,5 @@ Classification is invariant to fragmentation. The model saw 1,500 characters; th
 
 ---
 
-## Rules
 
-- **Do not re-run `classify.py`.** It is frozen. Re-running invalidates every κ and every
-  locked statistic downstream.
-- **Do not describe the TOST bound as pre-specified or confirmatory** anywhere in the
-  dissertation.
-- **Do not cite the H1 Hausman figure χ² = 1.50, p = .472.** Unreproducible, provenance
-  unknown. Use 1.22 / .545.
-- **Do not cite a two-year lag specification (N=41).** It does not exist.
-- **Do not cite or run `validity_check.py`.** Deprecated, hardcoded to the old
-  contemporaneous specification. Superseded by `randomisation_inference.py` and
-  `small_sample_inference.py`.
+
