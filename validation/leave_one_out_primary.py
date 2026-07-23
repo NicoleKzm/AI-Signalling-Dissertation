@@ -1,24 +1,9 @@
 """
-leave_one_out_primary.py
-
-Leave-one-firm-out robustness check on the ACTUAL primary specifications
-from regression_clean.py -- not the divergent contemporaneous/Revenue_EUR/
-Zalando-included/OLS-LSDV specification make_figures.py currently runs.
-
-Mirrors regression_clean.py exactly:
-  - linearmodels PanelOLS, entity + time fixed effects
-  - clustered SEs by firm (cov_type='clustered', cluster_entity=True)
-  - H1: IV=mean_signal_score, control=log_revenue=ln(Revenue), full N=69
-  - H2/H3: IV=signal_lag1, control=log_revenue_lag1, excl. Zalando 2025, N=54
-  - Revenue column (NOT Revenue_EUR)
-
-Does NOT modify classify.py, regression_clean.py, regression_results.csv,
-make_figures.py, panel_dataset.csv, or retest_table_4_8.py -- reads
-panel_dataset.csv only. EQUIVALENCE_BOUNDS is defined locally below (no
-dependency on retest_table_4_8.py, whose stale hardcoded beta/SE/N values
-and import-time print side effect caused a phantom TOST discrepancy --
-see the diagnosis that led to this fix). Writes only to
-leave_one_out_primary.csv.
+Leave-one-firm-out robustness check on H1/H2/H3's actual primary specifications from
+regression_clean.py; reads data/panel_dataset.csv, writes
+results/leave_one_out_primary.csv. Defines EQUIVALENCE_BOUNDS locally rather than
+importing from retest_table_4_8.py, which prints stale values as a side effect of
+being imported.
 """
 import numpy as np
 import pandas as pd

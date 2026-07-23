@@ -1,24 +1,7 @@
-# ══════════════════════════════════════════════════════════════════
-# DEPRECATED -- superseded by tost_mde_v2.py.
-#
-# The MODELS dict below hardcodes pre-refactor beta/SE/N values (notably
-# H2 and H3 "primary": n=55, from before the lag-1 signal + Zalando-2025
-# exclusion refactor) that do NOT match the current primary specifications
-# in regression_results.csv (H2/H3 primary: n=54). Do not read numbers
-# from this file's output as current results.
-#
-# This file also executes a print block at module import time (below),
-# which leaks these stale numbers into the terminal of any script that
-# merely imports a name from this module -- this caused a phantom
-# TOST discrepancy (tost_mde_v2.py's correct p_lower=0.0334 vs. this
-# file's stale p_lower=0.0488) that took a day to diagnose. See the
-# diagnosis in the project history / commit log for the full trace.
-#
-# Kept in place, unmodified otherwise, as part of the audit trail --
-# do NOT delete. Do NOT import from this file in new code; use
-# tost_mde_v2.py (dynamic bounds + df from panel_dataset.csv /
-# regression_results.csv) instead.
-# ══════════════════════════════════════════════════════════════════
+# DEPRECATED -- superseded by tost_mde_v2.py. Hardcodes stale pre-refactor beta/SE/N
+# values (H2/H3 n=55, not the current n=54). Also prints those stale numbers to stdout
+# at import time, so importing this module leaks them into any script's output -- kept
+# only for audit trail; do not import from it or cite its numbers.
 import numpy as np
 from scipy import stats
 

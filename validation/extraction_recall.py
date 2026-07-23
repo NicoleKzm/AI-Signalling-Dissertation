@@ -1,9 +1,8 @@
 """
-Computes the false-negative rate of classify.py's extraction screen from
-the hand-coded extraction_recall_sample.csv (60 non-extracted chunks,
-stratified: 20 with Tier 2 present/Tier 1 absent + 40 baseline), then
-extrapolates to a stratum-weighted, corpus-wide recall estimate with
-Wilson 95% CIs.
+Computes the false-negative rate of classify.py's extraction screen from the
+hand-coded data/extraction_recall_sample.csv (60 non-extracted chunks), extrapolating
+to a stratum-weighted, corpus-wide recall estimate with Wilson 95% CIs, printed to
+stdout.
 """
 import sys
 

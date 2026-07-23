@@ -1,9 +1,7 @@
 """
-Computes PRECISION of the extraction screen (classify.py's is_ai_relevant())
-from the hand-coded extraction_precision_sample.csv (40 extracted passages,
-stratified across all 13 firms present in all_classifications.csv so no
-single firm dominates - see extraction_precision_sample.py for the
-allocation method).
+Computes precision of the extraction screen (classify.py's `is_ai_relevant()`) from the
+hand-coded data/extraction_precision_sample.csv and data/extraction_precision_key.csv,
+printing results to stdout (no file write).
 """
 import sys
 

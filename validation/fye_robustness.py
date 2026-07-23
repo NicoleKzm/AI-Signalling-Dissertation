@@ -1,22 +1,9 @@
 """
-fye_robustness.py
-
-Robustness check: Stock_Price_Movement_% (H1's DV) is computed on calendar-year
-windows (1 Jan - 31 Dec, financial_data.py), but five firms have confirmed
-non-December fiscal year ends -- AO World (March), ASOS (Aug/Sep), About You
-(February), Moonpig (April), Mytheresa (June) -- 23 firm-year observations
-(see fiscal_year_end.csv). This creates a signal/return window misalignment for
-H1 only: the AI-signal score is read off the fiscal-year annual report, but the
-stock return window is calendar-year, so for these five firms the two are
-measuring different 12-month windows. H2 and H3 draw both the signal and the
-outcome from the same annual report, so both are already on the firm's fiscal
-clock -- no misalignment for them. This script re-estimates H1 (and, for
-completeness, H2/H3) on the current lag-1 primary specification with these five
-firms excluded entirely, to see whether H1's null result is an artefact of this
-misalignment.
-
-Does not modify financial_data.py, panel_dataset.csv, or any other script.
-Reads panel_dataset.csv (read-only). Writes fye_robustness.csv.
+Re-estimates H1 (and H2/H3 for completeness) excluding the five firms with non-December
+fiscal year ends, reading data/panel_dataset.csv and writing results/fye_robustness.csv.
+Tests whether H1's null is an artefact of the calendar-year/fiscal-year misalignment in
+Stock_Price_Movement_% -- the only hypothesis affected, since H2/H3 draw both signal and
+outcome from the same fiscal-year report.
 """
 import sys
 

@@ -1,3 +1,10 @@
+"""
+Runs the primary and robustness PanelOLS regressions for H1/H2/H3 (entity+time fixed
+effects, firm-clustered SE), reading data/panel_dataset.csv and writing
+results/regression_results.csv. Hard-fails via a verification check if H1's recomputed
+baseline doesn't match its expected value, and imports the TOST implementation from
+validation/retest_table_4_8.py rather than reimplementing it.
+"""
 import sys
 from pathlib import Path
 

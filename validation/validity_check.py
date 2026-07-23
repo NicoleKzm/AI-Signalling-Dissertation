@@ -1,12 +1,6 @@
-# ============================================================
-# DEPRECATED — DO NOT CITE. DO NOT RUN.
-# This script is hardcoded to the OLD contemporaneous specification
-# (unlagged IV, unlagged control, Zalando 2025 included).
-# It does NOT reflect the current primary specification.
-# Superseded by: randomisation_inference.py (RI) and
-# small_sample_inference.py (CR2, wild cluster bootstrap).
-# Retained for audit trail only.
-# ============================================================
+# DEPRECATED -- do not cite or run. Hardcoded to the old contemporaneous specification
+# (unlagged IV/control, Zalando 2025 included); superseded by randomisation_inference.py
+# and small_sample_inference.py.
 
 import pandas as pd
 import numpy as np

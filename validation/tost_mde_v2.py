@@ -1,17 +1,8 @@
 """
-tost_mde_v2.py
-
-Replaces retest_table_4_8.py's hardcoded, stale beta/SE/N inputs with values
-read directly from regression_results.csv (the canonical, current regression
-output), and replaces its hardcoded equivalence bounds (52.56 / 20.19 / 17.31)
-with SDs computed dynamically from panel_dataset.csv.
-
-retest_table_4_8.py is left completely untouched -- this is a new, standalone
-script, kept for audit-trail purposes so the old (stale) numbers remain
-inspectable alongside the corrected ones.
-
-Read-only with respect to regression_results.csv, panel_dataset.csv,
-regression_clean.py, classify.py. Writes only to tost_mde_results.csv.
+Computes H1/H2/H3's TOST equivalence and minimum detectable effects using live
+beta/SE/N from results/regression_results.csv and equivalence bounds computed
+dynamically from data/panel_dataset.csv; writes results/tost_mde_results.csv.
+Supersedes retest_table_4_8.py's hardcoded, stale bounds and coefficients.
 """
 import numpy as np
 import pandas as pd

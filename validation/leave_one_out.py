@@ -1,23 +1,9 @@
 """
-Leave-one-out reclassification for exemplar-contaminated passages.
-
-IMPORTANT: before running this, make sure you have revoked the hardcoded API
-key from classify.py and set a new one as an environment variable:
-    export ANTHROPIC_API_KEY="your-new-key"
-This script reads the key from the environment (client = anthropic.Anthropic()
-with no api_key argument) rather than hardcoding it.
-
-What this does
----------------
-9 unique exemplar strings live inside CLASSIFICATION_PROMPT. One of them
-("Directors received training on artificial intelligence during the year")
-appears identically in 3 separate passages in your corpus (Moonpig), so it
-maps to 3 passage_ids even though it's 1 exemplar line. The other 8 exemplars
-each map to exactly 1 passage_id. Total: 9 exemplars -> 11 contaminated rows.
-
-For each unique exemplar, this script builds a leave-one-out prompt (the base
-prompt with that exemplar line removed) and reclassifies every passage_id
-that shares that exemplar's text, then compares old vs. new label.
+Reclassifies the 11 passages whose text overlaps with one of CLASSIFICATION_PROMPT's 9
+few-shot exemplars, using a leave-one-out variant of the prompt with that exemplar
+removed; reads data/all_classifications.csv, writes results/leave_one_out_results.csv.
+Requires ANTHROPIC_API_KEY set in the environment, since it calls the live
+classification API.
 """
 
 import json

@@ -1,10 +1,9 @@
 """
-Builds a blind-coding sample to estimate PRECISION of the extraction screen
-(classify.py's is_ai_relevant()): of the 512 passages that were extracted
-and sent to the classifier, how many are genuinely AI-relevant? This is the
-counterpart to extraction_recall.py, which estimated the false-negative
-rate (recall) on NON-extracted chunks. This script only builds the sample
-for hand-coding - it does not compute precision itself.
+Builds a blind-coding sample (stratified across firms) from data/all_classifications.csv
+to estimate precision of the extraction screen, writing data/extraction_precision_sample.csv
+and data/extraction_precision_key.csv. Companion to extraction_recall.py, which measures
+the false-negative side; this script only builds the sample and does not compute
+precision itself.
 """
 import pandas as pd
 

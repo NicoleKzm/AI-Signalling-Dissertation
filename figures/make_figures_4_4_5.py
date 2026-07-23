@@ -1,22 +1,8 @@
 """
-make_figures_4_4_5.py
-
-Regenerates Figures 4.4 and 4.5 from the CANONICAL, already-locked estimates
-(regression_results.csv primary rows + LOCKED_NUMBERS.md's H1 lag-1 CI, which
-is not itself in regression_results.csv). No computation performed here --
-every number plotted is read from the files of record and printed alongside
-the figure for cross-checking. Two complementary standard presentations of
-the same four estimates: Fig 4.4 = horizontal coefficient/forest plot,
-Fig 4.5 = vertical bar chart with 95% CI error bars. If a different content
-split between the two figures was intended, say so and this can be redrawn.
-
-House style: Times New Roman, grey-blue palette (#4A6274 primary,
-#A3B1BA secondary), matching the earlier viva-dashboard figures in this
-project.
-
-Does not modify classify.py, regression_results.csv, LOCKED_NUMBERS.md, or
-any other file. Writes only to output/fig_4_4.png/.pdf and
-output/fig_4_5.png/.pdf.
+Plots the four primary coefficient estimates (H1 lag-1, H1 contemporaneous, H2 lag-1, H3
+lag-1) as a forest plot (Figure 4.4) and a bar chart (Figure 4.5), writing to
+output/fig_4_4.png/.pdf and output/fig_4_5.png/.pdf. Values are hardcoded from
+results/regression_results.csv and LOCKED_NUMBERS.md, not recomputed.
 """
 from pathlib import Path
 

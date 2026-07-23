@@ -1,25 +1,8 @@
 """
-make_regression_figures.py
-
-Generates Figure 4.4 -- a single forest plot of the four primary/reported
-coefficient estimates (H1 lag-1, H1 contemporaneous, H2 lag-1, H3 lag-1),
-each with its 95% CI against a zero reference line.
-
-Reads ONLY regression_results.csv. Does not recompute, re-estimate, or
-hardcode any beta/SE/CI -- every plotted value is read directly from that
-CSV's Coefficient/CI_lower/CI_upper columns. Does not touch panel_dataset.csv,
-regression_clean.py, classify.py, or the existing make_figures.py (separate,
-unrelated firm-stats/leave-one-out script writing to output/).
-
-Writes only to figures/ (created via os.makedirs if missing, so this works
-on a fresh clone).
-
-NOTE: this script previously also generated Figure 4.5 (H3 equivalence),
-reading tost_mde_results.csv. That code is removed here, not regenerated --
-its bound label read "pre-specified equivalence bound", which contradicts
-the TOST-provenance correction already recorded in LOCKED_NUMBERS.md (the
-bound is NOT pre-specified). Re-add Figure 4.5 as its own task once that
-label is fixed, rather than re-emit the stale wording today.
+Generates Figure 4.4 -- a forest plot of the four primary coefficient estimates (H1
+lag-1, H1 contemporaneous, H2 lag-1, H3 lag-1) with 95% CIs, reading every value
+directly from results/regression_results.csv with no recomputation -- writing to
+figures/ (created automatically if missing).
 """
 import os
 

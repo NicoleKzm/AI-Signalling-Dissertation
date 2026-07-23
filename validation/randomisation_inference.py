@@ -1,25 +1,9 @@
 """
-randomisation_inference.py
-
-Randomisation (permutation) inference on the CURRENT primary specifications:
-lag-1 signal score, lag-1 log revenue control, Zalando 2025 excluded (symmetric
-acquisition rule, N=54), for H1, H2, H3.
-
-Replicates exactly the algorithm already implemented in validity_check.py lines
-83-148 (N_PERM=1000, rng seed=42, same fit_full/fit_coef_only logic, same
-shuffle-and-compare approach) -- but applied to the current lag-1 primary
-specification. validity_check.py itself is NOT modified and is deprecated (see
-its own header); it remains hardcoded to the old contemporaneous specification.
-
-Logic: if the signal score truly has no relationship with the outcome, then
-SHUFFLING the signal score across observations should produce a coefficient just
-as large as the one actually estimated. We shuffle many times, build the null
-distribution of coefficients, and ask how often a random shuffle beats the real
-estimate. That fraction is the randomisation-inference p-value -- and it makes
-no assumption about the number of clusters (relevant here with only 14 firms).
-
-Reads panel_dataset.csv (read-only). Writes randomisation_inference_results.csv.
-Does not modify classify.py or any other script.
+Runs permutation inference (1000 shuffles, seed 42) on H1/H2/H3's lag-1 primary
+specifications; reads data/panel_dataset.csv, writes
+results/randomisation_inference_results.csv. Shuffles the signal score to build a null
+distribution of coefficients, a small-cluster-robust alternative to clustered SEs
+relevant with only 14 firms.
 """
 import sys
 

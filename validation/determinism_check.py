@@ -1,7 +1,9 @@
 """
-VALIDATION run against the frozen classify.py instrument (not a production
-re-run): tests whether temperature=0 actually produces stable output on
-repeated calls, on a stratified sample of 30 already-classified passages.
+Tests whether classify.py's temperature=0 setting produces stable output on repeated
+calls, using a stratified sample of 30 already-classified passages from
+data/all_classifications.csv, and writes results/determinism_check_results.txt.
+Importing classify.py here is safe — its PDF-extraction and file-writing logic only
+runs under `__main__`.
 """
 import sys
 import time

@@ -1,34 +1,9 @@
 """
-small_sample_inference.py
-
-Supervisor directive: with only 14 clusters, conventional (CR1) clustered
-SEs are unreliable. Requires CR2 (bias-reduced linearization, Bell &
-McCaffrey 2002) SEs with Bell-McCaffrey/Satterthwaite adjusted degrees of
-freedom, AND a firm-level wild cluster bootstrap (Rademacher, 9999 reps,
-restricted/null-imposed) -- with the SAME logic applied to the H3 TOST.
-
-IMPLEMENTATION NOTE: neither linearmodels nor pyfixest (the only readily-
-installable Python packages) implements CR2/Bell-McCaffrey directly --
-pyfixest supports only CRV1/CRV3 (leave-one-cluster-out jackknife, NOT
-CR2). Installing R's clubSandwich/fwildclusterboot from source risked
-long/uncertain compilation. CR2+BM-df and the wild cluster bootstrap are
-therefore implemented directly here from the published formulas:
-  - CR2: Bell & McCaffrey (2002); Pustejovsky & Tipton (clubSandwich docs)
-  - Bell-McCaffrey adjusted df: Imbens & Kolesar (2016), Satterthwaite-type
-  - Wild cluster bootstrap: Cameron, Gelbach & Miller (2008);
-    MacKinnon & Webb (2018) for CI-via-test-inversion
-
-Both are implemented on the model's LSDV (dummy-variable) representation,
-which is numerically equivalent to PanelOLS's within estimator for point
-estimates -- VALIDATED below by confirming the LSDV beta matches the
-linearmodels PanelOLS beta exactly before trusting any downstream SE/df/
-bootstrap output.
-
-H1 uses the lag-1 primary from h1_lag_primary.py (confirmed present).
-
-Does not modify classify.py, regression_clean.py, regression_results.csv,
-h1_lag_primary.py, h1_lag_primary_results.csv, or panel_dataset.csv.
-Reads panel_dataset.csv only. Writes only to small_sample_inference.csv.
+Computes CR2/Bell-McCaffrey SEs and a firm-level wild cluster bootstrap for H1/H2/H3
+(and the H3 TOST); reads data/panel_dataset.csv, writes
+results/small_sample_inference.csv. Implemented from the published formulas directly,
+since 14 clusters makes conventional CR1 SEs unreliable and neither linearmodels nor
+pyfixest supports CR2/Bell-McCaffrey.
 """
 import os
 

@@ -1,3 +1,9 @@
+"""
+Runs contemporaneous, lag-1, and (for H3) lag-2 benchmark regressions for H1/H2/H3,
+reading data/panel_dataset.csv and writing results/lagged_models_results.csv.
+Supplementary benchmark comparison only -- regression_clean.py is the primary
+regression script.
+"""
 from pathlib import Path
 
 import numpy as np

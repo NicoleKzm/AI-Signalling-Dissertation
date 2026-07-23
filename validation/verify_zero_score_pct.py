@@ -1,11 +1,7 @@
 """
-Chapter 4 states two different figures for the same statistic:
-  - Section 4.2.1: "Approximately 64.8% of firm years have a signal score of exactly zero"
-  - Section 4.4.3: "the share of firm years with a zero signal score rose from 63.8% to 65.2%"
-    (implying the baseline, pre-fragmentation-exclusion figure is 63.8%)
-
-This script computes the actual baseline figure directly from signalling_scores.csv
-so there's no ambiguity about which number is correct.
+Chapter 4 cites two different zero-score-share figures (64.8% in Section 4.2.1, implied
+63.8% baseline in Section 4.4.3); this script computes the true value directly from
+data/signalling_scores.csv and prints it to resolve the discrepancy.
 """
 
 import pandas as pd

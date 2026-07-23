@@ -1,23 +1,10 @@
 """
-h2_exclusion_smallsample.py
-
-One check: chapter4_gaps.csv's Table 4.9 rebuild found H2, lag-1 primary spec,
-excluding DocMorris AND Boohoo entirely (N=46, 12 clusters), returns p=.003 --
-the only significant coefficient anywhere in the analysis. With only 12 clusters,
-conventional (CR1) clustered SEs are unreliable (same concern as elsewhere in
-this project). Re-estimates THAT one specification under CR2/Bell-McCaffrey and
-the wild cluster bootstrap.
-
-The CR2/BM-df and wild-cluster-bootstrap functions below are copied VERBATIM
-from small_sample_inference.py (build_lsdv, ols_fit, cr1_se, cr2_se_and_df,
-wild_cluster_bootstrap, bootstrap_pvalue_at_null) -- same procedures, same
-formulas, same RNG_SEED=42 and N_BOOT=9999 -- applied to this one exclusion
-sample. small_sample_inference.py itself is NOT modified and NOT executed;
-this is a standalone script.
-
-Does not modify classify.py, regression_clean.py, small_sample_inference.py,
-or panel_dataset.csv. Reads panel_dataset.csv (read-only). Writes
-h2_exclusion_smallsample.csv.
+Re-estimates H2's lag-1 spec excluding DocMorris and Boohoo entirely (N=46, 12
+clusters) -- the one significant coefficient in the analysis -- under CR2/Bell-McCaffrey
+and the wild cluster bootstrap; reads data/panel_dataset.csv, writes
+results/h2_exclusion_smallsample.csv. 12 clusters makes conventional CR1 SEs unreliable,
+so this duplicates the CR2/bootstrap functions from small_sample_inference.py verbatim
+rather than importing it.
 """
 import sys
 

@@ -1,3 +1,9 @@
+"""
+Pulls stock price and revenue data from Yahoo Finance for the 14 sample firms
+(2021-2025), writing data/financial_data.csv. Not a direct pipeline input itself --
+data/final_dataset.csv (manually completed from this output) is what merge.py actually
+reads.
+"""
 import yfinance as yf
 import pandas as pd
 

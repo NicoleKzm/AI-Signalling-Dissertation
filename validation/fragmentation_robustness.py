@@ -1,14 +1,7 @@
 """
-fragmentation_robustness.py
-
-Rebuilds the fragmentation-exclusion robustness check cited in Chapter 4
-Section 4.4.2 (zero-score share "rising from 63.8% to 65.2%"), which could
-not be located or reproduced from any existing script in this directory.
-
-Read-only with respect to classify.py, regression_clean.py,
-regression_results.csv, panel_dataset.csv, signalling_scores.csv,
-all_classifications.csv. Writes only to fragmentation_robustness.csv.
-Does not modify classify.py and does not re-run classification.
+Rebuilds the fragmentation-exclusion robustness check behind Chapter 4's zero-score-share
+statistic (63.8% -> 65.2%), reading data/all_classifications.csv, data/signalling_scores.csv,
+and data/panel_dataset.csv and writing results/fragmentation_robustness.csv.
 """
 import re
 

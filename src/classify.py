@@ -1,3 +1,11 @@
+"""
+Extracts AI-related passages from annual report PDFs via a two-tier keyword screen and
+classifies each with Claude, writing data/signalling_scores.csv (firm-year scores) and
+data/all_classifications.csv (passage-level). Requires ANTHROPIC_API_KEY in the
+environment and PDFs under ANNUAL_REPORTS_DIR; temperature=0 does not guarantee
+bit-for-bit determinism, so downstream scripts read the committed CSVs rather than
+re-running this.
+"""
 import anthropic
 import os
 import json

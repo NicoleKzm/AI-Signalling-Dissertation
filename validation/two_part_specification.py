@@ -1,30 +1,9 @@
 """
-two_part_specification.py
-
-Builds the two-part (extensive/intensive margin) specification requested by
-the supervisor's critique (items 13-14): coding zero-passage firm-years as
-0 makes silence numerically identical to vague disclosure, which cheap-talk
-theory does not require. This decomposes mean_signal_score into:
-  - discloses_ai: whether the firm-year disclosed anything at all
-  - conditional_signal: how substantiated that disclosure was, GIVEN disclosure
-
-No such model exists in regression_results.csv -- this is a new, from-scratch
-build, mirroring regression_clean.py's primary specification exactly
-(PanelOLS, entity+time FE, firm-clustered SE, Revenue column, Zalando 2025
-excluded from H2/H3, lag-1 control for H2/H3).
-
-CORRECTED per explicit follow-up instruction: for H2/H3 the treatment
-variables are now LAGGED too (discloses_ai_lag1, conditional_signal_lag1,
-conditional_signal_filled_lag1), matching the primary specification's use
-of signal_lag1 -- not just the control. H1 remains fully contemporaneous.
-conditional_signal_filled is filled with 0 BEFORE lagging (not after), so
-"prior year disclosed nothing" correctly lags to 0, while a genuine panel
-gap (e.g. About You's missing year) still correctly lags to NaN via the
-same year-gap guard used everywhere else in this codebase.
-
-Does not modify classify.py, regression_clean.py, regression_results.csv,
-or signalling_scores.csv. Reads panel_dataset.csv and signalling_scores.csv.
-Writes only to two_part_results.csv.
+Decomposes mean_signal_score into discloses_ai (extensive margin) and
+conditional_signal (intensive margin), then re-estimates H1/H2/H3 on both margins,
+mirroring regression_clean.py's primary specification; reads data/panel_dataset.csv and
+data/signalling_scores.csv, writes results/two_part_results.csv. H2/H3 use lagged
+versions of both treatment variables (matching signal_lag1); H1 stays contemporaneous.
 """
 import numpy as np
 import pandas as pd

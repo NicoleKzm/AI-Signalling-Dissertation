@@ -1,17 +1,8 @@
 """
-second_coder_kappa.py
-
-Computes inter-coder agreement between the production LLM classification
-(original_classification) and the second human coder (second_coder_label)
-on the 29 valid rows of second_coder_sample.csv (1 row excluded as
-unclassifiable). Reports unweighted / linear-weighted / quadratic-weighted
-Cohen's kappa, raw agreement, the full 3x3 confusion matrix, every
-individual disagreement, and a side-by-side comparison against the
-previously reported figures -- with NO adjustment to force a match.
-
-Read-only with respect to classify.py, regression_clean.py,
-all_classifications.csv, regression_results.csv. Reads only
-second_coder_sample.csv.
+Computes inter-coder agreement (unweighted/linear/quadratic Cohen's kappa, raw
+agreement, confusion matrix) between the LLM classification and the second human coder
+on the 29 valid rows of data/second_coder_sample.csv (1 row excluded as unclassifiable);
+read-only, writes nothing.
 """
 import pandas as pd
 from sklearn.metrics import cohen_kappa_score, confusion_matrix, accuracy_score

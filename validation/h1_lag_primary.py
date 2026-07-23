@@ -1,18 +1,10 @@
 """
-h1_lag_primary.py
-
-Supervisor directive: the contemporaneous H1 specification cannot be the
-primary test -- a report published after fiscal year-end cannot explain
-returns that occurred before the report was public. Contemporaneous H1
-is relabelled DESCRIPTIVE/SUPPLEMENTARY; lag-1 becomes PRIMARY, matching
-H2/H3's existing temporal logic and symmetric Zalando-2025 treatment.
-
-Mirrors regression_clean.py's exact estimator throughout: PanelOLS,
-entity+time FE, firm-clustered SE, Revenue column (not Revenue_EUR).
-
-Does not modify regression_clean.py, regression_results.csv, classify.py,
-signalling_scores.csv, or panel_dataset.csv. Reads panel_dataset.csv only.
-Writes only to h1_lag_primary_results.csv.
+Re-estimates H1 with lag-1 signal as the primary specification (matching H2/H3),
+mirroring regression_clean.py's exact estimator; reads data/panel_dataset.csv, writes
+results/h1_lag_primary_results.csv. The lag-1 spec replaces contemporaneous H1 as
+primary since a report published after fiscal year-end cannot explain returns that
+occurred before it was public; the original contemporaneous spec is kept as a
+supplementary comparison.
 """
 import numpy as np
 import pandas as pd

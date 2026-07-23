@@ -1,21 +1,10 @@
 """
-verify_locked_numbers.py
-
-Verification-only script for three figures in LOCKED_NUMBERS.md / working
-notes: (1) within/between-firm SD of mean_signal_score + modal-classification
-volatility, (2) H2/H3 minimum detectable effects from the CURRENT primary
-regression_results.csv rows, (3) Hausman tests (H1/H2/H3).
-
-Reads panel_dataset.csv, signalling_scores.csv, regression_results.csv only.
-Does NOT modify any existing file. Does NOT call regression_clean.py directly
-(it overwrites the protected regression_results.csv as a side effect) --
-instead the Hausman logic below is a line-for-line copy of the `hausman()`
-function and its calling code from regression_clean.py (lines ~319-349,
-confirmed present in the on-disk, uncommitted working-tree version of that
-file, not the last git commit), executed here standalone so it produces
-console/CSV output without touching regression_results.csv.
-
-Writes only to verification_results.txt.
+Verifies three figures in LOCKED_NUMBERS.md -- within/between-firm signal SD, H2/H3
+minimum detectable effects, and H1/H2/H3 Hausman tests -- reading data/panel_dataset.csv,
+data/signalling_scores.csv, and results/regression_results.csv, and writing
+results/verification_results.txt. Duplicates regression_clean.py's hausman() logic
+standalone rather than calling that script directly, since running it would overwrite
+results/regression_results.csv as a side effect.
 """
 import sys
 from pathlib import Path

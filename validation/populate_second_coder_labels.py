@@ -1,19 +1,9 @@
 """
-populate_second_coder_labels.py
-
-Parses the second coder's raw working notes into a clean second_coder_label
-field (Symbolic / Transitional / Substantive only), verifies row-by-row that
-second_coder_sample.csv's shuffle order actually corresponds to the passage
-text the coder was shown, then populates second_coder_label / coder_notes /
-excluded_flag / exclusion_reason in second_coder_sample.csv.
-
-STOPS without writing anything if any row fails to parse to one of the three
-permitted tiers (other than the pre-specified row 20 exclusion), or if any
-row's text does not match between all_classifications.csv and what the coder
-was shown.
-
-Does not modify classify.py, regression_clean.py, all_classifications.csv,
-or regression_results.csv.
+Parses the second coder's raw labels into second_coder_label/coder_notes/excluded_flag/
+exclusion_reason, verifying row-by-row that data/second_coder_sample.csv's shuffle order
+matches the passage text the coder actually saw, then writes the populated columns back
+to that file. Aborts without writing if any row fails to parse or its text doesn't match
+data/all_classifications.csv.
 """
 import sys
 

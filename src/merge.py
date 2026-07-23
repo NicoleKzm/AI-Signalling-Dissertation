@@ -1,3 +1,7 @@
+"""
+Joins data/signalling_scores.csv with data/final_dataset.csv on firm and year, writing
+data/panel_dataset.csv -- the panel every downstream analysis script reads.
+"""
 import pandas as pd
 
 signalling = pd.read_csv('data/signalling_scores.csv')
