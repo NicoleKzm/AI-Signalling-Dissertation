@@ -12,7 +12,7 @@ import pandas as pd
 from sklearn.metrics import cohen_kappa_score, confusion_matrix
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-import classify  # noqa: E402  -- verbatim production module, not modified
+import classify  # noqa: E402  - verbatim production module, not modified
 
 OUT = []
 
