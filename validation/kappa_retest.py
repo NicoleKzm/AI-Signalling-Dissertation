@@ -5,8 +5,10 @@ import pandas as pd
 import re
 import time
 from sklearn.metrics import cohen_kappa_score
+from dotenv import load_dotenv
 
-client = anthropic.Anthropic(api_key="REDACTED")
+load_dotenv()
+client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 LLM_MODEL = "claude-sonnet-4-6"
 
 # ── Updated prompt ─────────────────────────────────────────────────
@@ -162,7 +164,6 @@ def classify_passage(passage_text):
         return None
 
 if __name__ == "__main__":
-    # Load kappa sample
     df = pd.read_csv('data/kappa_sample.csv')
     print(f"Loaded {len(df)} passages for retest")
 
@@ -200,7 +201,6 @@ if __name__ == "__main__":
 
         time.sleep(0.5)
 
-    # Calculate Kappa
     kappa = cohen_kappa_score(new_labels, human_labels)
     agree = sum(n == h for n, h in zip(new_labels, human_labels))
 
@@ -210,7 +210,6 @@ if __name__ == "__main__":
     print(f"Agreements: {agree}/{len(new_labels)} ({round(agree/len(new_labels)*100,1)}%)")
     print(f"Cohen Kappa: {round(kappa, 3)}")
 
-    # Show changes
     df_results = pd.DataFrame(results)
     changed = df_results[df_results['changed'] == True]
     print(f"\nPassages where classification changed: {len(changed)}")

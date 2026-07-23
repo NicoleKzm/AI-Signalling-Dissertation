@@ -5,8 +5,10 @@ import pandas as pd
 import re
 import time
 from sklearn.metrics import cohen_kappa_score
+from dotenv import load_dotenv
 
-client = anthropic.Anthropic(api_key="REDACTED")
+load_dotenv()
+client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 LLM_MODEL = "claude-sonnet-4-6"
 
 CLASSIFICATION_PROMPT = """You are an academic research assistant classifying corporate AI language from annual reports. Your classifications will be used in a peer-reviewed dissertation on AI signalling in European e-commerce firms. Accuracy is essential.
