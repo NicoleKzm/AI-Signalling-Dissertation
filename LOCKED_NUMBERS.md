@@ -230,8 +230,5 @@ Classification is invariant to fragmentation. The model saw 1,500 characters; th
 
 ---
 
-## Rules
 
-- **Do not re-run `classify.py`.** It is frozen. Re-running invalidates every κ and every
-  locked statistic downstream.
 
