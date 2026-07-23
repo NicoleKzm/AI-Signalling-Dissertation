@@ -1,14 +1,14 @@
-# Talk vs. Performance — AI Signalling Dissertation
+# Talk vs. Performance - Does the operational specificity of AI disclosure predict the financial performance of listed European B2C e-commerce firms over the period 2021 to 2025?
 
 Code and data for the dissertation's empirical analysis: LLM classification of
 AI-related disclosure in annual reports, panel construction, and two-way
-fixed-effects regression against financial outcomes.
+fixed effects regression against financial outcomes.
 
 ## Source of truth
 
 **`LOCKED_NUMBERS.md` is the single source of truth for every reported
 statistic** — coefficients, CIs, kappa, TOST, Hausman, robustness checks. If a
-number in the write-up doesn't match `LOCKED_NUMBERS.md`, the write-up is
+number in the write up doesn't match `LOCKED_NUMBERS.md`, the write up is
 wrong, not the other way around.
 
 ## Setup
@@ -29,7 +29,7 @@ No other script needs an API key or network access.
 
 ## A note on reproducibility
 
-`classify.py` runs at `temperature=0` but LLM APIs are **not guaranteed
+`classify.py` runs at `temperature=0`, but LLM APIs are **not guaranteed
 bit-for-bit deterministic** across calls — re-running it can shift individual
 passage classifications. Because of this, `all_classifications.csv` and
 `signalling_scores.csv` are committed as the fixed, authoritative outputs of
@@ -42,8 +42,8 @@ re-running `classify.py` for this reason.
 ## Pipeline, in order
 
 1. **Extraction + classification** — `classify.py` reads annual report PDFs
-   (path set by `ANNUAL_REPORTS_DIR` in the script), extracts AI-relevant
-   passages via a two-tier keyword screen, classifies each with Claude
+   (path set by `ANNUAL_REPORTS_DIR` in the script), extracts AI relevant
+   passages via a two-tier keyword screen, and classifies each with Claude
    (Symbolic/Transitional/Substantive) → `signalling_scores.csv` (firm-year
    scores) + `all_classifications.csv` (passage-level, 512 rows).
 
@@ -110,7 +110,7 @@ python3 make_regression_figures.py
 No API key needed — all of the above run entirely from the committed
 `panel_dataset.csv`, `all_classifications.csv`, and each other's outputs.
 `chapter4_gaps.py` will stop with an error if its recomputed coefficients
-don't match `LOCKED_NUMBERS.md`; a clean run confirms this reproduces the
+don't match `LOCKED_NUMBERS.md`. A clean run confirms this reproduces the
 locked numbers exactly. `make_regression_figures.py` reads only
 `regression_results.csv` (no recomputation) and writes Figure 4.4 to
 `figures/`, created automatically if missing.
