@@ -43,22 +43,22 @@ re-running `classify.py` for this reason.
 
 ```
 src/         classify.py, merge.py, regression_clean.py, run_lag_models.py,
-             financial_data.py -- the core pipeline-generation scripts
+             financial_data.py - the core pipeline-generation scripts
 validation/  every QA/robustness/inference script (kappa, extraction
              precision/recall, determinism, leave-one-out, TOST,
              small-sample inference, Chapter 4/Appendix C robustness checks)
-data/        every input CSV -- raw pipeline data plus hand-coded/sample
+data/        every input CSV - raw pipeline data plus hand-coded/sample
              validation inputs (second_coder_sample.csv, kappa_sample.csv, etc.)
 results/     regression_results.csv and every robustness/validation output CSV
 figures/     make_figures*.py, plot_results.py, and figure outputs (PNG/PDF)
 deprecated/  abandoned or superseded code (FinBERT branch, the old
              contemporaneous-only regression.py, the broken lagged_models.py
-             duplicate) -- not part of the reported analysis
+             duplicate) - not part of the reported analysis
 ```
 
 All scripts assume they are run **from the repository root** (e.g.
 `python3 src/regression_clean.py`, not `cd src && python3 regression_clean.py`)
--- every path inside a script is root-relative (`data/...`, `results/...`),
+- every path inside a script is root-relative (`data/...`, `results/...`),
 not relative to the script's own folder.
 
 ## Pipeline, in order
