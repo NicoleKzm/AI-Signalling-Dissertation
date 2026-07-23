@@ -22,7 +22,7 @@ from scipy import stats
 
 ALPHA = 0.05
 POWER = 0.80
-H1_BOUND = 10.512  # 0.2 x SD(Stock_Price_Movement_%) = 0.2 x 52.560, unchanged, pre-specified
+H1_BOUND = 10.512  # 0.2 x SD(Stock_Price_Movement_%) = 0.2 x 52.560, unchanged
 
 # ══════════════════════════════════════════════════════════════════
 # Data construction -- mirrors regression_clean.py exactly

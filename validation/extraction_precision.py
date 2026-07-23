@@ -22,8 +22,7 @@ script does NOT build or modify that file, see extraction_precision_sample.py
 for that) and extraction_precision_key.csv (the assigned_classification
 answer key, kept separate from the coder-facing file so coding is blind;
 joined back in here on passage_id, after coding is complete). Does not
-modify classify.py, all_classifications.csv, or any results file. NOT YET
-RUN as of writing -- the sample CSV must be hand-coded first.
+modify classify.py, all_classifications.csv, or any results file.
 """
 import sys
 

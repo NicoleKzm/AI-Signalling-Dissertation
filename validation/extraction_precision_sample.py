@@ -7,7 +7,7 @@ and sent to the classifier, how many are genuinely AI-relevant? This is the
 counterpart to extraction_recall.py, which estimated the false-negative
 rate (recall) on NON-extracted chunks. This script only builds the sample
 for hand-coding -- it does not compute precision itself (that is
-extraction_precision.py, written separately, not run yet).
+extraction_precision.py, written separately).
 
 Sampling: n=40, stratified ACROSS FIRMS so no single firm dominates (Allegro
 alone is 176/512 = 34.4% of all extracted passages -- a plain random sample

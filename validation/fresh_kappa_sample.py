@@ -1,6 +1,5 @@
 import pandas as pd
 
-# ── Load full passage dataset ──────────────────────────────────────
 df = pd.read_csv("data/all_classifications.csv")
 
 # ── IDs already used in original calibration/retest rounds ─────────

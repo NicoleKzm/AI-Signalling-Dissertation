@@ -58,7 +58,6 @@ print(f"    mean={scores.mean():.3f}  sd={scores.std():.3f}  "
 # ==================================================================
 # 2. POSITIVE CONTROL: does signalling rise over time as theory predicts?
 # ==================================================================
-# Mean signal score by calendar year
 by_year = df.reset_index().groupby("year")[IV].mean()
 print("[2] Mean signal score by year (positive control):")
 for y, v in by_year.items():
@@ -78,7 +77,6 @@ print("    Interpretation: a positive, significant slope supports construct")
 print("    validity -- the instrument tracks the real rise in AI discourse,")
 print("    so the financial nulls are not an artefact of a dead variable.\n")
  
-# Plot the trend
 fig, ax = plt.subplots(figsize=(7, 4.2))
 ax.plot(by_year.index, by_year.values, marker="o", linewidth=1.8)
 ax.set_xlabel("Year")

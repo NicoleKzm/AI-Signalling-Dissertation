@@ -31,9 +31,9 @@ EQUIVALENCE_BOUNDS = {
     "H2": 4.038,    # 0.2 x SD(Revenue_Growth_%)      = 0.2 x 20.189
     "H3": 3.462,    # 0.2 x SD(Gross_Margin_%)        = 0.2 x 17.308
 }
-# Pre-specified prior to estimation. Verified against dynamic computation
-# from panel_dataset.csv in tost_mde_v2.py. Do NOT import from
-# retest_table_4_8.py -- that file holds stale pre-refactor beta/SE/N values.
+# Verified against dynamic computation from panel_dataset.csv in
+# tost_mde_v2.py. Do NOT import from retest_table_4_8.py -- that file
+# holds stale pre-refactor beta/SE/N values.
 
 ALPHA = 0.05
 N_EXOG = 3  # const + IV + control, same convention as tost_mde_v2.py

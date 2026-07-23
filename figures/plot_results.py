@@ -13,7 +13,6 @@ year_counts = pd.read_csv(out / "yearly_classification_counts.csv", index_col=0)
 main_reg = pd.read_csv(out / "main_regression_signal.csv")
 loo_summary = pd.read_csv(out / "loo_summary.csv")
 
-# 1) Firm-year class distribution
 plt.figure(figsize=(7, 4.5))
 labels = class_counts["classification"].str.replace("_", " ")
 colors = ["#9e9e9e", "#5b8db8", "#f0a35e", "#5bb85c"][:len(labels)]
@@ -26,7 +25,6 @@ plt.savefig(out / "fig_class_counts.png", dpi=300)
 plt.savefig(out / "fig_class_counts.pdf")
 plt.close()
 
-# 2) Yearly stacked classification
 pivot = year_counts.copy()
 pivot.index = pivot.index.astype(int)
 cols = [c for c in ["No_AI_Disclosure", "Symbolic", "Transitional", "Substantive"] if c in pivot.columns]
@@ -40,7 +38,6 @@ plt.savefig(out / "fig_yearly_classification.png", dpi=300)
 plt.savefig(out / "fig_yearly_classification.pdf")
 plt.close()
 
-# 3) Main regression coefficients with 95% CI
 order = ["stock_return", "revenue_growth", "gross_margin"]
 main_reg["hypothesis"] = pd.Categorical(main_reg["hypothesis"], categories=order, ordered=True)
 main_reg = main_reg.sort_values("hypothesis")
@@ -62,7 +59,6 @@ plt.savefig(out / "fig_main_regression.png", dpi=300)
 plt.savefig(out / "fig_main_regression.pdf")
 plt.close()
 
-# 4) Leave-one-out coefficient ranges
 plt.figure(figsize=(7, 4.5))
 xs = np.arange(len(loo_summary))
 plt.errorbar(
@@ -82,7 +78,6 @@ plt.savefig(out / "fig_loo_range.png", dpi=300)
 plt.savefig(out / "fig_loo_range.pdf")
 plt.close()
 
-# 5) Ranked firm mean signal
 plt.figure(figsize=(10, 6))
 plt.barh(firm_stats["firm"], firm_stats["mean_signal"], color="#5b8db8")
 plt.xlabel("Mean signal score (2021-2025)")
