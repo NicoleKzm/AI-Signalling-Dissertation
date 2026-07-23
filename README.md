@@ -78,6 +78,9 @@ re-running `classify.py` for this reason.
      `aggregation_sensitivity.py`, `fragmentation_robustness.py`,
      `two_part_specification.py`, `leave_one_out_primary.py` — further
      robustness checks, each independently writing its own `*.csv`.
+   - `make_regression_figures.py` (reads `regression_results.csv` only, no
+     recomputation) → `figures/fig_4_4_primary_estimates.png` — the
+     four-point forest plot of the primary estimates.
 
 6. **Validation** — `kappa_retest_v3.py` (calibration round, `kappa_sample.csv`),
    `fresh_kappa_sample_v2.py` (draws the held-out sample; `human_label` column
@@ -101,13 +104,16 @@ python3 small_sample_inference.py
 python3 randomisation_inference.py
 python3 tost_mde_v2.py
 python3 chapter4_gaps.py
+python3 make_regression_figures.py
 ```
 
 No API key needed — all of the above run entirely from the committed
 `panel_dataset.csv`, `all_classifications.csv`, and each other's outputs.
 `chapter4_gaps.py` will stop with an error if its recomputed coefficients
 don't match `LOCKED_NUMBERS.md`; a clean run confirms this reproduces the
-locked numbers exactly.
+locked numbers exactly. `make_regression_figures.py` reads only
+`regression_results.csv` (no recomputation) and writes Figure 4.4 to
+`figures/`, created automatically if missing.
 
 ## `deprecated/`
 
