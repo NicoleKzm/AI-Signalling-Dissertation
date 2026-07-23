@@ -1,23 +1,3 @@
-"""
-aggregation_sensitivity.py
-
-Supervisor critique (items 15-16): a mean signal score can FALL when a firm
-adds a symbolic passage even alongside genuine substantive disclosure --
-the aggregation rule itself is a modelling choice, not a neutral summary.
-Tests sensitivity to five alternative firm-year aggregations, plus a
-zero-passage-exclusion specification. No such results exist in
-regression_results.csv -- this is a from-scratch build.
-
-Mirrors regression_clean.py's primary specification exactly: PanelOLS,
-entity+time FE, firm-clustered SE, Revenue column, H1 contemporaneous
-(full N=69), H2/H3 lag-1 IV + lag-1 log_revenue control, Zalando 2025
-excluded from H2/H3 only.
-
-Does not modify classify.py, regression_clean.py, regression_results.csv,
-signalling_scores.csv, or all_classifications.csv. Reads all_classifications.csv,
-signalling_scores.csv, panel_dataset.csv. Writes only to
-aggregation_sensitivity.csv.
-"""
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
