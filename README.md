@@ -1,4 +1,4 @@
-# Talk vs. Performance - Does the operational specificity of AI disclosure predict the financial performance of listed European B2C e-commerce firms over the period 2021 to 2025?
+# Talk vs. Performance: Does the operational specificity of AI disclosure predict the financial performance of listed European B2C e-commerce firms over the period 2021 to 2025?
 
 This repo is the reproduction code and data for the dissertation's empirical
 analysis: LLM classification of AI-related disclosure in European e-commerce
