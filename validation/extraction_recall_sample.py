@@ -1,33 +1,3 @@
-"""
-extraction_recall_sample.py
-
-Supervisor critique: the reported kappa validates only passages that PASSED
-the keyword screen -- it says nothing about what the extraction rule MISSED.
-Builds a random, stratified sample of NON-extracted text chunks for manual
-coding, to let a human estimate false negatives / recall of the extraction
-rule. Does NOT compute kappa or recall itself -- that requires the human
-labels this script leaves blank.
-
-PREMISE CORRECTION (reported, not silently applied): the task asked to
-oversample chunks "with a Tier 1 anchor but rejected for lacking a Tier 2
-trigger." Per classify.py's actual is_ai_relevant(), Tier 1 alone is
-SUFFICIENT for extraction -- Tier 2 only changes the tier TAG
-('tier1' vs 'tier_1_and_2'), never inclusion/exclusion. A Tier-1-present
-chunk is never rejected for lacking Tier 2; the only way a Tier-1 chunk
-is excluded is the unrelated 60%-overlap same-page deduplication rule.
-The actual highest-false-negative-risk category is the OPPOSITE:
-Tier 2 present, Tier 1 ABSENT -- these chunks contain real
-application-level AI language but never even reach the relevance check,
-since is_ai_relevant() requires Tier 1 regardless of Tier 2. This matches
-confirmed false negatives found earlier (e.g. "predictive models",
-"demand forecasting" passages with no co-occurring Tier 1 term). That is
-the category oversampled below.
-
-Does not modify classify.py and does not re-run classification -- reuses
-classify.py's TIER_1_KEYWORDS, TIER_2_KEYWORDS, is_ai_relevant(),
-deduplicate_passages(), parse_firm_year(), ANNUAL_REPORTS_DIR by import
-only. Writes only to extraction_recall_sample.csv.
-"""
 import re
 import sys
 from pathlib import Path
