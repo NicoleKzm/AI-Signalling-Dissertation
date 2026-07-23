@@ -1,23 +1,9 @@
 """
-extraction_recall.py
-
 Computes the false-negative rate of classify.py's extraction screen from
 the hand-coded extraction_recall_sample.csv (60 non-extracted chunks,
 stratified: 20 with Tier 2 present/Tier 1 absent + 40 baseline), then
 extrapolates to a stratum-weighted, corpus-wide recall estimate with
 Wilson 95% CIs.
-
-YES rows (human judged the chunk genuinely AI-relevant despite never being
-extracted) are false negatives of the extraction rule.
-
-INFERENCE FLAGGED: the originating task spec cut off after "separately
-for" on the second stratum. Read as stratum (b) = the 40 baseline chunks
-(contains_tier2 & ~contains_tier1 is False), the natural complement to
-stratum (a). Confirm before trusting stratum (b)'s numbers if that's not
-what was intended.
-
-Does not modify extraction_recall_sample.csv, classify.py, or any other
-file -- read-only.
 """
 import sys
 
