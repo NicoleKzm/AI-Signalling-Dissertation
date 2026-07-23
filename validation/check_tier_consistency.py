@@ -1,12 +1,3 @@
-"""
-Given we just confirmed the classifier follows its own rules correctly for the
-Substantive/Q2 case, this does a broader sweep: check that classification_score
-always equals q1_score + q2_score + q3_score, and that classification always
-matches the score-to-tier mapping (0-1=Symbolic, 2=Transitional, 3=Substantive),
-EXCEPT for the documented override where score=2 without a named function
-(q1_score=0) still maps to Symbolic per the tie-breaker rule.
-"""
-
 import pandas as pd
 
 df = pd.read_csv("data/all_classifications.csv")
