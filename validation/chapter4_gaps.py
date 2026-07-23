@@ -1,21 +1,3 @@
-"""
-chapter4_gaps.py
-
-Closes four numeric gaps for Chapter 4, on the current primary specification
-(PanelOLS, entity + time FE, firm-clustered SE, lag-1 signal score, lag-1 log
-revenue control, Zalando 2025 excluded from H1/H2/H3, N=54):
-
-1. Descriptives (rebuild of Table 4.3) -- full panel AND current regression sample
-2. Correlation matrix (rebuild of Table 4.4), pairwise deletion, N per cell
-3. H1 lag-1 95% CI -- conventional (df_resid=35) and CR2/Bell-McCaffrey (df=4.76,
-   read from small_sample_inference.csv, not recomputed -- see note in that
-   section below)
-4. Table 4.9 rebuild -- sample-composition robustness (DocMorris 2023 only,
-   DocMorris entirely, Boohoo entirely, both entirely) for H1, H2, H3
-
-Does not modify classify.py or any other script. Reads panel_dataset.csv and
-small_sample_inference.csv (read-only). Writes chapter4_gaps.csv.
-"""
 import sys
 
 import numpy as np
