@@ -1,5 +1,3 @@
-(Note: 'q3_present_past_tense' does not exist as a column; printing q3_tense, the closest existing field, in its place.)
-
 ===== PASSAGE 1 =====
 passage_id: e8da2802
 year / page: 2023 / 164
